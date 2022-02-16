@@ -1,0 +1,19 @@
+{%  load static %}
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>this is a Forms to check tags in a job description and match people that have related skills</h3>
+
+<form action="{% url 'api:checktagform' %}" method="post" >
+{% csrf_token %}
+  <label for="lname">dscription:</label><br>
+  <input type="text" id="lname" name="content"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<p>If you click the "Submit" button, the form-data will be sent it it will return set of tags.</p>
+
+</body>
+</html>
+
