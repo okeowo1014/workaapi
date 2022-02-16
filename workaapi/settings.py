@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'chat',
     'automator',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
