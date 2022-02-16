@@ -17,7 +17,7 @@ import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
-ALLOWED_HOSTS = ['workaapi.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['https://workaapi.herokuapp.com/', '127.0.0.1']
 
 
 # Quick-start development settings - unsuitable for production
