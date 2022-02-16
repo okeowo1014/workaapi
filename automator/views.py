@@ -7,6 +7,8 @@ from chat.models import ChatChannels
 from notifier.models import DirectEmployeeNotifier, HotEmployeeAlert, DirectEmployerNotifier, HotEmployerAlert
 from notifier.views import EmailNotifier
 
+# pip install - r requirements.txt
+
 default_admin = User
 default_admin_dp = 'https://api.workanetworks.com/media/company-logo/ydxvbh3vgo/306424.png'
 
