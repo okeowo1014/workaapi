@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 ALLOWED_HOSTS = ['workaapi.herokuapp.com', '127.0.0.1']
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -96,6 +95,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+import dj_database_url
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
