@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 import django_heroku
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 ALLOWED_HOSTS = ['workaapi.herokuapp.com', '127.0.0.1']
 
