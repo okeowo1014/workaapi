@@ -27,9 +27,6 @@ ALLOWED_HOSTS = ['https://workaapi.herokuapp.com/', '127.0.0.1']
 SECRET_KEY = 'django-insecure-wj*9!lp&21r%x^nuc9_g^l_+mbn8&334m0i$q@*uiwbez-!u6y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # Application definition
 
