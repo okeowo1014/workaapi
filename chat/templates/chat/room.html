@@ -21,10 +21,8 @@
             + roomName
             + '/'
         );
-        console.log(chatSocket)
 
 chatSocket.onopen = function(e) {
-print('open')
 chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName}));
 
         };
