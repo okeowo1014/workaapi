@@ -17,13 +17,11 @@ class ChatChannels(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
-# sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_sender')
-
 class ChatMessage(models.Model):
     MSG_TYPE = [['text', 'text'],
                 ['interview', 'interview'],
                 ['auto', 'auto']]
-    sender = models.CharField(max_length=255,default='')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_sender')
     message = models.TextField()
     message_type = models.CharField(max_length=10, choices=MSG_TYPE)
     channel = models.ForeignKey(ChatChannels, on_delete=models.CASCADE, related_name='chat_channel')
@@ -32,7 +30,8 @@ class ChatMessage(models.Model):
 
 class DMChatMessage(models.Model):
     chatid = models.CharField(max_length=255)
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    # sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    sender = models.CharField(max_length=255)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     seenby = models.TextField(null=True)
