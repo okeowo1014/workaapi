@@ -29,10 +29,10 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
         function get_mode(data){
         var mode=''
             if (data['sender']=='{{username}}'){
-                        mode='sent';
+                        mode='{{username}}';
             }
             else{
-            mode='recieved';}
+            mode='{{username}}';}
             return mode
         }
 
