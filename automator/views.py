@@ -9,7 +9,7 @@ from notifier.views import EmailNotifier
 
 # pip install - r requirements.txt
 
-default_admin = User.objects.get(email='worka@admin.com')
+default_admin = User
 default_admin_dp = 'https://api.workanetworks.com/media/company-logo/ydxvbh3vgo/306424.png'
 
 
