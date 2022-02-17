@@ -33,7 +33,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def message_to_json(self, data):
         return {
-            'sender': data.sender,
+            'sender': data.sender.email,
             'command': 'new_message',
             'message': data.content,
             'timestamp': str(data.timestamp),
