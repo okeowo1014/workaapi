@@ -27,6 +27,7 @@ class ChatMessage(models.Model):
     channel = models.ForeignKey(ChatChannels, on_delete=models.CASCADE, related_name='chat_channel')
     created = models.DateTimeField(auto_now_add=True)
 
+
 class DMChatMessage(models.Model):
     chatid = models.CharField(max_length=255)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
