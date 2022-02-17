@@ -16,7 +16,7 @@ from pathlib import Path
 import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['workaapi.herokuapp.com', '127.0.0.1']
 
 # Quick-start development settings - unsuitable for production
@@ -177,5 +177,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'okeowo1014@gmail.com'
 EMAIL_HOST_PASSWORD = 'ydufqifrpitznnpt'
 EMAIL_PORT = 587
-PROTOCOL = "http"
+PROTOCOL = "https"
 DOMAIN = "workaapi.herokuapp.com"
