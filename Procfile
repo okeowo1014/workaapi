@@ -1,3 +1,3 @@
 release: python manage.py migrate
-web: gunicorn workaapi.asgi:application -k --timeout 10 uvicorn.workers.UvicornWorker --timeout-keep-alive
+web: gunicorn workaapi.asgi:application --timeout 10 -w 4 -k uvicorn.workers.UvicornWorker
 worker: python manage.py runworker -v2
