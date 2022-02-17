@@ -177,5 +177,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'okeowo1014@gmail.com'
 EMAIL_HOST_PASSWORD = 'ydufqifrpitznnpt'
 EMAIL_PORT = 587
-PROTOCOL = "https"
+PROTOCOL = "http"
 DOMAIN = "workaapi.herokuapp.com"
