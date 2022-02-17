@@ -128,7 +128,7 @@ DJOSER = {
         'activation': 'api.email.ActivationEmail'
     }
 }
-
+CSRF_TRUSTED_ORIGINS = ["https://workaapi.herokuapp.com"]
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
