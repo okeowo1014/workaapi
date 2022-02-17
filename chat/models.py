@@ -21,7 +21,8 @@ class ChatMessage(models.Model):
     MSG_TYPE = [['text', 'text'],
                 ['interview', 'interview'],
                 ['auto', 'auto']]
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_sender')
+    # sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_sender')
+    sender = models.CharField(max_length=255)
     message = models.TextField()
     message_type = models.CharField(max_length=10, choices=MSG_TYPE)
     channel = models.ForeignKey(ChatChannels, on_delete=models.CASCADE, related_name='chat_channel')
