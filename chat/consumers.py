@@ -58,16 +58,16 @@ class ChatConsumer(WebsocketConsumer):
         self.send_message(content)
 
     def new_message(self, data):
-        try:
-            employee = Employee.objects.get(uid=data['sender'])
-            sender = employee.user
-        except:
-            try:
-                employer = Employer.objects.get(uid=data['chatid'])
-                sender = employer.user
-            except:
-                pass
-                sender = User.objects.get(email='worka@admin.com')
+        # try:
+        #     employee = Employee.objects.get(uid=data['sender'])
+        #     sender = employee.user
+        # except:
+        #     try:
+        #         employer = Employer.objects.get(uid=data['chatid'])
+        #         sender = employer.user
+        #     except:
+        #         pass
+        #         sender = User.objects.get(email='worka@admin.com')
         message = DMChatMessage.objects.create(chatid=data['chatid'], sender=data['sender'],
                                                content=data['message'])
 
