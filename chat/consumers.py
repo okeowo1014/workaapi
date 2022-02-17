@@ -20,9 +20,8 @@ from django.contrib.auth import get_user_model
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
+from api.mdel import User
 from api.models import Employee, Employer
-
-user = get_user_model()
 
 from .models import DMChatMessage
 
@@ -68,7 +67,7 @@ class ChatConsumer(WebsocketConsumer):
                 sender = employer.user
             except:
                 pass
-                # sender = user.objects(pk=1)
+                sender = User.objects.get(email='worka@admin.com')
         message = DMChatMessage.objects.create(chatid=data['chatid'], sender=sender,
                                                content=data['message'])
 
