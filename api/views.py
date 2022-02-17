@@ -397,7 +397,6 @@ def add_employer(request):
     payload = {'email': request.data['email'], 'password': request.data['password'],
                're_password': request.data['re_password'],
                'account_type': 'employer'}
-
     url = '{0}://{1}{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, reverse('api:user-list'))
     print('stage one completed')
     if serializer.is_valid():
@@ -405,8 +404,8 @@ def add_employer(request):
         response = requests.post(url, data=payload)
         if response.status_code == 201:
             print('stage 3 completed')
-            print(response.json())
-            userid = response.json().get('id')
+            print(response.status_code)
+            userid = 1
             # print("{0} {1} {0}".format('hello', userid))
             serializer.save(user=getuser(userid), uid=generate_employer_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
