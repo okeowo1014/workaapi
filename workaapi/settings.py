@@ -91,14 +91,14 @@ ASGI_APPLICATION = 'workaapi.asgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default="postgres://xalzdqbvrnoycd:f83c933a4e246f3358daf46ea33b2c4c5dfadb2d887ed4c5c36eb43fdda972c5@ec2-3-219"
+                "-204-29.compute-1.amazonaws.com:5432/d7rglls9ek1vlr", conn_max_age=600
+    )
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
