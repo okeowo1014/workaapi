@@ -29,10 +29,10 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
         function get_mode(data){
         var mode=''
             if (data['sender']=='{{username}}'){
-                        mode='{{username}}';
+                        mode='me';
             }
             else{
-            mode='{{username}}';}
+            mode=data['sender'];}
             return mode
         }
 
@@ -42,11 +42,11 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
             for (var a = data['messages'].length-1; a >=0; a--){
             var content = data['messages'][a];
             var mode=get_mode(content);
-            document.querySelector('#chat-log').value += (content['message'] + ' ' +mode+ '\n');}
+            document.querySelector('#chat-log').value += (mode + ': '+ content['message'] + '\n');}
             }
             if (data['command']=='new_message'){
             var mode=get_mode(data);
-            document.querySelector('#chat-log').value += (data['message'] + ' ' +mode+ '\n');
+            document.querySelector('#chat-log').value += (mode+': '+ data['message'] + '\n');
             }
 
         };
