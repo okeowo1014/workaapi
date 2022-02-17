@@ -399,16 +399,22 @@ def add_employer(request):
                'account_type': 'employer'}
 
     url = '{0}://{1}{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, reverse('api:user-list'))
+    print('stage one completed')
     if serializer.is_valid():
+        print('stage two uncompleted')
         response = requests.post(url, data=payload)
         if response.status_code == 201:
+            print('stage 3 completed')
+            print(response.json())
             userid = response.json().get('id')
             # print("{0} {1} {0}".format('hello', userid))
             serializer.save(user=getuser(userid), uid=generate_employer_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
+            print('stage 3 uncompleted')
             return Response(response.json(), status=status.HTTP_400_BAD_REQUEST)
     else:
+        print('stage two uncompleted')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
