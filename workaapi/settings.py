@@ -128,7 +128,7 @@ DJOSER = {
         'activation': 'api.email.ActivationEmail'
     }
 }
-CSRF_TRUSTED_ORIGINS = ["https://workaapi.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://api.workanetworks.com"]
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -178,4 +178,4 @@ EMAIL_HOST_USER = 'okeowo1014@gmail.com'
 EMAIL_HOST_PASSWORD = 'ydufqifrpitznnpt'
 EMAIL_PORT = 587
 PROTOCOL = "https"
-DOMAIN = "workaapi.herokuapp.com"
+DOMAIN = "api.workanetworks.com"
