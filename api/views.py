@@ -405,9 +405,8 @@ def add_employer(request):
         if response.status_code == 201:
             print('stage 3 completed')
             print(response.status_code)
-            userid = 1
             # print("{0} {1} {0}".format('hello', userid))
-            serializer.save(user=getuser(userid), uid=generate_employer_key())
+            serializer.save(user=getuser(response.json().get('id')), uid=generate_employer_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             print('stage 3 uncompleted')
