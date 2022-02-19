@@ -463,9 +463,8 @@ def display_picture(request):
         picture = request.FILES['display_picture']
         fss = FileSystemStorage(location='staticfiles/media/display-picture/{}'.format(request.user.id))
         file = fss.save(picture.name, picture)
-        employee.display_picture = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN,
-                                                          '{}/{}'.format(fss.base_location, picture.name).replace(
-                                                              'staticfiles', 'static'))
+        employee.display_picture = 'https://api.workanetworks.com/{}'.format(
+            '{}/{}'.format(fss.base_location, picture.name).replace('staticfiles', 'static'))
         try:
             employee.save()
             return JsonResponse({'response': '{}'.format(employee.display_picture)})
@@ -672,9 +671,8 @@ def company_logo(request):
         picture = request.FILES['company_logo']
         fss = FileSystemStorage(location='staticfiles/media/company-logo/{}'.format(employer.uid))
         fss.save(picture.name, picture)
-        employer.company_logo = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN,
-                                                       '{}/{}'.format(fss.base_location, picture.name).replace(
-                                                           'staticfiles', 'static'))
+        employer.company_logo = 'https://api.workanetworks.com/{}'.format(
+            '{}/{}'.format(fss.base_location, picture.name).replace('staticfiles', 'static'))
         try:
             employer.save()
             return Response(employer.company_logo, status=status.HTTP_200_OK)
