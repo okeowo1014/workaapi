@@ -479,6 +479,7 @@ def display_picture(request):
 def get_employee(request):
     return Employee.objects.get(user=request.user)
 
+
 def get_job(jobid):
     return JobsPost.objects.get(job_key=jobid)
 
@@ -671,8 +672,9 @@ def company_logo(request):
         picture = request.FILES['company_logo']
         fss = FileSystemStorage(location='staticfiles/media/company-logo/{}'.format(employer.uid))
         fss.save(picture.name, picture)
-        filename = '{}/{}'.format(fss.base_location, picture.name)
-        employer.company_logo = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, filename)
+        employer.company_logo = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN,
+                                                       '{}/{}'.format(fss.base_location, picture.name).replace(
+                                                           'staticfiles', 'static'))
         try:
             employer.save()
             return Response(employer.company_logo, status=status.HTTP_200_OK)
