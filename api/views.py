@@ -461,10 +461,10 @@ def display_picture(request):
     employee = Employee.objects.get(user=request.user)
     if request.method == 'POST' and request.FILES:
         picture = request.FILES['display_picture']
-        fss = FileSystemStorage(location='staticfiles/media/display-picture/{}'.format(request.user.id))
+        fss = FileSystemStorage(location='static/media/display-picture/{}'.format(request.user.id))
         file = fss.save(picture.name, picture)
         employee.display_picture = 'https://api.workanetworks.com/{}'.format(
-            '{}/{}'.format(fss.base_location, picture.name).replace('staticfiles', 'static'))
+            '{}/{}'.format(fss.base_location, picture.name))
         try:
             employee.save()
             return JsonResponse({'response': '{}'.format(employee.display_picture)})
@@ -669,10 +669,10 @@ def company_logo(request):
     employer = Employer.objects.get(user=request.user)
     if request.method == 'POST' and request.FILES:
         picture = request.FILES['company_logo']
-        fss = FileSystemStorage(location='staticfiles/media/company-logo/{}'.format(employer.uid))
+        fss = FileSystemStorage(location='static/media/company-logo/{}'.format(employer.uid))
         fss.save(picture.name, picture)
         employer.company_logo = 'https://api.workanetworks.com/{}'.format(
-            '{}/{}'.format(fss.base_location, picture.name).replace('staticfiles', 'static'))
+            '{}/{}'.format(fss.base_location, picture.name))
         try:
             employer.save()
             return Response(employer.company_logo, status=status.HTTP_200_OK)
