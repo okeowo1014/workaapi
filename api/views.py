@@ -380,12 +380,9 @@ def add_employee(request):
     url = '{0}://{1}{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, reverse('api:user-list'))
     response = requests.post(url, data=payload)
     if serializer.is_valid():
-        print(response.status_code)
         if response.status_code == 201:
             serializer.save(user=getuser(response.json().get('id')), uid=generate_employee_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(response.json())
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -397,21 +394,15 @@ def add_employer(request):
                're_password': request.data['re_password'],
                'account_type': 'employer'}
     url = '{0}://{1}{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, reverse('api:user-list'))
-    print('stage one completed')
     if serializer.is_valid():
-        print('stage two uncompleted')
         response = requests.post(url, data=payload)
         if response.status_code == 201:
-            print('stage 3 completed')
-            print(response.status_code)
             # print("{0} {1} {0}".format('hello', userid))
             serializer.save(user=getuser(response.json().get('id')), uid=generate_employer_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            print('stage 3 uncompleted')
             return Response(response.json(), status=status.HTTP_400_BAD_REQUEST)
     else:
-        print('stage two uncompleted')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -504,8 +495,7 @@ def get_user_by_id(id):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, IsEmployee])
 def apply_job(request):
-    jobid = request.data['jobid'];
-    job = JobsPost.objects.get(job_key=jobid)
+    job = JobsPost.objects.get(job_key=request.data['jobid'])
     employee = get_employee(request)
     if job.availability == 'available':
         applicable = True
@@ -679,24 +669,18 @@ def company_logo(request):
     employer = Employer.objects.get(user=request.user)
     if request.method == 'POST' and request.FILES:
         picture = request.FILES['company_logo']
-        fss = FileSystemStorage(location='media/company-logo/{}'.format(employer.uid))
-        file = fss.save(picture.name, picture)
+        fss = FileSystemStorage(location='staticfiles/media/company-logo/{}'.format(employer.uid))
+        fss.save(picture.name, picture)
         filename = '{}/{}'.format(fss.base_location, picture.name)
         employer.company_logo = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, filename)
         try:
             employer.save()
-            response = "successful"
+            return Response(employer.company_logo, status=status.HTTP_200_OK)
         except:
-            response = 'cannot upload'
-        return Response(response, status=status.HTTP_200_OK)
+            return Response('cannot upload', status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'GET':
-        pic = employer.company_logo
-        if pic is None:
-            response = 'not available'
-        else:
-            response = pic
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(employer.company_logo, status=status.HTTP_200_OK)
 
 
 # def get_location(request):

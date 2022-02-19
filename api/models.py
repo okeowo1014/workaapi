@@ -101,7 +101,8 @@ class Employee(models.Model):
     phone = models.CharField(max_length=255)
     location = models.CharField(max_length=255, null=True)
     about = models.TextField(default='')
-    display_picture = models.URLField(default='https://api.workanetworks.com/media/display-picture/2/download.png')
+    display_picture = models.URLField(default='https://api.workanetworks.com/static/media/display-picture/9/download'
+                                              '.png')
     uid = models.CharField(max_length=12, unique=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
