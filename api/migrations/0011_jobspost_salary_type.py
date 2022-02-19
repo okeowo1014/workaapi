@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0010_alter_employee_gender'),
     ]
@@ -13,7 +12,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='jobspost',
             name='salary_type',
-            field=models.CharField(choices=[['hourly', 'hour'], ['monthly', 'month'], ['annually', 'annual']], default='monthly', max_length=10),
+            field=models.CharField(choices=[['hourly', 'hour'], ['monthly', 'month'], ['annually', 'annual']],
+                                   default='monthly', max_length=10),
             preserve_default=False,
         ),
     ]

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0029_likedjobs'),
     ]
@@ -13,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='jobspost',
             name='job_type',
-            field=models.CharField(choices=[['full time', 'full time'], ['part time', 'part time'], ['contract', 'contract'], ['internship', 'internship'], ['voluntary', 'voluntary']], max_length=255),
+            field=models.CharField(
+                choices=[['full time', 'full time'], ['part time', 'part time'], ['contract', 'contract'],
+                         ['internship', 'internship'], ['voluntary', 'voluntary']], max_length=255),
         ),
     ]

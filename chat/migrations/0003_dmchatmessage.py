@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('chat', '0002_alter_chatchannels_group_alter_chatchannels_sender_and_more'),
     ]

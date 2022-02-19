@@ -2,10 +2,12 @@ from rest_framework import serializers
 
 from chat.models import ChatChannels, ChatMessage
 
+
 class ChatChannelMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
         fields = ['message', 'created']
+
 
 class ChatChannelSerializer(serializers.ModelSerializer):
     chat_channel = serializers.SerializerMethodField()

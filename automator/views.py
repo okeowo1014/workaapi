@@ -1,7 +1,4 @@
-from django.shortcuts import render
-
 # Create your views here.
-from api.extractor import generate_chat_key
 from api.models import User, Employee, Employer
 from chat.models import ChatChannels
 from notifier.models import DirectEmployeeNotifier, HotEmployeeAlert, DirectEmployerNotifier, HotEmployerAlert

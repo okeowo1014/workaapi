@@ -23,9 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('api.urls')),
     path('interview/', include('interview.urls')),
-    path('utility/',include('utility.urls')),
-    path('chat/',include('chat.urls')),
-    path('activate/<str:uid>/<str:token>/', ActivateUser.as_view(),name="user-activate"),
+    path('utility/', include('utility.urls')),
+    path('chat/', include('chat.urls')),
+    path('activate/<str:uid>/<str:token>/', ActivateUser.as_view(), name="user-activate"),
     path('password/reset/confirm/<str:uid>/<str:token>/', reset_password, name='passwordresetpage')
 
 ]

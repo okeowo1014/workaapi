@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from api.models import Employee,JobsPost
 
+from api.models import Employee, JobsPost
 from interview.models import Interviews, ObjectiveInterviewQuestions, TheoryInterviewQuestions, \
     ObjectiveInterviewAnswers, TheoryInterviewAnswers
+
 
 class JobInterviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,12 +16,15 @@ class CreateInterviewSerializer(serializers.ModelSerializer):
         model = Interviews
         exclude = ['job']
 
+
 class ListInterviewSerializer(serializers.ModelSerializer):
-    job= JobInterviewSerializer(read_only=True, many=False)
+    job = JobInterviewSerializer(read_only=True, many=False)
 
     class Meta:
         model = Interviews
-        fields = ["id","interview_uid","title","note","status","start_date","end_date","timer","timer_sec","interview_type","job"]
+        fields = ["id", "interview_uid", "title", "note", "status", "start_date", "end_date", "timer", "timer_sec",
+                  "interview_type", "job"]
+
 
 class InterviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -133,9 +137,11 @@ class SubmittedInterviewTheorySerializer(serializers.ModelSerializer):
         model = TheoryInterviewAnswers
         fields = ['employee']
 
+
 class PostedInterviewSerializer(serializers.ModelSerializer):
-    job=JobInterviewSerializer(read_only=True, many=False)
+    job = JobInterviewSerializer(read_only=True, many=False)
+
     class Meta:
         model = Interviews
         fields = ['interview_uid', 'title', 'note', 'status', 'start_date', 'end_date', 'timer', 'timer_sec',
-                  'interview_type','submission','job']
+                  'interview_type', 'submission', 'job']

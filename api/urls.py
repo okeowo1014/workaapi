@@ -4,8 +4,8 @@ from .views import index, checkauth, add_work_experience, view_employeeprofile, 
     work_experience_details, view_work_experiences, add_skill, skill_details, view_skills, add_education, \
     education_details, view_educations, add_language, language_details, view_languages, add_availability, \
     availability_details, view_availabilitys, add_employee, add_employer, post_job, employee_details, check_tag, \
-    display_picture, view_job, apply_job, job_application_view, change_password, get_my_job, CustomAuthToken, \
-    CustomLogin, get_positions, get_industries, get_posted_jobs, job_application_list, create_shortlist, fetch_jobs, \
+    display_picture, view_job, apply_job, job_application_view, change_password, get_my_job, CustomLogin, get_positions, \
+    get_industries, get_posted_jobs, job_application_list, create_shortlist, fetch_jobs, \
     get_relative_job_tags, company_logo, get_notifications, cv_preview, search_jobs, profile_preview, get_nearest_job, \
     get_my_interview, get_hot_alert, profile_details, employer_details, like_job, dislike_job, \
     filter_jobs, set_update_notify, set_newsletter_notify, set_email_notify, set_login_notify, send_employment_request, \

@@ -6,21 +6,21 @@
     <title>Chat Room</title>
 </head>
 <body>
-      <textarea id="chat-log" cols="50" rows="30" style=" width: 50%;
+<textarea cols="50" id="chat-log" rows="30" style=" width: 50%;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   background-color: #f8f8f8;"></textarea><br>
 
-    <input id="chat-message-input" type="text" size="50"  style="  width: 50%;
+<input id="chat-message-input" size="50" style="  width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;"><br>
-   <input id="chat-message-submit" type="button" value="Send" style=" background-color: #4CAF50;
+  box-sizing: border-box;" type="text"><br>
+<input id="chat-message-submit" style=" background-color: #4CAF50;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -29,10 +29,10 @@
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
-  cursor: pointer;">
-    {{ room_name|json_script:"room-name" }}
+  cursor: pointer;" type="button" value="Send">
+{{ room_name|json_script:"room-name" }}
 
-    <script>
+<script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new WebSocket(
@@ -94,6 +94,7 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
             }));
             messageInputDom.value = '';
         };
-    </script>
+
+</script>
 </body>
 </html>

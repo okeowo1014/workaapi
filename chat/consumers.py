@@ -15,12 +15,9 @@
 
 # chat/consumers.py
 import json
-from django.contrib.auth import get_user_model
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-
-from api.models import Employee, Employer, User
 
 from .models import DMChatMessage
 

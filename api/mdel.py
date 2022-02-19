@@ -1,4 +1,3 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
@@ -90,8 +89,8 @@ class User(AbstractBaseUser):
 
 class Employee(models.Model):
     GENDER = [
-        [ 'Male', 'male'],
-        [ 'Female', 'female']
+        ['Male', 'male'],
+        ['Female', 'female']
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employee')
     first_name = models.CharField(max_length=255)
@@ -128,7 +127,7 @@ class Skills(models.Model):
 class WorkExperience(models.Model):
     user = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='work_experience')
     title = models.CharField(max_length=255)
-    description=models.TextField()
+    description = models.TextField()
     company_name = models.CharField(max_length=255)
     current = models.BooleanField(default=False)
     start_date = models.DateField(null=True)
@@ -198,7 +197,7 @@ class Employer(models.Model):
     reviews = models.DecimalField(max_digits=2, decimal_places=1, default=1.0)
     hired = models.PositiveIntegerField(default=0)
     location = models.CharField(max_length=255, default='')
-    address=models.TextField(default='')
+    address = models.TextField(default='')
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

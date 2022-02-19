@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0014_rename_display_picture_employer_company_logo'),
     ]

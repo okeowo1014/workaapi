@@ -11,14 +11,14 @@ from rest_framework.response import Response
 from api.extractor import generate_interview_key, generate_obj_question_key, generate_theory_question_key
 from api.models import Employee
 from api.permissions import IsEmployer, IsEmployee
-from api.views import get_job,get_employer
+from api.views import get_job, get_employer
 from chat.views import GetMessageChannel
 from interview.models import Interviews, ObjectiveInterviewQuestions, TheoryInterviewQuestions, \
     ObjectiveInterviewAnswers, TheoryInterviewAnswers
 from interview.serializers import CreateInterviewSerializer, CreateObjectiveQuestionSerializer, \
     CreateTheoryQuestionSerializer, \
     ViewObjInterviewSerializer, ViewTheoryInterviewSerializer, ViewObjEmployeeInterviewSerializer, \
-    ViewTheoryEmployeeInterviewSerializer, SubmittedInterviewObjSerializer, SubmittedInterviewTheorySerializer,IEmployeeSerializer,PostedInterviewSerializer
+    ViewTheoryEmployeeInterviewSerializer, IEmployeeSerializer, PostedInterviewSerializer
 from notifier.views import employee_interview_notice, employer_interview_notice
 
 
@@ -144,21 +144,26 @@ def view_employee_interview(request, interview_id, uid):
         serializer = ViewTheoryEmployeeInterviewSerializer(answer, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 def get_employee(id):
     return Employee.objects.get(pk=id)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsEmployer])
 def view_submitted_interviews(request, interview_id):
     interview = get_interview(interview_id)
     if interview.interview_type == 'objective':
-        submitted=[get_employee(e['employee']) for e in ObjectiveInterviewAnswers.objects.filter(interview=interview).values('employee').distinct()]
+        submitted = [get_employee(e['employee']) for e in
+                     ObjectiveInterviewAnswers.objects.filter(interview=interview).values('employee').distinct()]
 
         serializer = IEmployeeSerializer(submitted, many=True)
     elif interview.interview_type == 'theory':
-        submitted=[get_employee(e['employee']) for e in TheoryInterviewAnswers.objects.filter(interview=interview).values('employee').distinct()]
+        submitted = [get_employee(e['employee']) for e in
+                     TheoryInterviewAnswers.objects.filter(interview=interview).values('employee').distinct()]
         serializer = IEmployeeSerializer(submitted, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsEmployer])

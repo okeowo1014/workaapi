@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0026_alter_education_level'),
     ]
@@ -13,11 +12,19 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='education',
             name='certificate',
-            field=models.CharField(choices=[('leaving school', 'leaving school'), ('o level', 'o level'), ('nce', 'NCE'), ('diploma', 'Diploma'), ('ond', 'National Diploma'), ('technician', 'Technician'), ('hnd', 'Higher National Diploma'), ('bscc', 'Bachelor of Science'), ('bseng', 'Bachelor of Engineering'), ('btech', 'Bachelor of Technology'), ('bedu', 'Bachelor of Education')], max_length=255),
+            field=models.CharField(
+                choices=[('leaving school', 'leaving school'), ('o level', 'o level'), ('nce', 'NCE'),
+                         ('diploma', 'Diploma'), ('ond', 'National Diploma'), ('technician', 'Technician'),
+                         ('hnd', 'Higher National Diploma'), ('bscc', 'Bachelor of Science'),
+                         ('bseng', 'Bachelor of Engineering'), ('btech', 'Bachelor of Technology'),
+                         ('bedu', 'Bachelor of Education')], max_length=255),
         ),
         migrations.AlterField(
             model_name='education',
             name='level',
-            field=models.CharField(choices=[['elementary', 'elementary'], ['high school', 'High School'], ['technician', 'Technician'], ['college', 'College'], ['polytechnic', 'Polytechnic'], ['university', 'University']], max_length=255),
+            field=models.CharField(
+                choices=[['elementary', 'elementary'], ['high school', 'High School'], ['technician', 'Technician'],
+                         ['college', 'College'], ['polytechnic', 'Polytechnic'], ['university', 'University']],
+                max_length=255),
         ),
     ]

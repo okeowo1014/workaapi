@@ -1,6 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render
+
 from utility.models import LocationStore
-from django.http import HttpResponse, JsonResponse
 
 
 # Create your views here.

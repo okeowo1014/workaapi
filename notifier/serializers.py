@@ -25,4 +25,3 @@ class UserNotificationSettingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserNotificationSettings
         fields = '__all__'
-

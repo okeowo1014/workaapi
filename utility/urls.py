@@ -1,6 +1,6 @@
 from django.urls import path
 
-from utility.views import email_confirm_success,nearest_cities
+from utility.views import email_confirm_success, nearest_cities
 
 app_name = 'utility'
 urlpatterns = [

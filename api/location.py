@@ -36,7 +36,6 @@ class Place:
                 self.long))
         return result.json()
 
-
 # Place('abeokuta').get_nearby_city()
 # get_nearby_place = Location.reverse(
 #     'localCountry=true&radius=300&cities=cities5000&style=short&maxRows=100&lat=7.1475&long=3.361')

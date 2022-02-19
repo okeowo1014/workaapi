@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -8,7 +7,6 @@ from rest_framework.response import Response
 
 from api.extractor import generate_chat_key
 from api.models import Employee, Employer
-from api.permissions import IsEmployer
 from chat.models import ChatChannels, ChatMessage, DMChatMessage
 from chat.serializers import ChatChannelSerializer, ChatMessageSerializer
 from notifier.views import interview_invitation_notifier

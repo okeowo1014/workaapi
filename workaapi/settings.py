@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True

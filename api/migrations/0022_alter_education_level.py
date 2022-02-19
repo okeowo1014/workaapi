@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0021_alter_employee_about'),
     ]
@@ -13,6 +12,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='education',
             name='level',
-            field=models.CharField(choices=[['primary school', 'Primary School'], ['high school', 'High School'], ['Technician', 'Technician'], ['college', 'College'], ['polytechnic', 'Polytechnic'], ['university', 'University']], max_length=255),
+            field=models.CharField(choices=[['primary school', 'Primary School'], ['high school', 'High School'],
+                                            ['Technician', 'Technician'], ['college', 'College'],
+                                            ['polytechnic', 'Polytechnic'], ['university', 'University']],
+                                   max_length=255),
         ),
     ]

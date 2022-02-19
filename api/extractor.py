@@ -1,6 +1,7 @@
 import secrets
 import string
 from string import punctuation
+
 import en_core_web_sm
 
 nlp = en_core_web_sm.load()
@@ -176,6 +177,7 @@ text3 = 'A retail salesperson assists customers in making purchases, including p
         'this position to not need any specific education but instead receive on-the-job training. Job description ' \
         'examples provide insight into what to list in your own posting. '
 
+
 def generate_job_key():
     return ''.join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(16))
 
@@ -199,6 +201,6 @@ def generate_obj_question_key():
 def generate_theory_question_key():
     return ''.join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(9))
 
+
 def generate_chat_key():
     return ''.join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(16))
-

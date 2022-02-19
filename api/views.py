@@ -1,5 +1,5 @@
 import datetime
-import json
+
 import requests
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
@@ -17,10 +17,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from api.location import Place
-import re
 
 from api.extractor import extract_keywords, generate_job_key, generate_employer_key, generate_employee_key
+from api.location import Place
 from api.members import positions, Industries, RelativeJobTags
 from api.models import Skills, User, WorkExperience, Education, Language, Availability, Employee, ApplyJob, JobsPost, \
     Employer, LikedJobs
@@ -32,13 +31,13 @@ from api.serializers import SkillsSerializer, WESerializer, EmployeeProfileSeria
     EmployeeDetailsSerializer
 from automator.views import DefaultEmployeeSettings, DefaultEmployerSettings
 from chat.views import CreateMessageChannel
+from interview.models import Interviews, EmploymentRequest
+from interview.serializers import ListInterviewSerializer
+from notifier.models import HotEmployeeAlert, UserNotificationSettings
 from notifier.serializers import EmployeeNotificationSerializer, EmployerNotificationSerializer, \
     HotEmployeeAlertSerializer, UserNotificationSettingsSerializer
 from notifier.views import EmailNotifier, jobapplynotifier, employee_notifications, employer_notifications, \
     jobappliednotifier
-from interview.models import Interviews, EmploymentRequest
-from interview.serializers import ListInterviewSerializer
-from notifier.models import HotEmployeeAlert, UserNotificationSettings
 
 
 class CustomAuthToken(ObtainAuthToken):
@@ -473,29 +472,21 @@ def display_picture(request):
         picture = request.FILES['display_picture']
         fss = FileSystemStorage(location='staticfiles/media/display-picture/{}'.format(request.user.id))
         file = fss.save(picture.name, picture)
-        filename = '{}/{}'.format(fss.base_location, picture.name)
-        print(fss.base_url)
-        print(fss.url(file))
-        employee.display_picture = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN, filename)
+        employee.display_picture = '{0}://{1}/{2}'.format(django_settings.PROTOCOL, django_settings.DOMAIN,
+                                                          '{}/{}'.format(fss.base_location, picture.name).replace(
+                                                              'staticfiles', 'static'))
         try:
             employee.save()
-            response = '{}'.format(employee.display_picture)
+            return JsonResponse({'response': '{}'.format(employee.display_picture)})
         except:
-            response = 'cannot upload'
-        return JsonResponse({'response': response})
+            return JsonResponse({'response': 'cannot upload'})
 
     elif request.method == 'GET':
-        pic = employee.display_picture
-        if pic is None:
-            response = 'not available'
-        else:
-            response = pic
-        return JsonResponse({'response': response})
+        return JsonResponse({'response': employee.display_picture})
 
 
 def get_employee(request):
     return Employee.objects.get(user=request.user)
-
 
 def get_job(jobid):
     return JobsPost.objects.get(job_key=jobid)

@@ -11,7 +11,8 @@ import os
 
 import gunicorn as gunicorn
 from django.core.wsgi import get_wsgi_application
-t=gunicorn
+
+t = gunicorn
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'workaapi.settings')
 

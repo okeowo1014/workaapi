@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0024_employer_industry'),
     ]
@@ -13,11 +12,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='jobspost',
             name='access',
-            field=models.CharField(choices=[['open', 'open'], ['closed', 'closed'], ['pending', 'pending'], ['delete', 'deleted']], default='open', max_length=255),
+            field=models.CharField(
+                choices=[['open', 'open'], ['closed', 'closed'], ['pending', 'pending'], ['delete', 'deleted']],
+                default='open', max_length=255),
         ),
         migrations.AlterField(
             model_name='jobspost',
             name='salary_type',
-            field=models.CharField(choices=[['hourly', 'hour'], ['daily', 'day'], ['weekly', 'week'], ['monthly', 'month'], ['annually', 'annual']], max_length=10),
+            field=models.CharField(
+                choices=[['hourly', 'hour'], ['daily', 'day'], ['weekly', 'week'], ['monthly', 'month'],
+                         ['annually', 'annual']], max_length=10),
         ),
     ]

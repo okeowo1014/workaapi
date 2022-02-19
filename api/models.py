@@ -1,10 +1,8 @@
 from django.db import models
-from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager, AbstractBaseUser
-from django.utils import timezone
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
-from rest_framework import serializers
-
+from django.db import models
+from django.utils import timezone
 
 
 class UserManage(BaseUserManager):
@@ -272,9 +270,6 @@ class LikedJobs(models.Model):
     job = models.ForeignKey(JobsPost, on_delete=models.CASCADE, related_name='job_like')
     liker = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='liker')
     created = models.DateTimeField(auto_now_add=True)
-
-
-
 
 # class Interviews(models.Model):
 #     STATUS = [
