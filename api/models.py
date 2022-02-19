@@ -195,7 +195,8 @@ class Employer(models.Model):
     business_scale = models.CharField(max_length=255)
     industry = models.CharField(max_length=255)
     uid = models.CharField(max_length=10, unique=True, null=True)
-    company_logo = models.URLField(default='https://api.workanetworks.com/media/company-logo/ydxvbh3vgo/306424.png')
+    company_logo = models.URLField(default='https://api.workanetworks.com/static/media/company-logo/krp5oktnm2/306424'
+                                           '.png')
     company_profile = models.TextField(default='')
     reviews = models.DecimalField(max_digits=2, decimal_places=1, default=1.0)
     hired = models.PositiveIntegerField(default=0)
