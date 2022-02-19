@@ -471,7 +471,7 @@ def display_picture(request):
     employee = Employee.objects.get(user=request.user)
     if request.method == 'POST' and request.FILES:
         picture = request.FILES['display_picture']
-        fss = FileSystemStorage(location='static/media/display-picture/{}'.format(request.user.id))
+        fss = FileSystemStorage(location='staticfiles/media/display-picture/{}'.format(request.user.id))
         file = fss.save(picture.name, picture)
         filename = '{}/{}'.format(fss.base_location, picture.name)
         print(fss.base_url)
