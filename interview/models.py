@@ -24,6 +24,7 @@ class Interviews(models.Model):
     submission = models.IntegerField(default=0)
     timer_sec = models.IntegerField(default=0)
     interview_type = models.CharField(max_length=20, choices=Q_TYPE)
+    sent = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
 
