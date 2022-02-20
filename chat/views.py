@@ -68,8 +68,11 @@ class GetMessageChannel:
         interview_invitation_notifier(self.group, text, company)
         ChatMessage.objects.create(sender=self.sender, message_type='text', message=text, channel=self.channel)
 
-    def push_interview_link(self, link):
-        ChatMessage.objects.create(sender=self.sender, message_type='interview', message=link, channel=self.channel)
+    def push_interview_link(self, link, int_type):
+        if int_type == 'objective':
+            ChatMessage.objects.create(sender=self.sender, message_type='objective_interview', message=link, channel=self.channel)
+        else:
+            ChatMessage.objects.create(sender=self.sender, message_type='theory_interview', message=link, channel=self.channel)
 
 
 @api_view(['GET'])
