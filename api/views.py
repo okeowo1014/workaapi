@@ -383,6 +383,8 @@ def add_employee(request):
         if response.status_code == 201:
             serializer.save(user=getuser(response.json().get('id')), uid=generate_employee_key())
             return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(response.text,status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -160,7 +160,7 @@ class Education(models.Model):
     school_name = models.CharField(max_length=255)
     level = models.CharField(max_length=255, choices=SCHOOL_LEVEL)
     certificate = models.CharField(max_length=255, choices=CERTIFICATION)
-    course = models.CharField(max_length=255)
+    course = models.CharField(max_length=255, default='')
     current = models.BooleanField(default=False)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
