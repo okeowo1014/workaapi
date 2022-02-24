@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'interview',
     'chat',
     'automator',
-    'background_task'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
