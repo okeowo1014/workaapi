@@ -93,8 +93,6 @@ def read_chats(request, chat_uid):
 
 # Create your views here.
 def index(request):
-    print('hi')
-    DMChatMessage.objects.all().delete()
     return render(request, 'chat/index.html')
 
 

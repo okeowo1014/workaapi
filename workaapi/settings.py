@@ -92,17 +92,13 @@ ASGI_APPLICATION = 'workaapi.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['CUSTOM_DB_NAME'],
-        'USER': os.environ['CUSTOM_DB_USER'],
-        'PASSWORD': os.environ['CUSTOM_DB_KEY'],
-        'HOST': os.environ['CUSTOM_DB_HOST'],
-        'PORT': os.environ['CUSTOM_DB_PORT'],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
