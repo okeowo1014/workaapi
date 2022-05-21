@@ -114,7 +114,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthentication',
     ]
 }
-AUTH_USER_MODEL = 'api.User'
+# AUTH_USER_MODEL = 'api.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USERNAME_REQUIRED = False
 DJOSER = {
