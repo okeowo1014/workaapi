@@ -1,0 +1,185 @@
+{% extends "administrator/header.html" %}
+
+{% block content %}
+
+<div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Employers List</h3>
+                                            <div class="nk-block-des text-soft">
+                                                {% if search %}
+                                                You have {{found}} registered employers that match search.
+                                                {% else %}
+                                                <p>You have {{employees|length}} registered employers.</p>
+
+                                                {% endif %}
+                                            </div>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
+                                                <div class="toggle-expand-content" data-content="pageMenu">
+                                                    <ul class="nk-block-tools g-3">
+                                                        <li class="nk-block-tools-opt">
+                                                            <form action="{% url 'administrator:employer_list' %}" method="post">
+                                                                {% csrf_token %}
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" placeholder="search name,email,location,gender" aria-label="search name,email,location,gender" aria-describedby="btnGroupAddon" required="required" name="param">
+                                                                <div class="input-group-prepend">
+                                                                    <button class="btn btn-primary" type="submit"><em class="icon ni ni-search"></em></button>
+                                                                </form>
+
+                                                                    <!-- <div class="input-group-text" id="btnGroupAddon">@</div> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                </div>
+                                <div class="nk-block nk-block-lg">
+
+                                    <div class="row g-gs">
+                                        {% if employers %}
+                                        {% for employer in employers %}
+                                        <div class="col-sm-6 col-lg-4 col-xxl-3">
+                                            <div class="card card-bordered">
+                                                <div class="card-inner">
+                                                    <div class="team">
+                                                        <div class="team-options">
+                                                            <div class="drodown">
+                                                                <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a href="#"><em class="icon ni ni-chat"></em><span>Chat</span></a></li>
+                                                                        <li class="divider"></li>
+                                                                        {% if employer.user.is_active %}
+                                                                        <li><a onclick="suspend('{{employer.company_name}}','{{employer.user.id}}')"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                                                        {% else %}
+                                                                        <li><a onclick="approve('{{employer.company_name}}','{{employer.user.id}}')"><em class="icon ni ni-check"></em><span>Approve User</span></a></li>
+                                                                        {% endif %}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user-card user-card-s2">
+                                                            <div class="user-avatar lg bg-primary">
+                                                                <img src="{{employer.company_logo}}" alt="">
+                                                                <div class="status dot dot-lg dot-success"></div>
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <h6>{{employer.fullname|title}}</h6>
+                                                                <span class="sub-text">{{employer.company_name}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="team-info">
+                                                            <li><span>Join Date</span><span>{{employer.created}}</span></li>
+                                                            <li><span>Contact</span><span>{{employer.phone}}</span></li>
+                                                            <li><span>Email</span><span>{{employer.user.email}}</span></li>
+                                                        </ul>
+                                                        <div class="team-view">
+                                                            <a href="{% url 'administrator:employer_details' employer.uid %}" class="btn btn-block btn-dim btn-primary"><span>View Profile</span></a>
+                                                        </div>
+                                                    </div><!-- .team -->
+                                                </div><!-- .card-inner -->
+                                            </div><!-- .card -->
+                                        </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        {% endif %}
+
+                                        {% if found == 0 %}
+                                        <div class="center-content">
+                                            <p>No Employee match Search </p>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+<div class="modal fade" tabindex="-1" id="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Suspend Users Account</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form method="post" class="form-validate is-alter" id="suspendform">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="company"  disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default-textarea" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-danger">Suspend User</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-danger"><sup>**</sup>Important!</span> Any user suspended won't be allowed access into the application until approved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" tabindex="-1" id="modalApproveForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success">Approve User</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" class="form-validate is-alter" id="approveform">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="form-label" for="company_name">Company Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="company_name"  disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-success">Approve User</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-primary"><sup>**</sup>Important!</span> Any user account approved has the privilege to use the application</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content%}
+{% block script %}
+<script>
+function suspend(a,b){
+$('#modalForm').modal();
+$('#company').val(a);
+$("#suspendform").attr("action", '{% url 'administrator:suspend_user' 'fg' %}'.replace(/fg/,b)); //Will set it
+}
+function approve(a,b){
+$('#modalApproveForm').modal();
+$('#company_name').val(a);
+$("#approveform").attr("action", '{% url 'administrator:approve_user' 'fg' %}'.replace(/fg/,b)); //Will set it
+}
+</script>
+{% endblock script %}

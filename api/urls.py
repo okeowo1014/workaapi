@@ -9,7 +9,8 @@ from .views import index, checkauth, add_work_experience, view_employeeprofile, 
     get_relative_job_tags, company_logo, get_notifications, cv_preview, search_jobs, profile_preview, get_nearest_job, \
     get_my_interview, get_hot_alert, profile_details, employer_details, like_job, dislike_job, \
     filter_jobs, set_update_notify, set_newsletter_notify, set_email_notify, set_login_notify, send_employment_request, \
-    notification_settings
+    notification_settings, hot_jobs, send_direct_employment_request, delete_account, support_message, close_job, \
+    planUpgrade, upload_cv
 
 app_name = 'api'
 urlpatterns = [
@@ -49,6 +50,7 @@ urlpatterns = [
     path('get_industries/', get_industries),
     path('get_posted_jobs/', get_posted_jobs),
     path('fetch_jobs/', fetch_jobs),
+    path('hot_jobs/', hot_jobs),
     path('cv_preview/', cv_preview),
     path('profile_preview/', profile_preview),
     path('get_nearest_job/', get_nearest_job),
@@ -65,11 +67,18 @@ urlpatterns = [
     path('get_my_interview/', get_my_interview),
     path('notification_settings/', notification_settings),
     path('get_hot_alert/', get_hot_alert),
+    path('delete_account/', delete_account),
+    path('support_message/', support_message),
     path('set_newsletter_notify/<str:action>', set_newsletter_notify),
     path('set_login_notify/<str:action>', set_login_notify),
     path('set_email_notify/<str:action>', set_email_notify),
     path('set_update_notify/<str:action>', set_update_notify),
+    path('plan_upgrade/<str:uid>/<str:plan>/<str:trans_id>', planUpgrade),
     path('send_employment_request/<str:interview_id>', send_employment_request),
+    path('direct_employment_request/<str:job_id>', send_direct_employment_request),
+    path('upload_cv/', upload_cv, name='upload_cv'),
+    path('close_job/<str:job_id>', close_job),
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
+
 ]

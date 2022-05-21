@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.utils import timezone
+
 from api.models import JobsPost, Employee
 
 
@@ -25,6 +27,9 @@ class Interviews(models.Model):
     timer_sec = models.IntegerField(default=0)
     interview_type = models.CharField(max_length=20, choices=Q_TYPE)
     sent = models.BooleanField(default=False)
+    questioned = models.BooleanField(default=False)
+    refusal_note = models.TextField(default='Not refused')
+    refusal_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -34,6 +39,7 @@ class ObjectiveInterviewQuestions(models.Model):
     question = models.TextField()
     options = models.TextField()
     sub_answer = models.TextField(default='')
+    answer = models.CharField(max_length=1)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -51,6 +57,7 @@ class ObjectiveInterviewAnswers(models.Model):
     question = models.ForeignKey(ObjectiveInterviewQuestions, on_delete=models.CASCADE,
                                  related_name='obj_interview_question')
     answer = models.TextField(default='')
+    status = models.CharField(max_length=9)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -60,11 +67,23 @@ class TheoryInterviewAnswers(models.Model):
     question = models.ForeignKey(TheoryInterviewQuestions, on_delete=models.CASCADE,
                                  related_name='theory_interview_question')
     answer = models.TextField(default='')
+    status = models.CharField(max_length=9, default='')
     created = models.DateTimeField(auto_now_add=True)
 
 
 class EmploymentRequest(models.Model):
-    interview = models.ForeignKey(Interviews, on_delete=models.CASCADE)
+    STATUS = [
+        ['direct', 'direct'],
+        ['interview', 'interview'],
+    ]
+    CUR_STATUS = [
+        ['pending', 'pending'],
+        ['processed', 'processed'],
+        ['suspended', 'suspended'],
+    ]
+    mode = models.CharField(max_length=9, choices=STATUS)
+    mode_key = models.CharField(max_length=255)
     employees = models.TextField()
     note = models.TextField()
-    created = models.DateTimeField()
+    status = models.CharField(max_length=200, choices=CUR_STATUS, default='pending')
+    created = models.DateTimeField(auto_now_add=True)

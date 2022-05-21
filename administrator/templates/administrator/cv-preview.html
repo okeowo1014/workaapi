@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from mannatthemes.com/zoovara/horizontal-demo-2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Apr 2022 17:54:49 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Zoovara - Personal Template</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta content="A premium personal template by Mannatthemes" name="description">
+    <meta content="Mannatthemes" name="author"><!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link href="/static/adminsite/assets/cv/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/adminsite/assets/cv/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="/static/adminsite/assets/cv/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="main-wraper">
+        <section class="section bg-profile clip-profile" id="header">
+            <div class="zoo-profile">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-print-6 align-self-center mb-3 mb-lg-0">
+                            <div class="zoo-profile-main">
+                                <div class="zoo-profile-main-pic"><img src="{{applicant.display_picture}}" height="100px" alt=""
+                                        class="rounded-circle"> </div>
+                                <!--end zoo-profile-main-pic-->
+                                <div class="zoo-profile_user-detail">
+                                    <h5 class="zoo-user-name">{{applicant.fullname}}</h5>
+                                    <p class="cd-headline loading-bar"><span class="cd-words-wrapper"><b
+                                                class="is-visible">WORKA PROFILE</b></span></p>
+                                </div>
+                                <!--end zoo-profile_user-detail-->
+                            </div>
+                            <!--end profile-main-pic-->
+                        </div>
+                        <!--end col-->
+                        <div class="col-sm-4 col-print-4 ml-auto">
+                            <ul class="list-unstyled personal-detail">
+                                <li><i class="'uil uil-phone-volume mr-2"></i>
+                                    <b>phone </b>: {{applicant.phone}}0</li>
+                                <li class="mt-2"><i class="uil uil-envelope mt-2 mr-2"></i> <b>Email </b>:
+                                    {{applicant.user.email}}</li>
+
+                            </ul>
+
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div>
+                <!--end container-->
+            </div>
+            <!--end zoo-profile-->
+        </section>
+        <!--end section-->
+        <section class="section-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="header-title mb-3">About {{applicant.fullname}}</h4>
+                    </div>
+                    <!--end col-->
+                    <div class="col-sm-6 col-print-6">
+                        <h4 class="text-primary font-weight-bold">I'm {{applicant.fullname}}</h4>
+                        <p>{{applicant.about}}</p>
+                    </div>
+                    <!--end col-->
+                    <div class="col-sm-5 col-print-5 offset-lg-1 align-self-center">
+                        <p><span class="personal-detail-title">Firstname</span> <span class="personal-detail-info">{{applicant.first_name}}</span></p>
+                        <p><span class="personal-detail-title">Lastname</span> <span class="personal-detail-info">{{applicant.last_name}}</span></p>
+                        <p><span class="personal-detail-title">Othername</span> <span class="personal-detail-info">{{applicant.other_name}}</span></p>
+                        <p><span class="personal-detail-title">Date of birth</span> <span class="personal-detail-info">{{applicant.date_of_birth}}</span></p>
+                        <p><span class="personal-detail-title">Gender</span> <span class="personal-detail-info">{{applicant.gender}}</span></p>
+                        <p><span class="personal-detail-title">Address</span> <span class="personal-detail-info">{{applicant.location}}</span></p>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+            </div>
+            <!--end container-->
+        </section>
+        <!--end section-->
+        <section class="section-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="header-title mb-3">Education & Skills</h4>
+                    </div>
+                    <!--end col-->
+                    <div class="col-sm-12 col-print-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-print-6">
+                                <div class="resume-icon"><i class="uil uil-graduation-hat"></i>
+                                    <h5 class="mt-n2">Education</h5>
+                                </div>
+                                <!--end resume-icon-->
+                                <div class="timeline">
+                                   {% for item in applicant.education.all %}                                   <div class="time-item mt-3">
+                                        <div class="item-info">
+                                            <div class="font-14">{{item.start_date}} - {{item.end_date}}</div>
+                                            <h5 class="my-1 text-dark">{{item.school_name|title}}</h5>
+                                            <h5 >{{item.level|title}}</h5>
+                                            <p class="my-1 text-dark">{{item.certificate|title}}, {{item.course|title}}</p>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+                                </div>
+                                <!--end timeline-->
+                            </div>
+                            <!--end col-->
+                            <div class="col-sm-6 col-print-6">
+                                <div class="resume-icon"><i class="uil uil-suitcase-alt"></i>
+                                    <h5 class="mt-n2">Experience</h5>
+                                </div>
+                                <!--end resume-icon-->
+                                <div class="timeline">
+                                   {% for item in applicant.work_experience.all%}
+                                    <!--end time-item-->
+                                    <div class="time-item mt-3">
+                                        <div class="item-info">
+                                            <div class="font-14">{{item.start_date}} - {{item.end_date}}</div>
+                                            <h5 class="my-1 text-dark">{{item.title|title}}</h5>
+                                            <h5 class="my-1">{{item.company_name|title}}</h5>
+                                            <p>{{item.description}}</p>
+                                        </div>
+                                    </div>
+                                    <!--end time-item-->
+                                    {% endfor %}
+                                </div>
+                                <!--end timeline-->
+
+                            </div>
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </div>
+                    <!--end col-->
+                    <div class="col-sm-12 col-print-12">
+                        <div class="row">
+                    <div class="col-sm-6 col-print-6">
+                        <div class="resume-icon"><i class="uil uil-wrench"></i>
+                            <h5 class="mt-n2">Skills</h5>
+                        </div>
+                         <!--end resume-icon-->
+                        <div class="timeline">
+                            {% for item in applicant.skill.all %}
+                            <div class="time-item mt-3">
+                                <div class="item-info">
+                                    <div class="font-14">{{item.year_of_experience}} Experience</div>
+                                    <h5 class="my-1 text-dark">{{item.skill_name|title}}</h5>
+                                    <p>{{item.level|title}}</p>
+                                </div>
+                            </div>
+                            <!--end time-item-->
+                            {% endfor %}
+                        </div>
+                        <!--end timeline-->
+
+                    </div>
+                    <!--end col-->
+                    <div class="col-sm-6 col-print-6">
+                        <div class="resume-icon"><i class="uil uil-comments"></i>
+                            <h5 class="mt-n2">Language</h5>
+                        </div>
+                      <!--end resume-icon-->
+                        <div class="timeline">
+                            {% for item in applicant.language.all %}
+                            <div class="time-item mt-3">
+                                <div class="item-info">
+                                    <h5 class="my-1 text-dark">{{item.language}}</h5>
+                                    <p>{{item.level}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!--end timeline-->
+                    </div>
+                    </div>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+            </div>
+            <!--end container-->
+        </section>
+        <!--end section-->
+
+
+        <!--end section-->
+        <section class="section-md thanks-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center">Thank you !</h3>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+            </div>
+            <!--end container-->
+        </section>
+
+    </div>
+    <!--end main-wraper-->
+    <!-- jQuery  -->
+
+</body>
+<!-- Mirrored from mannatthemes.com/zoovara/horizontal-demo-2/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Apr 2022 17:55:16 GMT -->
+
+</html>

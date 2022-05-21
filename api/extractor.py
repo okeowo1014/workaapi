@@ -204,3 +204,7 @@ def generate_theory_question_key():
 
 def generate_chat_key():
     return ''.join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(16))
+
+
+def generate_payment_key():
+    return ''.join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(10))

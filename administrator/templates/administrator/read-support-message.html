@@ -1,0 +1,276 @@
+{% extends "administrator/header.html" %}
+
+{% block content %}
+
+   <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-msg">
+                                    <div class="nk-msg-aside">
+                                        <div class="nk-msg-nav">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#tabItem1">Active</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem2">Closed</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem3">All</a>
+                                                </li>
+
+                                            </ul>
+                                            <!-- <div class="search-wrap" data-search="search">
+                                                <div class="search-content">
+                                                    <a href="#" class="search-back btn btn-icon toggle-search" data-target="search"><em class="icon ni ni-arrow-left"></em></a>
+                                                    <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by user or message">
+                                                    <button class="search-submit btn btn-icon"><em class="icon ni ni-search"></em></button>
+                                                </div>
+                                            </div>.search-wrap -->
+                                        </div><!-- .nk-msg-nav -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tabItem1">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                    {% for item in actives %}
+
+                                                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %}" data-msg-id="3">
+
+                                                        <div class="nk-msg-info">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                                                    {% endfor %}
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+                                            <div class="tab-pane" id="tabItem2">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                    {% for item in closed %}
+
+                                                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %}" data-msg-id="3">
+
+                                                        <div class="nk-msg-info">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+                                            <div class="tab-pane" id="tabItem3">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                 {% for item in all %}
+
+                                                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %}" data-msg-id="3">
+
+                                                        <div class="nk-msg-info">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                                                    {% endfor %}
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+
+                                        </div>
+
+                                    </div><!-- .nk-msg-aside -->
+                                    <div class="nk-msg-body bg-white profile-shown">
+                                        <div class="nk-msg-head">
+                                            <h4 class="title d-none d-lg-block">{{tsm.title}}</h4>
+                                            <div class="nk-msg-head-meta">
+<!--                                                <div class="d-none d-lg-block">-->
+<!--                                                    <ul class="nk-msg-tags">-->
+<!--                                                        <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>-->
+<!--                                                    </ul>-->
+                                                </div>
+                                                <div class="d-lg-none"><a href="#" class="btn btn-icon btn-trigger nk-msg-hide ml-n1"><em class="icon ni ni-arrow-left"></em></a></div>
+                                                <ul class="nk-msg-actions">
+                                                    <li><a href="#" class="btn btn-dim btn-sm btn-outline-light"><em class="icon ni ni-check"></em><span>Mark as Closed</span></a></li>
+                                                    <!-- <li><span class="badge badge-dim badge-success badge-sm"><em class="icon ni ni-check"></em><span>Closed</span></span></li> -->
+
+                                                </ul>
+                                            </div>
+                                            <a href="#" class="nk-msg-profile-toggle profile-toggle active"><em class="icon ni ni-arrow-left"></em></a>
+                                        </div><!-- .nk-msg-head -->
+                                        <div class="nk-msg-reply nk-reply" data-simplebar>
+                                            <div class="nk-msg-head py-4 d-lg-none">
+                                                <h4 class="title">Unable to select currency when order</h4>
+                                                <ul class="nk-msg-tags">
+                                                    <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nk-reply-item">
+                                                <div class="nk-reply-header">
+                                                    <div class="user-card">
+                                                        <div class="user-avatar sm bg-blue">
+                                                            <span>AB</span>
+                                                        </div>
+                                                        <div class="user-name">Abu Bin Ishtiyak</div>
+                                                    </div>
+                                                    <div class="date-time">14 Jan, 2020</div>
+                                                </div>
+                                                <div class="nk-reply-body">
+                                                    <div class="nk-reply-entry entry">
+                                                        <p>Hello team,</p>
+                                                        <p>I am facing problem as i can not select currency on buy order page. Can you guys let me know what i am doing doing wrong? Please check attached files.</p>
+                                                        <p>Thank you <br> Ishityak</p>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .nk-reply-item -->
+
+                                        </div><!-- .nk-reply -->
+                                        <div class="nk-msg-profile visible" data-simplebar>
+                                            <div class="card">
+                                                <div class="card-inner-group">
+                                                    <div class="card-inner">
+                                                        <div class="user-card user-card-s2 mb-2">
+                                                            <div class="user-avatar md bg-primary">
+                                                                <span>AB</span>
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <h5>Abu Bin Ishtiyak</h5>
+                                                                <span class="sub-text">Customer</span>
+                                                            </div>
+                                                            <div class="user-card-menu dropdown">
+                                                                <a href="#" class="btn btn-icon btn-sm btn-trigger dropdown-toggle" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a href="#"><em class="icon ni ni-eye"></em><span>View Profile</span></a></li>
+                                                                        <li><a href="#"><em class="icon ni ni-na"></em><span>Ban From System</span></a></li>
+                                                                        <li><a href="#"><em class="icon ni ni-repeat"></em><span>View Orders</span></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center g-1">
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">23</span>
+                                                                    <span class="sub-text">Total Order</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">20</span>
+                                                                    <span class="sub-text">Complete</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">3</span>
+                                                                    <span class="sub-text">Progress</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                    <div class="card-inner">
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">User Information</h6>
+                                                            <ul class="user-contacts">
+                                                                <li>
+                                                                    <em class="icon ni ni-mail"></em><span>info@softnio.com</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-call"></em><span>+938392939</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-map-pin"></em><span>1134 Ridder Park Road <br>San Fransisco, CA 94851</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Additional</h6>
+                                                            <div class="row gx-1 gy-3">
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Ref ID: </span>
+                                                                    <span>TID-049583</span>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Requested:</span>
+                                                                    <span>Abu Bin Ishtiak</span>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Status:</span>
+                                                                    <span class="lead-text text-success">Open</span>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Last Reply:</span>
+                                                                    <span>Abu Bin Ishtiak</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Assigned Account</h6>
+                                                            <ul class="align-center g-2">
+                                                                <li>
+                                                                    <div class="user-avatar bg-purple">
+                                                                        <span>IH</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="user-avatar bg-pink">
+                                                                        <span>ST</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="user-avatar bg-gray">
+                                                                        <span>SI</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div>
+                                            </div>
+                                        </div><!-- .nk-msg-profile -->
+                                    </div><!-- .nk-msg-body -->
+                                </div><!-- .nk-msg -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+{% endblock content%}

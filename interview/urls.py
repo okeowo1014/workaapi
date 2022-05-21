@@ -14,8 +14,7 @@ urlpatterns = [
     path('submit_obj_answer/<str:interview_id>', submit_objective_answer, name='submit_obj_answer'),
     path('submit_theory_answer/<str:interview_id>', submit_theory_answer, name='submit_theory_answer'),
     path('view_submitted_interviews/<str:interview_id>', view_submitted_interviews, name='view_submitted_interviews'),
-    path('view_employee_interview/<str:interview_id>/<str:uid>', view_employee_interview,
-         name='view_employee_interview'),
+    path('view_employee_interview/<str:interview_id>/<str:uid>', view_employee_interview, name='view_employee_interview'),
     path('view_posted_interviews/', view_posted_interviews, name='view_posted_interviews'),
 
 ]

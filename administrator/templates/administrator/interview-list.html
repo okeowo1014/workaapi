@@ -1,0 +1,187 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load tz %}
+{% block content %}
+
+    <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="components-preview wide-md mx-auto">
+
+
+                                    <div class="nk-block nk-block-lg">
+                                        <div class="nk-block-head">
+                                            <div class="nk-block-head-content">
+                                                <h4 class="nk-block-title">Interview list</h4>
+
+                                            </div>
+                                        </div>
+                                        <div class="card card-preview">
+                                            <div class="card-inner">
+                                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                    <thead>
+                                                        <tr class="nk-tb-item nk-tb-head">
+
+                                                            <th class="nk-tb-col"><span class="sub-text">Interview Title</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Job Title</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Submitted</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">From -- To</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
+                                                            <th class="nk-tb-col nk-tb-col-tools text-right"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for interview in interviews %}
+                                                        <tr class="nk-tb-item">
+
+                                                            <td class="nk-tb-col">
+                                                                <div class="user-card">
+                                                                    <div class="user-info">
+                                                                        <span class="tb-lead text-wrap">{{interview.title|title}}<span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                        <span>{{interview.interview_type|title}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg">
+                                                                <span class="tb-amount text-wrap">{{interview.job.title|title}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span>{{interview.submission}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg" data-order="Email Verified - Kyc Unverified">
+                                                                <ul class="list-status">
+                                                                    <li><em class="icon text-success ni ni-check-circle"></em><span>{{interview.start_date}}</span></li>
+                                                                    <li><em class="icon ni ni-alert-circle text-danger"></em> <span>{{interview.end_date}}</span></li>
+                                                                </ul>
+                                                            </td>
+
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                 {% if interview.status == 'open' %}
+                                                            <span class="badge badge-success">Open</span>
+                                                            {% elif interview.status == 'closed' %}
+                                                            <span class="badge badge-danger">Closed</span>
+                                                            {% elif interview.status == 'suspended' %}
+                                                            <span class="badge badge-warning">Suspended</span>
+                                                            {% else %}
+                                                            <span class="badge badge-primary">{{interview.status}}</span>
+                                                            {% endif %}
+                                                            </td>
+                                                            <td class="nk-tb-col nk-tb-col-tools">
+                                                                <ul class="nk-tb-actions gx-1">
+
+                                                                    <li>
+                                                                        <div class="drodown">
+                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <ul class="link-list-opt no-bdr">
+                                                                                    <li><a href="{% url 'administrator:interview_question' interview.interview_uid %}"><em class="icon ni ni-focus"></em><span>View Question</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:interview_submitted' interview.interview_uid %}"><em class="icon ni ni-repeat"></em><span>View Submissions</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:employer_details' interview.job.employer.uid %}"><em class="icon ni ni-user"></em><span>View Employer</span></a></li>
+                                                                                    <li class="divider"></li>
+                                                                                    {% if interview.status == 'suspended' %}
+                                                                                    <li><a onclick="approve('{{interview.title}}','{{interview.interview_uid}}')"><em class="icon ni ni-check"></em><span>Approve Interview</span></a></li>
+                                                                                    {% else %}
+                                                                                    <li><a onclick="suspend('{{interview.title}}','{{interview.interview_uid}}')"><em class="icon ni ni-na"></em><span>Suspend Interview</span></a></li>
+                                                                                    {% endif %}
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr><!-- .nk-tb-item  -->
+                                                       {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- .card-preview -->
+                                    </div> <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+<div class="modal fade" tabindex="-1" id="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Suspend Interview</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" id="suspendform" class="form-validate is-alter">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="form-label" for="applicant">Interview Title</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="applicant"  disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default-textarea" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-danger">Suspend Interview</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-danger"><sup>**</sup>Important!</span> An Interview cannot be processed by employer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" tabindex="-1" id="modalApproveForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success">Approve Interview</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" id="approveform" class="form-validate is-alter">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label class="form-label" for="applicant">Interview Title</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="applicant_name"  disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize"  required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-success">Approve Interview</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-danger"><sup>**</sup>Important!</span> The Interview can now be processed by employer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content%}
+{% block script %}
+<script>
+function suspend(a,b){
+$('#modalForm').modal();
+$('#applicant').val(a);
+$("#suspendform").attr("action", '{% url 'administrator:suspend_interview' 'fg' %}'.replace(/fg/,b)); //Will set it
+}
+function approve(a,b){
+$('#modalApproveForm').modal();
+$('#applicant_name').val(a);
+$("#approveform").attr("action", '{% url 'administrator:approve_interview' 'fg' %}'.replace(/fg/,b)); //Will set it
+}
+</script>
+{% endblock script %}

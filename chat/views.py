@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from api.extractor import generate_chat_key
 from api.models import Employee, Employer
 from chat.models import ChatChannels, ChatMessage, DMChatMessage
-from chat.serializers import ChatChannelSerializer, ChatMessageSerializer
+from chat.serializers import ChatChannelSerializer, ChatMessageSerializer, DMChatChannelSerializer
 from notifier.views import interview_invitation_notifier
 
 
@@ -70,9 +70,11 @@ class GetMessageChannel:
 
     def push_interview_link(self, link, int_type):
         if int_type == 'objective':
-            ChatMessage.objects.create(sender=self.sender, message_type='objective_interview', message=link, channel=self.channel)
+            ChatMessage.objects.create(sender=self.sender, message_type='objective_interview', message=link,
+                                       channel=self.channel)
         else:
-            ChatMessage.objects.create(sender=self.sender, message_type='theory_interview', message=link, channel=self.channel)
+            ChatMessage.objects.create(sender=self.sender, message_type='theory_interview', message=link,
+                                       channel=self.channel)
 
 
 @api_view(['GET'])
@@ -97,7 +99,17 @@ def index(request):
 
 
 def room(request, room_name, username):
-    return render(request, 'chat/room.html', {
+    return render(request, 'chat/chatroom.html', {
         'room_name': room_name,
         'username': username
     })
+
+
+def get_channel(chatid):
+    return ChatChannels.objects.get(chat_uid=chatid)
+
+
+def get_chats_head(request):
+    heads = DMChatMessage.objects.all().values('chatid').distinct()
+    head_channels = [get_channel(head['chatid']) for head in heads]
+    serializer = DMChatChannelSerializer(head_channels, many=True)

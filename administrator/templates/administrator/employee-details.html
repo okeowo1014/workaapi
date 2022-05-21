@@ -1,0 +1,867 @@
+{% extends "administrator/header.html" %}
+
+{% block content %}
+
+<!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between g-3">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Applicant / <strong
+                                                    class="text-primary small">{{applicant.fullname |title}}</strong></h3>
+                                            <div class="nk-block-des text-soft">
+                                                <ul class="list-inline">
+                                                    <li>User ID: <span class="text-base">{{applicant.uid}}</span></li>
+                                                    <li>Last Login: <span class="text-base">{{applicant.user.last_login}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="nk-block-head-content">
+                                            <a href="{% url 'administrator:employee_list' %}"
+                                                class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em
+                                                    class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                            <a href="html/user-list-regular.html"
+                                                class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em
+                                                    class="icon ni ni-arrow-left"></em></a>
+                                        </div>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="card card-bordered">
+                                        <div class="card-aside-wrap">
+                                            <div class="card-content">
+                                                <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-toggle="tab"
+                                                            href="#personal"><em
+                                                                class="icon ni ni-user-circle"></em><span>Personal</span></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#profiles"><em
+                                                                class="icon ni ni-file-text"></em><span>profiles</span></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#documents"><em
+                                                                class="icon ni ni-file-text"></em><span>Documents</span></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#transactions"><em
+                                                                class="icon ni ni-repeat"></em><span>Transactions</span></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#activities"><em
+                                                                class="icon ni ni-activity"></em><span>Activities</span></a>
+                                                    </li>
+                                                    <li class="nav-item nav-item-trigger d-xxl-none">
+                                                        <a href="#" class="toggle btn btn-icon btn-trigger"
+                                                            data-target="userAside"><em
+                                                                class="icon ni ni-user-list-fill"></em></a>
+                                                    </li>
+                                                </ul><!-- .nav-tabs -->
+
+                                                <!-- nav bar items -->
+
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="personal">
+                                                        <!-- personal items -->
+
+                                                        <div class="card-inner">
+                                                            <div class="nk-block">
+                                                                <div class="nk-block-head">
+                                                                    <h5 class="title">Personal Information</h5>
+                                                                    <p>Basic info, like your name and address of employee</p>
+                                                                </div><!-- .nk-block-head -->
+                                                                <div class="profile-ud-list">
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span
+                                                                                class="profile-ud-label">Account</span>
+                                                                            <span
+                                                                                class="profile-ud-value">Employee</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span
+                                                                                class="profile-ud-label">Fullname</span>
+                                                                            <span class="profile-ud-value">{{applicant.fullname|title}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Date of Birth</span>
+                                                                            <span class="profile-ud-value">10 Aug, 1980</span>
+                                                                        </div>
+                                                                    </div> -->
+
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Mobile
+                                                                                Number</span>
+                                                                            <span
+                                                                                class="profile-ud-value">{{applicant.phone}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Email
+                                                                                Address</span>
+                                                                            <span
+                                                                                class="profile-ud-value">{{applicant.user.email}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div><!-- .profile-ud-list -->
+                                                            </div><!-- .nk-block -->
+                                                            <div class="nk-block">
+                                                                <div class="nk-block-head nk-block-head-line">
+                                                                    <h6 class="title overline-title text-base">
+                                                                        Additional Information</h6>
+                                                                </div><!-- .nk-block-head -->
+                                                                <div class="profile-ud-list">
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Joining
+                                                                                Date</span>
+                                                                            <span class="profile-ud-value">{{applicant.created}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Gender
+                                                                                Method</span>
+                                                                            <span class="profile-ud-value">{{applicant.gender}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span
+                                                                                class="profile-ud-label">Location</span>
+                                                                            <span class="profile-ud-value">{{applicant.location}}</span>
+                                                                        </div>
+                                                                    </div>
+<!--                                                                    <div class="profile-ud-item">-->
+<!--                                                                        <div class="profile-ud wider">-->
+<!--                                                                            <span-->
+<!--                                                                                class="profile-ud-label">Nationality</span>-->
+<!--                                                                            <span class="profile-ud-value">United-->
+<!--                                                                                State</span>-->
+<!--                                                                        </div>-->
+<!--                                                                    </div>-->
+                                                                </div><!-- .profile-ud-list -->
+                                                            </div><!-- .nk-block -->
+
+                                                        </div><!-- .card-inner -->
+                                                        <!-- end personal items -->
+                                                    </div>
+                                                    <div class="tab-pane" id="profiles">
+
+                                                        <!-- profiles -->
+                                                        <div class="card-inner">
+                                                            <div class="nk-block">
+                                                                <div id="accordion-2" class="accordion accordion-s3">
+                                                                    <div class="accordion-item">
+                                                                        <a href="#" class="accordion-head"
+                                                                            data-toggle="collapse"
+                                                                            data-target="#accordion-item-2-1">
+                                                                            <h6 class="title">Skills</h6>
+                                                                            <span class="accordion-icon"></span>
+                                                                        </a>
+                                                                        <div class="accordion-body collapse show"
+                                                                            id="accordion-item-2-1"
+                                                                            data-parent="#accordion-2">
+                                                                            <div class="accordion-inner">
+                                                                                <div class="card card-preview">
+                                                                                    <div class="card-inner">
+                                                                                        <table
+                                                                                            class="datatable-init nowrap table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Skill Name</th>
+                                                                                                    <th>Proficiency</th>
+                                                                                                    <th>years of experience</th>
+                                                                                                    <th>Date Added</th>
+
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            {% for skill in skills %}
+                                                                                            <tr>
+                                                                                                    <td>{{skill.skill_name}}</td>
+                                                                                                    <td>{{skill.level}}</td>
+                                                                                                <td>{{skill.year_of_experience}}</td>
+                                                                                                    <td>{{skill.created}}</td>
+                                                                                                </tr>
+                                                                                            {% endfor %}
+
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div><!-- .card-preview -->
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item">
+                                                                        <a href="#" class="accordion-head collapsed"
+                                                                            data-toggle="collapse"
+                                                                            data-target="#accordion-item-2-2">
+                                                                            <h6 class="title">Work Experience</h6>
+                                                                            <span class="accordion-icon"></span>
+                                                                        </a>
+                                                                        <div class="accordion-body collapse"
+                                                                            id="accordion-item-2-2"
+                                                                            data-parent="#accordion-2">
+                                                                            <div class="accordion-inner">
+                                                                                <div class="card card-preview">
+                                                                                    <div class="card-inner">
+                                                                                        <table
+                                                                                            class="datatable-init nowrap table">
+                                                                                            <thead>
+
+                                                                                            <tr>
+                                                                                                    <th>position</th>
+                                                                                                    <th>Company</th>
+                                                                                                    <th>job Description
+                                                                                                    </th>
+                                                                                                    <th>Y.O.E</th>
+                                                                                                    <th>from - to</th>
+                                                                                                    <th>Date Added</th>
+
+                                                                                                </tr>
+
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            {% for work in work_experiences %}
+                                                                                                <tr>
+                                                                                                    <td>{{work.title}}</td>
+                                                                                                    <td>{{work.company_name}}</td>
+                                                                                                    <td class="text-wrap">{{work.description}}</td>
+                                                                                                    <td class="text-wrap">{% if work.current%} <span>Still working Here</span>{% else %} <span>Not working here {% endif %}</span></td>
+                                                                                                    <td>{{work.start_date}} -
+                                                                                                        {{work.end_date}}</td>
+                                                                                                    <td>{{work.created}}</td>
+                                                                                                </tr>
+                                                                                            {% endfor %}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div><!-- .card-preview -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item">
+                                                                        <a href="#" class="accordion-head collapsed"
+                                                                            data-toggle="collapse"
+                                                                            data-target="#accordion-item-2-3">
+                                                                            <h6 class="title">Education History</h6>
+                                                                            <span class="accordion-icon"></span>
+                                                                        </a>
+                                                                        <div class="accordion-body collapse"
+                                                                            id="accordion-item-2-3"
+                                                                            data-parent="#accordion-2">
+                                                                            <div class="accordion-inner">
+                                                                                <div class="card card-preview">
+                                                                                    <div class="card-inner">
+                                                                                        <table
+                                                                                            class="datatable-init nowrap table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>School Name</th>
+                                                                                                    <th>certificate - Course</th>
+                                                                                                    <th>Level</th>
+                                                                                                    <th>from - to</th>
+                                                                                                    <th>Date added</th>
+
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            {% for education in educations %}
+                                                                                                <tr>
+                                                                                                    <td>{{education.school_name}}</td>
+                                                                                                    <td>{{education.certificate |title}} {{education.course}}</td>
+                                                                                                    <td>{{education.level}}</td>
+                                                                                                    <td>{{education.start_date}} - {{education.end_date}}</td>
+                                                                                                    <td>{{education.created}}</td>
+                                                                                                </tr>
+                                                                                            {% endfor %}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div><!-- .card-preview -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item">
+                                                                        <a href="#" class="accordion-head collapsed"
+                                                                            data-toggle="collapse"
+                                                                            data-target="#accordion-item-2-9">
+                                                                            <h6 class="title">Language</h6>
+                                                                            <span class="accordion-icon"></span>
+                                                                        </a>
+                                                                        <div class="accordion-body collapse"
+                                                                            id="accordion-item-2-9"
+                                                                            data-parent="#accordion-2">
+                                                                            <div class="accordion-inner">
+                                                                                <div class="card card-preview">
+                                                                                    <div class="card-inner">
+                                                                                        <table
+                                                                                            class="datatable-init nowrap table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Language</th>
+                                                                                                    <th>level</th>
+                                                                                                    <th>Date added</th>
+
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            {% for language in languages %}
+                                                                                                <tr>
+                                                                                                    <td>{{language.language}}</td>
+                                                                                                    <td>{{language.level}}</td>
+                                                                                                    <td>{{language.created}}</td>
+                                                                                                </tr>
+                                                                                            {% endfor %}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div><!-- .card-preview -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item">
+                                                                        <a href="#" class="accordion-head collapsed"
+                                                                            data-toggle="collapse"
+                                                                            data-target="#accordion-item-2-4">
+                                                                            <h6 class="title">Availability</h6>
+                                                                            <span class="accordion-icon"></span>
+                                                                        </a>
+                                                                        <div class="accordion-body collapse"
+                                                                            id="accordion-item-2-4"
+                                                                            data-parent="#accordion-2">
+                                                                            <div class="accordion-inner">
+                                                                                {% if availabilities %}
+                                                                                {% for availability in availabilities %}
+                                                                                {% if availability.full_time %}
+                                                                                 <span
+                                                                                    class="badge  badge-primary badge-md badge-pill">Full time</span>
+                                                                                {% endif %}
+                                                                                {% if availability.part_time %}
+                                                                                 <span class="badge  badge-primary badge-md badge-pill">Part time</span>
+                                                                                {% endif %}
+                                                                                {% if availability.contract %}
+                                                                                 <span class="badge  badge-primary badge-md badge-pill">Contract</span>
+                                                                                {% endif %}
+                                                                                {% if availability.available %}
+                                                                                 <span class="badge  badge-primary badge-md badge-pill">Available for Job</span>
+                                                                                {% endif %}
+
+
+
+                                                                                {% endfor %}
+                                                                                {% else %}
+                                                                                <span class="badge  badge-primary badge-md badge-pill">No preference yet</span>
+                                                                                 <span class="badge  badge-primary badge-md badge-pill">Available for Job</span>
+                                                                                {% endif %}
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- .nk-block -->
+                                                        </div><!-- .card-inner -->
+                                                        <!-- endprofiles -->
+                                                    </div>
+                                                    <div class="tab-pane" id="documents">
+
+                                                        <!-- documents -->
+                                                        <div class="card-inner">
+                                                            <div class="nk-block">
+
+                                                                <div class="nk-fmg-listing nk-block-lg">
+                                                                    <div class="nk-block-head-xs">
+                                                                        <div class="nk-block-between g-2">
+                                                                            <div class="nk-block-head-content">
+                                                                                <h6 class="nk-block-title title">
+                                                                                    Uploaded Documents
+                                                                                </h6>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div><!-- .nk-block-head -->
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane active"
+                                                                            id="file-grid-view">
+                                                                            <div class="nk-files nk-files-view-grid">
+                                                                                <div class="nk-files-list">
+                                                                                    {% if documents %}
+
+                                                                                    {% for document in documents %}
+                                                                                    {% if document.type == 'image' %}
+                                                                                    <div class="nk-file-item nk-file">
+                                                                                        <div class="nk-file-info">
+                                                                                            <div class="nk-file-title">
+                                                                                                <div
+                                                                                                    class="nk-file-icon">
+                                                                                                    <a class="nk-file-icon-link"
+                                                                                                        href="{{document.url}}">
+                                                                                                        <span
+                                                                                                            class="nk-file-icon-type">
+                                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                                viewBox="0 0 72 72">
+                                                                                                                <path
+                                                                                                                    d="M50,61H22a6,6,0,0,1-6-6V22l9-11H50a6,6,0,0,1,6,6V55A6,6,0,0,1,50,61Z"
+                                                                                                                    style="fill:#755de0">
+                                                                                                                </path>
+                                                                                                                <path
+                                                                                                                    d="M27.2223,43H44.7086s2.325-.2815.7357-1.897l-5.6034-5.4985s-1.5115-1.7913-3.3357.7933L33.56,40.4707a.6887.6887,0,0,1-1.0186.0486l-1.9-1.6393s-1.3291-1.5866-2.4758,0c-.6561.9079-2.0261,2.8489-2.0261,2.8489S25.4268,43,27.2223,43Z"
+                                                                                                                    style="fill:#fff">
+                                                                                                                </path>
+                                                                                                                <path
+                                                                                                                    d="M25,20.556A1.444,1.444,0,0,1,23.556,22H16l9-11h0Z"
+                                                                                                                    style="fill:#b5b3ff">
+                                                                                                                </path>
+                                                                                                            </svg>
+                                                                                                        </span>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="nk-file-name">
+                                                                                                    <div
+                                                                                                        class="nk-file-name-text">
+                                                                                                        <a href="#"
+                                                                                                            class="title">{{document.name}}</a>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <ul class="nk-file-desc">
+                                                                                                <li class="date"><a href="{{document.url}}" target="_blank" class="btn btn-outline-light btn-xs"><em class="icon ni ni-eye"></em><span>Preview</span></a></li>
+                                                                                                <li class="size"><a href="{{document.url}}" class="btn btn-outline-light btn-xs"><em class="icon ni ni-download"></em><span>Download</span></a></li>
+
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {% elif document.type == 'pdf' %}
+                                                                                    <div class="nk-file-item nk-file">
+                                                                                        <div class="nk-file-info">
+                                                                                            <div class="nk-file-title">
+                                                                                                <div
+                                                                                                    class="nk-file-icon">
+                                                                                                    <a class="nk-file-icon-link"
+                                                                                                        href="{{document.url}}">
+                                                                                                        <span
+                                                                                                            class="nk-file-icon-type">
+                                                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                                                viewBox="0 0 72 72">
+                                                                                                                <path
+                                                                                                                    d="M50,61H22a6,6,0,0,1-6-6V22l9-11H50a6,6,0,0,1,6,6V55A6,6,0,0,1,50,61Z"
+                                                                                                                    style="fill:#f26b6b">
+                                                                                                                </path>
+                                                                                                                <path
+                                                                                                                    d="M25,20.556A1.444,1.444,0,0,1,23.556,22H16l9-11h0Z"
+                                                                                                                    style="fill:#f4c9c9">
+                                                                                                                </path>
+                                                                                                                <path
+                                                                                                                    d="M46.3342,44.5381a4.326,4.326,0,0,0-2.5278-1.4289,22.436,22.436,0,0,0-4.5619-.3828A19.3561,19.3561,0,0,1,35.82,37.9536a56.5075,56.5075,0,0,0,1.3745-6.0858,2.339,2.339,0,0,0-.4613-1.8444,1.9429,1.9429,0,0,0-1.5162-.753h-.0014a1.6846,1.6846,0,0,0-1.3893.6966c-1.1493,1.5257-.3638,5.219-.1941,5.9457a12.6118,12.6118,0,0,0,.7236,2.1477,33.3221,33.3221,0,0,1-2.49,6.1052,20.3467,20.3467,0,0,0-5.9787,3.4413,2.5681,2.5681,0,0,0-.8861,1.8265,1.8025,1.8025,0,0,0,.6345,1.3056,2.0613,2.0613,0,0,0,1.3942.5313,2.2436,2.2436,0,0,0,1.4592-.5459,20.0678,20.0678,0,0,0,4.2893-5.3578,20.8384,20.8384,0,0,1,5.939-1.1858A33.75,33.75,0,0,0,42.96,47.7858,2.6392,2.6392,0,0,0,46.376,47.55,2.08,2.08,0,0,0,46.3342,44.5381ZM27.6194,49.6234a.8344.8344,0,0,1-1.0847.0413.4208.4208,0,0,1-.1666-.2695c-.0018-.0657.0271-.3147.4408-.736a18.0382,18.0382,0,0,1,3.7608-2.368A17.26,17.26,0,0,1,27.6194,49.6234ZM34.9023,30.848a.343.343,0,0,1,.3144-.1514.6008.6008,0,0,1,.4649.2389.853.853,0,0,1,.1683.6722v0c-.1638.92-.4235,2.381-.8523,4.1168-.0125-.05-.0249-.1-.037-.1506C34.6053,34.0508,34.3523,31.5779,34.9023,30.848ZM33.7231,43.5507a34.9732,34.9732,0,0,0,1.52-3.7664,21.2484,21.2484,0,0,0,2.2242,3.05A21.8571,21.8571,0,0,0,33.7231,43.5507Zm11.7054,2.97a1.3085,1.3085,0,0,1-1.6943.0887,33.2027,33.2027,0,0,1-3.0038-2.43,20.9677,20.9677,0,0,1,2.8346.3335,2.97,2.97,0,0,1,1.7406.9647C45.8377,46.1115,45.6013,46.3483,45.4285,46.5212Z"
+                                                                                                                    style="fill:#fff">
+                                                                                                                </path>
+                                                                                                            </svg>
+                                                                                                        </span>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="nk-file-name">
+                                                                                                    <div
+                                                                                                        class="nk-file-name-text">
+                                                                                                        <a href="#"
+                                                                                                            class="title">{{document.name}}</a>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <ul class="nk-file-desc">
+                                                                                                <li class="date"><a href="{{document.url}}" target="_blank" class="btn btn-outline-light btn-xs"><em class="icon ni ni-eye"></em><span>Preview</span></a></li>
+                                                                                                <li class="size"><a href="{{document.url}}" class="btn btn-outline-light btn-xs"><em class="icon ni ni-download"></em><span>Download</span></a></li>
+
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {% else %}
+                                                                                    <div class="nk-file-item nk-file">
+                                                                                        <div class="nk-file-info">
+                                                                                            <div class="nk-file-title">
+                                                                                                <div
+                                                                                                    class="nk-file-icon">
+                                                                                                    <a class="nk-file-icon-link"
+                                                                                                        href="{{document.url}}">
+                                                                                                        <span
+                                                                                                            class="nk-file-icon-type">
+                                                                                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
+                                                            <g>
+                                                                <path d="M50,61H22a6,6,0,0,1-6-6V22l9-11H50a6,6,0,0,1,6,6V55A6,6,0,0,1,50,61Z" style="fill:#599def"></path>
+                                                                <path d="M25,20.556A1.444,1.444,0,0,1,23.556,22H16l9-11h0Z" style="fill:#c2e1ff"></path>
+                                                                <rect x="27" y="31" width="18" height="2" rx="1" ry="1" style="fill:#fff"></rect>
+                                                                <rect x="27" y="36" width="18" height="2" rx="1" ry="1" style="fill:#fff"></rect>
+                                                                <rect x="27" y="41" width="18" height="2" rx="1" ry="1" style="fill:#fff"></rect>
+                                                                <rect x="27" y="46" width="12" height="2" rx="1" ry="1" style="fill:#fff"></rect>
+                                                            </g>
+                                                        </svg>
+                                                                                                        </span>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="nk-file-name">
+                                                                                                    <div
+                                                                                                        class="nk-file-name-text">
+                                                                                                        <a href="#"
+                                                                                                            class="title">{{document.name}}</a>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <ul class="nk-file-desc">
+                                                                                                <li class="date"><a href="{{document.url}}" target="_blank" class="btn btn-outline-light btn-xs"><em class="icon ni ni-eye"></em><span>Preview</span></a></li>
+                                                                                                <li class="size"><a href="{{document.url}}" class="btn btn-outline-light btn-xs"><em class="icon ni ni-download"></em><span>Download</span></a></li>
+
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {% endif %}
+                                                                                    {% endfor %}
+                                                                                    {% else %}
+                                                                                    <p>Employee has not uploaded any document </p>
+                                                                                    {% endif %}
+
+                                                                                </div>
+                                                                            </div><!-- .nk-files -->
+                                                                        </div><!-- .tab-pane -->
+
+                                                                    </div><!-- .tab-content -->
+                                                                </div>
+                                                            </div><!-- .nk-block -->
+
+
+                                                        </div><!-- .card-inner -->
+                                                        <!-- end documents -->
+
+                                                    </div>
+                                                    <div class="tab-pane" id="transactions">
+                                                        <!-- transactions -->
+
+                                                        <div class="card-inner">
+                                                            <div class="nk-block">
+
+                                                                <div class="nk-block nk-block-lg">
+
+                                                                    <div class="card card-bordered card-preview">
+                                                                        <table class="table table-orders">
+                                                                            <thead class="tb-odr-head">
+                                                                                <tr class="tb-odr-item">
+                                                                                    <th class="tb-odr-info">
+                                                                                        <span class="tb-odr-id">Order
+                                                                                            ID</span>
+                                                                                        </th>
+                                                                                    <th class="tb-odr-amount">
+                                                                                        <span class="tb-odr-total">Purpose</span>
+                                                                                        </th>
+                                                                                    <th class="tb-odr-status">
+                                                                                        <span class="tb-odr-total">Status</span>
+                                                                                        </th>
+                                                                                    <th class="tb-odr-action">&nbsp;
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="tb-odr-body">
+                                                                            {% if transactions %}
+                                                                            {% for transaction in transactions %}
+                                                                            <tr class="tb-odr-item">
+                                                                                    <td class="tb-odr-info">
+                                                                                        <span class="tb-odr-id"><a href="#">{{transaction.transaction}}</a></span>
+                                                                                    </td>
+                                                                                    <td class="tb-odr-amount">
+                                                                                        <span class="tb-odr-total">
+                                                                                            <span
+                                                                                                class="amount">{{transaction.narration}}</span>
+                                                                                        </span>
+                                                                                    </td>
+                                                                                <td>
+                                                                                <span class="{% if transaction.status == 'confirmed'%}text-success{% elif transaction.status == 'rejected' %}text-danger{% else%}text-warning{% endif %}">{{transaction.status}}</span>
+                                                                                    </td>
+                                                                                    <td class="tb-odr-action">
+                                                                                        <div class="dropdown">
+                                                                                            <a class="text-soft dropdown-toggle btn btn-icon btn-trigger"
+                                                                                                data-toggle="dropdown"
+                                                                                                data-offset="-8,0"
+                                                                                                aria-expanded="false"><em
+                                                                                                    class="icon ni ni-more-h"></em></a>
+                                                                                            <div
+                                                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                                                                <ul
+                                                                                                    class="link-list-plain">
+                                                                                                    {% if transaction.status == 'confirmed' %}
+                                                                                                    <li><a href="#"
+                                                                                                            class="text-danger">Disapprove</a>
+                                                                                                    </li>
+                                                                                                    {% else %}
+                                                                                                    <li><a href="#"
+                                                                                                            class="text-primary">Approved</a>
+                                                                                                    </li>
+                                                                                                    {% endif %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            {% endfor %}
+                                                                            {% else %}
+                                                                            <p>User has no record of transactions </p>
+                                                                            {% endif %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div><!-- .card-preview -->
+                                                                </div>
+
+                                                            </div><!-- .nk-block -->
+
+                                                        </div><!-- .card-inner -->
+                                                        <!-- end transactions -->
+                                                    </div>
+
+                                                    <div class="tab-pane" id="activities">
+                                                        <!-- activities -->
+
+                                                        <div class="card-inner">
+                                                            <div class="nk-block">
+
+                                                                <div class="nk-block nk-block-lg">
+
+                                                                    <div class="card card-bordered card-preview">
+                                                                        <table class="table table-ulogs">
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th class="tb-col-os"><span
+                                                                                            class="overline-title">Activities<span
+                                                                                                class="d-sm-none">/
+                                                                                                IP</span></span></th>
+                                                                                    <th class="tb-col-time"><span
+                                                                                            class="overline-title">Time</span>
+                                                                                    </th>
+                                                                                    <th class="tb-col-action"><span
+                                                                                            class="overline-title">&nbsp;</span>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            {% for each in activities %}
+                                                                                <tr>
+                                                                                    <td class="tb-col-os">{{each.note}}</td>
+                                                                                    <td class="tb-col-time"><span
+                                                                                            class="sub-text">{{each.created|date}} at {{each.created|time}}</span></td>
+                                                                                    <td class="tb-col-action"></td>
+                                                                                </tr>
+                                                                            {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div><!-- .card-preview -->
+                                                                </div>
+
+                                                            </div><!-- .nk-block -->
+
+                                                        </div><!-- .card-inner -->
+                                                        <!-- end activities -->
+                                                    </div>
+                                                </div>
+
+                                                <!-- end of nanbar items -->
+
+                                                <div class="card-inner">
+                                                    <div class="nk-divider divider md"></div>
+                                                    <div class="nk-block">
+                                                        <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                            <h5 class="title">Admin Note</h5>
+                                                            <button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#modalForm">+ Add Note</button>
+                                                        </div><!-- .nk-block-head -->
+                                                        <div class="bq-note">
+                                                            {% for each in admin_notes %}
+                                                            <div class="bq-note-item">
+                                                                <div class="bq-note-text">
+                                                                    <p>{{each.note}}</p>
+                                                                </div>
+                                                                <div class="bq-note-meta">
+                                                                    <span class="bq-note-added">Added on <span
+                                                                            class="date">{{each.created|date}}</span> at
+                                                                        <span class="time">{{each.created|time}}</span></span>
+                                                                    <span class="bq-note-sep sep">|</span>
+                                                                    <span class="bq-note-by">By
+                                                                        {% if each.writer.user == user %}
+                                                                        <span>You</span>
+                                                                    {% else %}
+                                                                        <span>{{each.writer.fullname|title}}</span>
+                                                                        {% endif %}
+                                                                    </span>
+                                                                    {% if each.writer.user == user or user.account_type == 'administrator' %}
+                                                                    <a onclick="delete_note('employee','{{each.id}}','{{applicant.uid}}')" class="link link-sm link-danger">Delete
+                                                                        Note</a>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div><!-- .bq-note-item -->
+                                                            {% endfor %}
+                                                        </div><!-- .bq-note -->
+                                                    </div><!-- .nk-block -->
+                                                </div>
+
+
+
+                                            </div><!-- .card-content -->
+                                            <div class="card-aside card-aside-right user-aside toggle-slide toggle-slide-right toggle-break-xxl"
+                                                data-content="userAside" data-toggle-screen="xxl"
+                                                data-toggle-overlay="true" data-toggle-body="true">
+                                                <div class="card-inner-group" data-simplebar>
+                                                    <div class="card-inner">
+                                                        <div class="user-card user-card-s2">
+                                                            <div class="user-avatar lg bg-primary">
+                                                                <img src="{{applicant.display_picture}}">
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <div class="badge badge-outline-light badge-pill ucap">{{applicant.gender}}</div>
+                                                                <h5>{{applicant.fullname}}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+
+
+                                                    <div class="card-inner">
+                                                        <div class="row text-center">
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{applied_jobs}}</span>
+                                                                    <span class="sub-text">Applied job</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{shortlists}}</span>
+                                                                    <span class="sub-text">Shortlisted</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{interviews}}</span>
+                                                                    <span class="sub-text">Interview</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                    <div class="card-inner">
+                                                        <h6 class="overline-title-alt mb-2">Additional</h6>
+                                                        <div class="row g-3">
+
+                                                            <div class="col-6">
+                                                                <span class="sub-text">Last Login:</span>
+                                                                <span>{{applicant.user.last_login}}</span>
+                                                            </div>
+
+                                                            <div class="col-6">
+                                                                <span class="sub-text">Register At:</span>
+                                                                <span>{{applicant.created}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+<!--                                                    <div class="card-inner">-->
+<!--                                                        <h6 class="overline-title-alt mb-3">Skills</h6>-->
+<!--                                                        <ul class="g-1">-->
+<!--                                                            <li class="btn-group">-->
+<!--                                                                <a class="btn btn-xs btn-dark " href="#">investor</a>-->
+<!--                                                                <a class="btn btn-xs btn-icon btn-dark " href="#"><em-->
+<!--                                                                        class="icon ni ni-dot"></em></a>-->
+<!--                                                            </li>-->
+<!--                                                            <li class="btn-group">-->
+<!--                                                                <a class="btn btn-xs btn-dark " href="#">support</a>-->
+<!--                                                                <a class="btn btn-xs btn-icon btn-dark " href="#"><em-->
+<!--                                                                        class="icon ni ni-dot"></em></a>-->
+<!--                                                            </li>-->
+<!--                                                            <li class="btn-group">-->
+<!--                                                                <a class="btn btn-xs btn-dark " href="#">another tag</a>-->
+<!--                                                                <a class="btn btn-xs btn-icon btn-dark " href="#"><em-->
+<!--                                                                        class="icon ni ni-dot"></em></a>-->
+<!--                                                            </li>-->
+<!--                                                        </ul>-->
+<!--                                                    </div>&lt;!&ndash; .card-inner &ndash;&gt;-->
+                                                </div><!-- .card-inner -->
+                                            </div><!-- .card-aside -->
+                                        </div><!-- .card-aside-wrap -->
+                                    </div><!-- .card -->
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="modal fade" tabindex="-1" id="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title ">Add Note</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'administrator:add_note' applicant.user.id%}" method="post" class="form-validate is-alter" id="approveform">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-primary"><sup>**</sup>Important!</span> Any user account approved has the privilege to use the application</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <!-- content @e -->
+<div class="modal fade" tabindex="-1" id="modalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body modal-body-lg text-center">
+                    <div class="nk-modal">
+                        <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni-cross bg-danger"></em>
+                        <h4 class="nk-modal-title">Delete Note!</h4>
+                        <div class="nk-modal-text">
+                            <p class="lead">Are you sure you want to Delete this Note</p>
+                            <p class="text-soft">The note will be completely deleted from system and cannot be reversed</p>
+                        </div>
+                        <div class="nk-modal-action mt-5">
+                            <a class="btn btn-lg btn-mw btn-outline-danger" id="proceed">Delete</a>
+                            <a href="#" class="btn btn-lg btn-mw btn-light" data-dismiss="modal">Return</a>
+                        </div>
+                    </div>
+                </div><!-- .modal-body -->
+            </div>
+        </div>
+    </div>
+{% endblock content%}
+{% block script %}
+<script>
+
+function delete_note(a,b,c){
+$('#modalDelete').modal();
+var mapObj = {
+   account:a,
+   nid:b,
+   uid:c
+};
+$("#proceed").attr("href", '{% url 'administrator:delete_note' 'account' 'nid' 'uid' %}'.replace(/account|nid|uid/gi, function(matched){return mapObj[matched]})); //Will set it
+}
+</script>
+{% endblock script %}

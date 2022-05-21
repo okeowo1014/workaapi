@@ -1,0 +1,101 @@
+{% load mytag %}
+{% load humanize %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="./images/favicon.png">
+    <!-- Page Title  -->
+    <title>Report | Workanetworks Limited</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="/static/adminsite/assets/css/dashlite.css?ver=2.4.0">
+    <link id="skin-default" rel="stylesheet" href="/static/adminsite/assets/css/theme.css?ver=2.4.0">
+</head>
+
+<body class="bg-white" onload="printPromot()">
+    <div class="nk-block">
+        <div class="invoice invoice-print">
+            <div class="invoice-wrap">
+<!--                <div class=" text-center" >-->
+<!--                    <img src="./images/worka/Colored Logo Files/Original Logo2.png" srcset="./images/worka/Colored Logo Files/Transparent Logo.png 2x" alt="" style="height: 120px;">-->
+<!--                </div>-->
+                                            <div class="invoice-head">
+                                                <div class="invoice-contact">
+                                                    <span class="overline-title">Report summary of</span>
+                                                    <div class="invoice-contact-info">
+                                                        <h4 class="title">Workanetworks</h4>
+                                                        <ul class="list-plain">
+                                                            <li><em class="icon ni ni-map-pin-fill"></em><span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
+                                                            <li><em class="icon ni ni-call-fill"></em><span>+012 8764 556</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="invoice-desc">
+                                                    <h3 class="title">Report</h3>
+                                                    <ul class="list-plain">
+                                                        <li class="invoice-id"><span>From</span>:<span>{{dated_from|convert_str_date|date}}</span></li>
+                                                        <li class="invoice-date"><span>To</span>:<span>{{dated_to|convert_str_date|date}}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div><!-- .invoice-head -->
+                <div class="invoice-bills">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="w-60">Description</th>
+                                                                <th>Count</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Registered Applicants</td>
+                                                                <td>{{applicants}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Registered Employers</td>
+                                                                <td>{{employers}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Posted Jobs</td>
+                                                                <td>{{jobs}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Submitted Applications</td>
+                                                                <td>{{applications}}</td>
+                                                            </tr>
+                                                         <tr>
+                                                                <td>Interviews</td>
+                                                                <td>{{interviews}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Employment Requests</td>
+                                                                <td>{{employment_requests}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Successfull Employments</td>
+                                                                <td>{{employments}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Applicants Employed</td>
+                                                                <td>{{employed}}</td>
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+
+                </div><!-- .invoice-bills -->
+            </div><!-- .invoice-wrap -->
+        </div><!-- .invoice -->
+    </div><!-- .nk-block -->
+    <script>
+        function printPromot() {
+            window.print();
+        }
+    </script>
+</body>

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'api',
     'rest_framework',
     'rest_framework.authtoken',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'interview',
     'chat',
     'automator',
+    'administrator',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +66,7 @@ ROOT_URLCONF = 'workaapi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,8 +82,12 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+
+            "hosts": ['redis://:Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE@redis-12218.c295.ap-southeast-1-1.ec2.cloud'
+                      '.redislabs.com:12218'],
+            # [('redis-12218.c295.ap-southeast-1-1.ec2.cloud.redislabs.com', '12218')],
         },
+        "password": 'Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE'
     },
 }
 WSGI_APPLICATION = 'workaapi.wsgi.application'
@@ -89,7 +95,7 @@ ASGI_APPLICATION = 'workaapi.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+# Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -117,7 +123,7 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'SERIALIZERS':
         {
@@ -162,21 +168,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-EMAIL_BACKEND = os.environ['EMAIL_BACKEND']
-EMAIL_HOST = os.environ['EMAIL_HOST']
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-DEFAULT_FROM_EMAIL = os.environ['EMAIL_HOST_USER']
+# EMAIL_BACKEND = os.environ['EMAIL_BACKEND']
+# EMAIL_HOST = os.environ['EMAIL_HOST']
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+# EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+# DEFAULT_FROM_EMAIL = os.environ['EMAIL_HOST_USER']
 EMAIL_PORT = 587
-PROTOCOL = "https"
-DOMAIN = "api.workanetworks.com"
+# PROTOCOL = "https"
+# DOMAIN = "api.workanetworks.com"
+PROTOCOL = "http"
+DOMAIN = "127.0.0.1:8000"

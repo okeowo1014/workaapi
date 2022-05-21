@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from chat.models import ChatChannels, ChatMessage
+from chat.models import ChatChannels, ChatMessage, DMChatMessage
 
 
 class ChatChannelMessageSerializer(serializers.ModelSerializer):
@@ -9,12 +9,32 @@ class ChatChannelMessageSerializer(serializers.ModelSerializer):
         fields = ['message', 'created']
 
 
+class DMChatChannelMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DMChatMessage
+        fields = ['content', 'timestamp']
+
+
 class ChatChannelSerializer(serializers.ModelSerializer):
     chat_channel = serializers.SerializerMethodField()
 
     def get_chat_channel(self, obj):
         return ChatChannelMessageSerializer(
             instance=obj.chat_channel.order_by('-created')[:1],
+            many=True
+        ).data
+
+    class Meta:
+        model = ChatChannels
+        fields = ['chat_type', 'chat_uid', 'chat_channel']
+
+
+class DMChatChannelSerializer(serializers.ModelSerializer):
+    chat_channel = serializers.SerializerMethodField()
+
+    def get_chat_channel(self, obj):
+        return DMChatChannelMessageSerializer(
+            instance=DMChatMessage.objects.filter(chatid=obj.chat_uid).order_by('-timestamp')[:1],
             many=True
         ).data
 
@@ -35,3 +55,8 @@ class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatChannels
         fields = ['chat_channel', 'sender_dp', 'name']
+
+
+
+
+

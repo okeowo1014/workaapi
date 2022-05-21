@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
-from django.db import models
 from django.utils import timezone
 
 
@@ -43,6 +42,7 @@ class User(AbstractBaseUser):
         ('employee', 'employee'),
         ('employer', 'employer'),
         ('staff', 'staff'),
+        ('administrator', 'administrator'),
     ]
     email = models.EmailField(
         verbose_name='email',
@@ -50,7 +50,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
 
-    account_type = models.CharField(max_length=8, choices=TYPE_OF_ACCOUNT)
+    account_type = models.CharField(max_length=13, choices=TYPE_OF_ACCOUNT)
     REQUIRED_FIELDS = ['account_type']
     USERNAME_FIELD = 'email'
     is_staff = models.BooleanField(default=False)
@@ -99,10 +99,11 @@ class Employee(models.Model):
     other_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=6, choices=GENDER)
     phone = models.CharField(max_length=255)
-    location = models.CharField(max_length=255, null=True)
+    location = models.CharField(max_length=255, default='')
     about = models.TextField(default='')
-    display_picture = models.URLField(default='https://api.workanetworks.com/static/media/display-picture/9/download'
-                                              '.png')
+    cv = models.URLField(default='')
+    date_of_birth = models.DateField(null=True, blank=True)
+    display_picture = models.URLField(default='https://api.workanetworks.com/media/display-picture/7/download.png')
     uid = models.CharField(max_length=12, unique=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -111,11 +112,32 @@ class Employee(models.Model):
 
     @property
     def fullname(self):
-        return '{} {}'.format(self.last_name, self.first_name)
+        return '{} {} {}'.format(self.last_name, self.first_name, self.other_name)
+
+
+class Staff(models.Model):
+    GENDER = [
+        ['male', 'male'],
+        ['female', 'female']
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='staff_admin')
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    gender = models.CharField(max_length=6, choices=GENDER)
+    phone = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, default='')
+    about = models.TextField(default='')
+    display_picture = models.URLField(default='https://api.workanetworks.com/media/display-picture/7/download.png')
+    uid = models.CharField(max_length=12, unique=True, null=True)
+    roles = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.email
 
     @property
     def fullname(self):
-        return '{} {} {}'.format(self.last_name, self.first_name, self.other_name)
+        return '{} {}'.format(self.last_name, self.first_name)
 
 
 class Skills(models.Model):
@@ -151,7 +173,7 @@ class Education(models.Model):
                      ('ond', 'National Diploma'),
                      ('technician', 'Technician'),
                      ('hnd', 'Higher National Diploma'),
-                     ('bscc', 'Bachelor of Science'),
+                     ('bsc', 'Bachelor of Science'),
                      ('bseng', 'Bachelor of Engineering'),
                      ('btech', 'Bachelor of Technology'),
                      ('bedu', 'Bachelor of Education')
@@ -183,29 +205,45 @@ class Availability(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
+class Plans(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=255, unique=True)
+    max = models.PositiveIntegerField()
+    note = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Employer(models.Model):
+    plan = models.ForeignKey(Plans, on_delete=models.CASCADE, related_name='registered_plan', default='20220322')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employer', null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
     company_name = models.CharField(max_length=255)
-    company_email = models.EmailField(null=True)
-    company_website = models.URLField(null=True)
+    company_email = models.EmailField(default='')
+    company_website = models.CharField(default='', max_length=255)
     position = models.CharField(max_length=255)
     business_scale = models.CharField(max_length=255)
     industry = models.CharField(max_length=255)
     uid = models.CharField(max_length=10, unique=True, null=True)
-    company_logo = models.URLField(default='https://api.workanetworks.com/static/media/company-logo/krp5oktnm2/306424'
-                                           '.png')
+    company_logo = models.URLField(default='https://api.workanetworks.com/media/company-logo/b32g3zvg2y/1024.png')
     company_profile = models.TextField(default='')
     reviews = models.DecimalField(max_digits=2, decimal_places=1, default=1.0)
     hired = models.PositiveIntegerField(default=0)
     location = models.CharField(max_length=255, default='')
     address = models.TextField(default='')
+    plan_active = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.company_name
+
+    @property
+    def fullname(self):
+        return '{} {}'.format(self.last_name, self.first_name)
 
 
 def joblogofile(instance, filename):
@@ -245,12 +283,16 @@ class JobsPost(models.Model):
     expiry = models.DateField(null=True)
     applications = models.PositiveIntegerField(default=0)
     access = models.CharField(choices=ACCESS, default='open', max_length=255)
+    currency = models.CharField(max_length=10, default='NGN')
     budget = models.CharField(max_length=255)
     is_remote = models.BooleanField(default=False)
     location = models.CharField(max_length=255)
     salary_type = models.CharField(max_length=10, choices=SALARY_TYPE)
     employer_logo = models.URLField(default='')
     message_channel = models.CharField(max_length=16, default='')
+    shortlist_date = models.DateTimeField(auto_now_add=True)
+    refusal_note = models.TextField(default='Not refused')
+    refusal_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -258,10 +300,13 @@ class ApplyJob(models.Model):
     JOB_STATUS = [['processing', 'processing'],
                   ['accept', 'accepted'],
                   ['shortlist', 'shortlisted'],
-                  ['decline', 'declined']]
+                  ['decline', 'declined'],
+                  ['suspend', 'suspend']]
     applicant = models.ForeignKey(to=Employee, on_delete=models.CASCADE, related_name='job_applicant')
-    job = models.ForeignKey(to=JobsPost, on_delete=models.CASCADE, related_name='job')
+    job = models.ForeignKey(to=JobsPost, on_delete=models.CASCADE, related_name='apply_job')
     status = models.CharField(choices=JOB_STATUS, default='processing', max_length=255)
+    note = models.TextField(default='')
+    is_new = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -273,20 +318,48 @@ class LikedJobs(models.Model):
     liker = models.ForeignKey(Employee, on_delete=models.CASCADE, related_name='liker')
     created = models.DateTimeField(auto_now_add=True)
 
-# class Interviews(models.Model):
-#     STATUS = [
-#         ['closed', 'closed'],
-#         ['open', 'open'],
-#         ['suspended', 'suspended']
-#     ]
-#     job = models.ForeignKey(JobsPost, on_delete=models.CASCADE, related_name='job')
-#     uid = models.CharField(max_length=6, null=True)
-#     title = models.CharField(max_length=255)
-#     note = models.TextField()
-#     status = models.CharField(max_length=255, choices=STATUS, default='open')
-#     start_date = models.DateField()
-#     end_date = models.DateField(null=True)
-#     timer = models.BooleanField(default=False)
-#     submission = models.IntegerField()
-#     timer_sec = models.IntegerField(null=True)
-#     created = models.DateField(auto_now_add=True)
+
+class DeletedUsers(models.Model):
+    email = models.EmailField()
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255)
+    account_type = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    about = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class Support(models.Model):
+    email = models.EmailField()
+    fullname = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    title = models.TextField()
+    message = models.TextField()
+    status = models.CharField(max_length=255, default='open')
+    read = models.BooleanField(max_length=255, default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+# api-key: bb3c1e.98f2c0ba5b76933dd5c3e47b01bbc87c
+
+class PlanUpgradeRecord(models.Model):
+    STATUS = [['pending', 'pending'],
+              ['reject', 'reject'],
+              ['confirmed', 'confirmed']]
+    plan = models.ForeignKey(Plans, on_delete=models.CASCADE, related_name='upgrade_record')
+    transaction = models.CharField(max_length=225)
+    status = models.CharField(choices=STATUS, default='pending', max_length=255)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class PaymentTrackRecord(models.Model):
+    STATUS = [['pending', 'pending'],
+              ['reject', 'reject'],
+              ['confirmed', 'confirmed']]
+    payer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payment_record')
+    payer_account = models.CharField(max_length=225)
+    transaction = models.CharField(max_length=225)
+    narration = models.CharField(max_length=255)
+    status = models.CharField(choices=STATUS, default='pending', max_length=255)
+    created = models.DateTimeField(auto_now_add=True)

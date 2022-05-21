@@ -105,7 +105,7 @@ class ViewObjEmployeeInterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ObjectiveInterviewAnswers
-        fields = ['question', 'answer']
+        fields = ['question', 'answer', 'status']
 
 
 class ViewTheoryEmployeeInterviewSerializer(serializers.ModelSerializer):
@@ -113,7 +113,7 @@ class ViewTheoryEmployeeInterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TheoryInterviewAnswers
-        fields = ['question', 'answer']
+        fields = ['question', 'answer','status']
 
 
 class IEmployeeSerializer(serializers.ModelSerializer):

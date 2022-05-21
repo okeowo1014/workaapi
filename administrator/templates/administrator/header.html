@@ -1,0 +1,278 @@
+{% load mytag %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="./images/favicon.png">
+    <!-- Page Title  -->
+    <title>User Cards | DashLite Admin Template</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="/static/adminsite/assets/css/dashlite.css?ver=2.4.0">
+    <link id="skin-default" rel="stylesheet" href="/static/adminsite/assets/css/theme.css?ver=2.4.0">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- sidebar @s -->
+            <div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu">
+                <div class="nk-sidebar-element nk-sidebar-head">
+                    <div class="nk-menu-trigger">
+                        <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
+                        <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                    </div>
+                    <div class="nk-sidebar-brand">
+                        <a href="html/index.html" class="logo-link nk-sidebar-logo">
+                            <img src="/static/adminsite/assets/images/logo.png" style="width: 200px;height: 120px;" srcset="/static/adminsite/assets/images/logo.png 2x" alt="logo">
+                        </a>
+                    </div>
+                </div><!-- .nk-sidebar-element -->
+                <div class="nk-sidebar-element nk-sidebar-body">
+                    <div class="nk-sidebar-content">
+                        <div class="nk-sidebar-menu" data-simplebar>
+                            <ul class="nk-menu">
+                                <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:index' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
+                                        <span class="nk-menu-text">Dashboard</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                {% if 'job' in request.user|get_staff_roles %}
+                                <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:jobs_list'%}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-briefcase"></em></span>
+                                        <span class="nk-menu-text">Posted Jobs</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                {% endif %}
+                                {% if 'interview' in request.user|get_staff_roles %}
+                                <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:interviews' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-question"></em></span>
+                                        <span class="nk-menu-text">Interviews</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                {% endif %}
+                                {% if 'applicant' in request.user|get_staff_roles %}
+                                <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:employee_list' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Applicants</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                {% endif %}
+                                {% if 'employer' in request.user|get_staff_roles %}
+                                 <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:employer_list' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-user-c"></em></span>
+                                        <span class="nk-menu-text">Employer</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if 'employment' in request.user|get_staff_roles %}
+                                 <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:employment_requests' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-question-alt"></em></span>
+                                        <span class="nk-menu-text">Employment Requests</span>
+                                    </a>
+                                </li>
+                                 <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:employments' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-award"></em></span>
+                                        <span class="nk-menu-text">Employments</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if 'payroll' in request.user|get_staff_roles %}
+                                  <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:payrolls' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-sign-kobo"></em></span>
+                                        <span class="nk-menu-text">Payrolls</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                 {% if 'payroll' in request.user|get_staff_roles %}
+                                  <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:payroll_histories' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-report-profit"></em></span>
+                                        <span class="nk-menu-text">Payrolls History</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                {% if 'staff' in request.user|get_staff_roles %}
+                                   <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:staff_list' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Staffs</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                 {% if 'support' in request.user|get_staff_roles %}
+                                   <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:support_messages' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-emails-fill"></em></span>
+                                        <span class="nk-menu-text">Support</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                                  {% if 'report' in request.user|get_staff_roles %}
+                                   <li class="nk-menu-item">
+                                    <a href="{% url 'administrator:report' %}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-calendar-check-fill"></em></span>
+                                        <span class="nk-menu-text">Report</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                            </ul><!-- .nk-menu -->
+                        </div><!-- .nk-sidebar-menu -->
+                    </div><!-- .nk-sidebar-content -->
+                </div><!-- .nk-sidebar-element -->
+            </div>
+            <!-- sidebar @e -->
+            <!-- wrap @s -->
+            <div class="nk-wrap ">
+                <!-- main header @s -->
+                <div class="nk-header nk-header-fixed is-dark">
+                    <div class="container-fluid">
+                        <div class="nk-header-wrap">
+                            <div class="nk-menu-trigger d-xl-none ml-n1">
+                                <a href="#" class="nk-nav-toggle nk-quick-nav-icon text-light" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                            </div>
+                            <div class="nk-header-brand d-xl-none"  style="padding:0px">
+                                <a href="html/index.html">
+                                    <img  src="/static/adminsite/assets/images/logo.png" style="height: 80px;" srcset="/static/adminsite/assets/images/logo.png 2x" alt="logo">
+                                </a>
+                            </div><!-- .nk-header-brand -->
+                            <div class="nk-header-news d-none d-xl-block">
+                                <div class="nk-news-list">
+                                    {% if messages %}
+                                    {% for message in messages%}
+                                    {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger alert-icon alert-dismissible">
+                                            <em class="icon ni ni-cross-circle"></em> <strong>Failed</strong>! {{message.message}} <button class="close" data-dismiss="alert"></button>
+                                        </div>
+                                    {% elif message.tags == 'info' %}
+                                     <div class="alert alert-secondary alert-icon alert-dismissible">
+                                            <em class="icon ni ni-info-i"></em> <strong>Info</strong>! {{message.message}} <button class="close" data-dismiss="alert"></button>
+                                        </div>
+                                    {% elif message.tags == 'warning' %}
+                                     <div class="alert alert-warning alert-icon alert-dismissible">
+                                            <em class="icon ni ni-alert"></em> <strong>Warning</strong>! {{message.message}}. <button class="close" data-dismiss="alert"></button>
+                                        </div>
+                                    {% else %}
+                                       <div class="alert alert-success alert-icon alert-dismissible">
+                                            <em class="icon ni ni-check-circle-cut"></em> <strong>Successful</strong>! {{message.message}} <button class="close" data-dismiss="alert"></button>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <a class="nk-news-item" href="#">
+                                        <div class="nk-news-icon">
+                                            <em class="icon ni ni-card-view"></em>
+                                        </div>
+                                        <div class="nk-news-text">
+                                            <p><span>WORKANETWORKS</span></p>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div><!-- .nk-header-news -->
+                            <div class="nk-header-tools">
+                                <ul class="nk-quick-nav">
+                                    <li class="dropdown user-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <div class="user-toggle">
+                                                <div class="user-avatar sm">
+                                                    <em class="icon ni ni-user-alt"></em>
+                                                </div>
+                                                <div class="user-info d-none d-md-block">
+                                                    <div class="user-status">Administrator</div>
+                                                    <div class="user-name dropdown-indicator">{{user|staff_profile}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right dropdown-menu-s1">
+                                            <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                                <div class="user-card">
+                                                    <div class="user-avatar">
+                                                        <span>AB</span>
+                                                    </div>
+                                                    <div class="user-info">
+                                                        <span class="lead-text">{{user|staff_profile}}</span>
+                                                        <span class="sub-text">{{user.email}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+<!--                                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>-->
+<!--                                                    <li><a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>-->
+<!--                                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>-->
+<!--                                                    -->
+                                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown-inner">
+                                                <ul class="link-list">
+                                                    <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li><!-- .dropdown -->
+
+                                </ul><!-- .nk-quick-nav -->
+                            </div><!-- .nk-header-tools -->
+                        </div><!-- .nk-header-wrap -->
+                    </div><!-- .container-fliud -->
+                </div>
+                <!-- main header @e -->
+                <!-- content @s -->
+                {% block content %}
+
+                {% endblock content %}
+
+                    </div>
+                </div>
+                <!-- content @e -->
+                <!-- footer @s -->
+<!--                <div class="nk-footer">-->
+<!--                    <div class="container-fluid">-->
+<!--                        <div class="nk-footer-wrap">-->
+<!--                            <div class="nk-footer-copyright"> &copy; 2020 DashLite. Template by <a href="https://softnio.com" target="_blank">Softnio</a>-->
+<!--                            </div>-->
+<!--                            <div class="nk-footer-links">-->
+<!--                                <ul class="nav nav-sm">-->
+<!--                                    <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>-->
+<!--                                    <li class="nav-item"><a class="nav-link" href="#">Help</a></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!-- footer @e -->
+            </div>
+            <!-- wrap @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- JavaScript -->
+    <script src="/static/adminsite/assets/js/bundle.js?ver=2.4.0"></script>
+    <script src="/static/adminsite/assets/js/scripts.js?ver=2.4.0"></script>
+<script src="/static/adminsite/assets/js/apps/chats.js?ver=2.4.0"></script>
+    <script src="/static/adminsite/assets/js/example-chart.js"></script>
+    <script src="/static/adminsite/assets/js/apps/messages.js?ver=2.4.0"></script>
+   {% block script %}
+
+                {% endblock script%}
+
+</body>
+
+</html>

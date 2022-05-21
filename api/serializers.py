@@ -4,7 +4,7 @@ from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
 
 from api.models import User, Skills, WorkExperience, Education, Language, Availability, Employee, Employer, JobsPost, \
-    ApplyJob, LikedJobs
+    ApplyJob, LikedJobs, Support, Plans
 
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -92,7 +92,7 @@ class JobsPostSerializer(serializers.ModelSerializer):
         model = JobsPost
         fields = ['employer', 'job_key', 'title', 'description', 'qualification', 'benefit', 'categories', 'job_type',
                   'budget', 'tags', 'is_remote', 'location', 'expiry', 'access', 'requirement',
-                  'applications']
+                  'applications', 'currency', 'salary_type']
 
 
 class JobsPostListSerializer(serializers.ModelSerializer):
@@ -100,7 +100,7 @@ class JobsPostListSerializer(serializers.ModelSerializer):
         model = JobsPost
         fields = ['job_key', 'title', 'description', 'qualification', 'benefit', 'categories', 'job_type',
                   'budget', 'tags', 'is_remote', 'location', 'expiry', 'access', 'requirement',
-                  'applications']
+                  'applications', 'currency', 'salary_type']
 
 
 class JobApplicationSerializer(serializers.ModelSerializer):
@@ -162,10 +162,18 @@ class MyJobSerializer(serializers.ModelSerializer):
         fields = ['id', 'job', 'status', 'created']
 
 
-class JobApplicantListSerializer(serializers.ModelSerializer):
+class JobApplicantDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['uid', 'first_name', 'last_name', 'other_name', 'about', 'gender', 'display_picture', 'location']
+
+
+class JobApplicantListSerializer(serializers.ModelSerializer):
+    applicant = JobApplicantDataSerializer(many=False)
+
+    class Meta:
+        model = ApplyJob
+        fields = ['applicant', 'is_new']
 
 
 class AboutEmployerSerializer(serializers.ModelSerializer):
@@ -178,7 +186,7 @@ class FetchJobSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobsPost
         fields = ['employer_logo', 'title', 'job_key', 'description', 'is_remote', 'job_type', 'location', 'budget',
-                  'salary_type']
+                  'salary_type', 'currency']
 
 
 class RelativeJobTagSerializer(serializers.Serializer):
@@ -192,7 +200,7 @@ class JobViewSerializer(serializers.ModelSerializer):
         model = JobsPost
         fields = ['employer', 'job_key', 'title', 'description', 'is_remote', 'job_type', 'location',
                   'budget', 'benefit', 'qualification', 'requirement', 'salary_type', 'categories', 'is_remote',
-                  'employer_logo', 'expiry']
+                  'employer_logo', 'expiry', 'currency']
 
 
 class EmployeeDetailsSerializer(serializers.ModelSerializer):
@@ -215,3 +223,15 @@ class LikedJobsSerializer(serializers.ModelSerializer):
     class Meta:
         model = LikedJobs
         fields = ['liker']
+
+
+class SupportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Support
+        fields = '__all__'
+
+
+class PlansSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plans
+        fields = '__all__'

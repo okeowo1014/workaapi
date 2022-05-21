@@ -1,0 +1,132 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load tz %}
+{% block content %}
+
+ <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="components-preview wide-md mx-auto">
+
+
+                                    <div class="nk-block nk-block-lg">
+                                        <div class="nk-block-head">
+                                            <div class="nk-block-head-content">
+                                                <h4 class="nk-block-title">{{interview.title}}</h4>
+                                                <div class="nk-block-des">
+                                                    <h6>List of applicant who submitted <span class="text-primary">{{interview.interview_type}}</span> interview for <span class="text-primary">{{interview.job.title}}</span> to <span class="text-primary">{{interview.job.employer.company_name}}</span>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card card-preview">
+                                            <div class="card-inner">
+                                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                    <thead>
+                                                        <tr class="nk-tb-item nk-tb-head">
+
+                                                            <th class="nk-tb-col"><span class="sub-text">Applicant</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Interview type</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Date Submitted</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
+                                                            <th class="nk-tb-col nk-tb-col-tools text-right">
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in submitted %}
+                                                    {% with each=interview|interview_data:item.uid %}
+                                                        <tr class="nk-tb-item">
+
+                                                            <td class="nk-tb-col">
+                                                                <div class="user-card">
+                                                                    <div class="user-info">
+                                                                        <span class="tb-lead">{{item.first_name}} {{item.last_name}}<span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                        <span>{{item.user.email}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+
+                                                            <td class="nk-tb-col tb-col-lg" data-order="Email Verified - Kyc Unverified">
+                                                                <ul class="list-status">
+                                                                    <li><em class="icon text-success ni ni-check-circle"></em><span>{{interview.interview_type}}</span></li>
+                                                                    {% if each.percent %}
+                                                                    <li><em class="icon ni ni-check-round-cut text-success"></em> <span>{{each.percent}}</span></li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span class="tb-date">{{each.s_date}}</span>                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span class="tb-status text-success">Summited</span>
+                                                            </td>
+                                                            <td class="nk-tb-col nk-tb-col-tools">
+                                                                <ul class="nk-tb-actions gx-1">
+
+                                                                    <li>
+                                                                        <div class="drodown">
+                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <ul class="link-list-opt no-bdr">
+                                                                                    <li><a href="{% url 'administrator:job_details' interview.job.job_key %}"><em class="icon ni ni-focus"></em><span>View Job</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:interview_answers' interview.interview_uid item.uid %}"><em class="icon ni ni-repeat"></em><span>View Answers</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:employee_details' item.uid %}"><em class="icon ni ni-user"></em><span>View Applicant</span></a></li>
+                                                                                    <li class="divider"></li>
+                                                                                    <li><a onclick="delete_answers('{{interview.interview_uid}}','{{item.uid}}')"><em class="icon ni ni-trash-alt"></em><span>Delete Answers</span></a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr><!-- .nk-tb-item  -->
+                                                    {% endwith %}
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- .card-preview -->
+                                    </div> <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+  <div class="modal fade" tabindex="-1" id="modalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body modal-body-lg text-center">
+                    <div class="nk-modal">
+                        <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni-cross bg-danger"></em>
+                        <h4 class="nk-modal-title">Delete Answer!</h4>
+                        <div class="nk-modal-text">
+                            <p class="lead">Are you sure you want to Delete this Answers</p>
+                            <p class="text-soft">The answers will be completely deleted from system and cannot be reversed</p>
+                        </div>
+                        <div class="nk-modal-action mt-5">
+                            <a class="btn btn-lg btn-mw btn-outline-danger" id="proceed">Proceed</a>
+                            <a href="#" class="btn btn-lg btn-mw btn-light" data-dismiss="modal">Return</a>
+                        </div>
+                    </div>
+                </div><!-- .modal-body -->
+            </div>
+        </div>
+    </div>
+{% endblock content%}
+{% block script %}
+<script>
+
+function delete_answers(a,b){
+$('#modalDelete').modal();
+var mapObj = {
+   interview:a,
+   uid:b,
+};
+$("#proceed").attr("href", '{% url 'administrator:delete_answers' 'interview' 'uid' %}'.replace(/interview|uid/gi, function(matched){return mapObj[matched]})); //Will set it
+}
+</script>
+{% endblock script %}

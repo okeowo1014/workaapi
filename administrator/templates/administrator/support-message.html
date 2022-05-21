@@ -1,0 +1,408 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% block content %}
+
+   <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-msg">
+                                    <div class="nk-msg-aside">
+                                        <div class="nk-msg-nav">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#tabItem1">Active</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem2">Closed</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabItem3">All</a>
+                                                </li>
+
+                                            </ul>
+
+                                        </div><!-- .nk-msg-nav -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tabItem1">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                    {% if actives %}
+        <ul class="nav link-list-menu m-0">
+            {% for item in actives %}
+            <li class="nav-item">
+                <a class="nav-link py-0" data-toggle="tab" href="#tab{{forloop.counter}}">
+                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %} m-0"  >
+                                                        <div class="nk-msg-info m-0" style="max-width:100%">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                </a>
+            </li>
+            {% endfor %}
+
+</ul>
+                                                    {% else%}
+                                                    <h4>No Active Message</h4>
+                                                    {% endif %}
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+                                            <div class="tab-pane" id="tabItem2">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                    {% if closed %}
+                                                            <ul class="nav link-list-menu m-0">
+            {% for item in closed %}
+            <li class="nav-item">
+                <a class="nav-link py-0" data-toggle="tab" href="#tab-closed{{forloop.counter}}">
+                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %} m-0"  >
+                                                        <div class="nk-msg-info m-0" style="max-width:100%">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                </a>
+            </li>
+            {% endfor %}
+
+</ul>
+                                                    {% else%}
+                                                    <h4>No closed Message</h4>
+                                                    {% endif %}
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+                                            <div class="tab-pane" id="tabItem3">
+                                                <div class="nk-msg-list" data-simplebar>
+                                                         <ul class="nav link-list-menu m-0">
+            {% for item in actives %}
+            <li class="nav-item">
+                <a class="nav-link py-0" data-toggle="tab" href="#tab{{forloop.counter}}">
+                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %} m-0"  >
+                                                        <div class="nk-msg-info m-0" style="max-width:100%">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                </a>
+            </li>
+            {% endfor %}
+                           {% for item in closed %}
+            <li class="nav-item">
+                <a class="nav-link py-0" data-toggle="tab" href="#tab-closed{{forloop.counter}}">
+                    <div class="nk-msg-item {% if not item.read %}is-unread {% endif %} m-0"  >
+                                                        <div class="nk-msg-info m-0" style="max-width:100%">
+                                                            <div class="nk-msg-from">
+                                                                <div class="nk-msg-sender">
+                                                                    <div class="name">{{item.fullname}}</div>
+                                                                </div>
+                                                                <div class="nk-msg-meta">
+                                                                    <div class="date">{{item.created|date}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="nk-msg-context">
+                                                                <div class="nk-msg-text">
+                                                                    <h6 class="title">{{item.title}}</h6>
+                                                                    <p>{{item.message|truncatewords:5}}</p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .nk-msg-item -->
+                </a>
+            </li>
+            {% endfor %}
+
+</ul>
+
+                                                </div><!-- .nk-msg-list -->
+                                            </div>
+
+                                        </div>
+
+                                    </div><!-- .nk-msg-aside -->
+                                    <div class="nk-msg-body bg-white profile-shown">
+                                        {% if actives or closed %}
+                                                <div class="tab-content">
+                                                    {% if not actives %}
+                                                    <div class="tab-pane active">
+                                                        <h3 class="center m-5"> Click on message to view</h3>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% for item in actives %}
+            <div class="tab-pane {% if forloop.counter == 1%}active{% endif %}" id="tab{{forloop.counter}}">
+                 <div class="nk-msg-head">
+                                            <h4 class="title d-none d-lg-block">{{item.title}}</h4>
+                                            <div class="nk-msg-head-meta">
+                                                <div class="d-none d-lg-block">
+                                                    <ul class="nk-msg-tags">
+                                                        <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-lg-none"><a href="#" class="btn btn-icon btn-trigger nk-msg-hide ml-n1"><em class="icon ni ni-arrow-left"></em></a></div>
+                                                <ul class="nk-msg-actions">
+                                                    {% if item.status == 'open' %}
+                                                    <li><button class="btn btn-dim btn-sm btn-outline-light toggle-message" id="{{item.id}}"><em class="icon ni ni-check"></em><span>Mark as Closed</span></button></li>
+                                                    {% else %}
+                                                    <li><button class="btn btn-dim btn-sm btn-outline-success toggle-message" id="{{item.id}}"><em class="icon ni ni-check"></em><span>Re-open</span></button></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                            <a class="nk-msg-profile-toggle profile-toggle active"><em class="icon ni ni-arrow-left"></em></a>
+                                        </div><!-- .nk-msg-head -->
+                                        <div class="nk-msg-reply nk-reply" data-simplebar>
+                                            <div class="nk-msg-head py-4 d-lg-none">
+                                                <h4 class="title">{{item.title}}</h4>
+                                                <ul class="nk-msg-tags">
+                                                    <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nk-reply-item">
+                                                <div class="nk-reply-header">
+                                                    <div class="user-card">
+                                                        <div class="user-name">{{item.fullname|title}}</div>
+                                                    </div>
+                                                    <div class="date-time">14 Jan, 2020</div>
+                                                </div>
+                                                <div class="nk-reply-body">
+                                                    <div class="nk-reply-entry entry">
+                                                        <p>{{item.message}}</p>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .nk-reply-item -->
+
+                                        </div><!-- .nk-reply -->
+                                        <div class="nk-msg-profile visible" data-simplebar>
+                                            {% with each=item.email|get_support_sender%}
+                                            <div class="card">
+                                                <div class="card-inner-group">
+                                                    <div class="card-inner">
+                                                        <div class="user-card">
+                                                            <div class="user-info">
+
+                                                                <h5>{% if each.registered %}{{each.fullname}}{% else %}{{item.email}}{% endif %}</h5>
+                                                                <span class="sub-text">{% if each.registered %}{{each.account_type}}{% else %}Anonymous User{% endif %}</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                    {% if each.registered %}
+                                                    <div class="card-inner">
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">User Information</h6>
+                                                            <ul class="user-contacts">
+                                                                <li>
+                                                                    <em class="icon ni ni-mail"></em><span>{{item.email}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-call"></em><span>{{each.phone}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-map-pin"></em><span>{{each.location}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Additional</h6>
+                                                            <div class="row gx-1 gy-3">
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">joined: </span>
+                                                                    <span>{{each.created}}</span>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Last login:</span>
+                                                                    <span class="lead-text">{{each.last_login}}</span>
+                                                                </div>
+
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Email Confirmation:</span>
+                                                                    {% if each.status %}
+                                                                    <span class="lead-text text-success">Activated</span>
+                                                                    {% else %}
+                                                                    <span class="lead-text text-danger">Not Activated</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div><!-- .card-inner -->
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% endwith %}
+                                        </div><!-- .nk-msg-profile -->
+            </div>
+                                                    {% endfor %}
+                                                    {% for item in closed %}
+            <div class="tab-pane" id="tab-closed{{forloop.counter}}">
+                 <div class="nk-msg-head">
+                                            <h4 class="title d-none d-lg-block">{{item.title}}</h4>
+                                            <div class="nk-msg-head-meta">
+                                                <div class="d-none d-lg-block">
+                                                    <ul class="nk-msg-tags">
+                                                        <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="d-lg-none"><a href="#" class="btn btn-icon btn-trigger nk-msg-hide ml-n1"><em class="icon ni ni-arrow-left"></em></a></div>
+                                                <ul class="nk-msg-actions">
+                                                    {% if item.status == 'open' %}
+                                                    <li><button class="btn btn-dim btn-sm btn-outline-light toggle-message" id="{{item.id}}"><em class="icon ni ni-check"></em><span>Mark as Closed</span></button></li>
+                                                    {% else %}
+                                                    <li><button class="btn btn-dim btn-sm btn-outline-success toggle-message" id="{{item.id}}"><em class="icon ni ni-check"></em><span>Re-open</span></button></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                            <a href="#" class="nk-msg-profile-toggle profile-toggle active"><em class="icon ni ni-arrow-left"></em></a>
+                                        </div><!-- .nk-msg-head -->
+                                        <div class="nk-msg-reply nk-reply" data-simplebar>
+                                            <div class="nk-msg-head py-4 d-lg-none">
+                                                <h4 class="title">{{item.title}}</h4>
+                                                <ul class="nk-msg-tags">
+                                                    <li><span class="label-tag"><em class="icon ni ni-flag-fill"></em> <span>Technical Problem</span></span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="nk-reply-item">
+                                                <div class="nk-reply-header">
+                                                    <div class="user-card">
+                                                        <div class="user-name">{{item.fullname|title}}</div>
+                                                    </div>
+                                                    <div class="date-time">14 Jan, 2020</div>
+                                                </div>
+                                                <div class="nk-reply-body">
+                                                    <div class="nk-reply-entry entry">
+                                                        <p>{{item.message}}</p>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .nk-reply-item -->
+
+                                        </div><!-- .nk-reply -->
+                                        <div class="nk-msg-profile visible" data-simplebar>
+                                            {% with each=item.email|get_support_sender%}
+                                            <div class="card">
+                                                <div class="card-inner-group">
+                                                    <div class="card-inner">
+                                                        <div class="user-card">
+                                                            <div class="user-info">
+
+                                                                <h5>{% if each.registered %}{{each.fullname}}{% else %}{{item.email}}{% endif %}</h5>
+                                                                <span class="sub-text">{% if each.registered %}{{each.account_type}}{% else %}Anonymous User{% endif %}</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                    {% if each.registered %}
+                                                    <div class="card-inner">
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">User Information</h6>
+                                                            <ul class="user-contacts">
+                                                                <li>
+                                                                    <em class="icon ni ni-mail"></em><span>{{item.email}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-call"></em><span>{{each.phone}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-map-pin"></em><span>{{each.location}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Additional</h6>
+                                                            <div class="row gx-1 gy-3">
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">joined: </span>
+                                                                    <span>{{each.created}}</span>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Last login:</span>
+                                                                    <span class="lead-text">{{each.last_login}}</span>
+                                                                </div>
+
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Email Confirmation:</span>
+                                                                    {% if each.status %}
+                                                                    <span class="lead-text text-success">Activated</span>
+                                                                    {% else %}
+                                                                    <span class="lead-text text-danger">Not Activated</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div><!-- .card-inner -->
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% endwith %}
+                                        </div><!-- .nk-msg-profile -->
+            </div>
+                                                    {% endfor %}
+
+        </div>
+                                        {% else %}
+                                        <h4>No Messages</h4>
+                                        {% endif %}
+                                    </div><!-- .nk-msg-body -->
+                                </div><!-- .nk-msg -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- content @e -->
+{% endblock content%}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+  $(".toggle-message").click(function(){
+  tid=this.id
+$.ajax({
+  url: "{% url 'administrator:toggle_support_message' 'fg' %}".replace(/fg/, tid),
+  data: {},
+  success: $(this).hide(),
+});
+});
+});
+</script>
+{% endblock script%}

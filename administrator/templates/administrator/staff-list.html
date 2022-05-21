@@ -1,0 +1,80 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% block content %}
+
+<!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="components-preview wide-md mx-auto">
+
+
+                                    <div class="nk-block nk-block-lg">
+                                        <div class="nk-block-head">
+                                            <div class="nk-block-head-content">
+                                                <h4 class="nk-block-title">Staffs List</h4>
+
+                                            </div>
+                                        </div>
+                                        <div class="card card-preview">
+                                            <div class="card-inner">
+                                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                    <thead>
+                                                        <tr class="nk-tb-item nk-tb-head">
+
+                                                            <th class="nk-tb-col"><span class="sub-text">Name</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Phone Number</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Roles</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Date Added</span></th>
+                                                            <th class="nk-tb-col nk-tb-col-tools text-right">
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for each in items %}
+                                                        <tr class="nk-tb-item">
+
+                                                            <td class="nk-tb-col">
+                                                                <div class="user-card">
+                                                                    <div class="user-info">
+                                                                        <span class="tb-lead">{{each.fullname}}<span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                        <span>{{each.user.email}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg text-wrap">
+                                                                <span class="tb-amount">{{each.phone}}</span>
+                                                            </td>
+
+                                                            <td class="nk-tb-col tb-col-lg text-wrap" data-order="Email Verified - Kyc Unverified">
+                                                                <ul class="list-status">
+                                                                    {% for each in each.roles|get_roles %}
+                                                                    <li><span class="badge badge-xs badge-dark mb-1">{{each}}</span></li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span class="">{{each.created}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col ">
+                                                              <a href="{% url 'administrator:update_staff' each.id %}" class="btn btn-outline-dark"><em class="icon ni ni-edit"></em><span>Update</span> </a>
+                                                            </td>
+                                                        </tr><!-- .nk-tb-item  -->
+                                                       {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- .card-preview -->
+                                    </div> <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+{% endblock content%}
+{% block script %}
+
+
+{% endblock script%}

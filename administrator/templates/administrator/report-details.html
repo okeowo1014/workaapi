@@ -1,0 +1,114 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load humanize %}
+{% block content %}
+
+    <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head">
+                                    <div class="nk-block-between g-3">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Report <strong class="text-primary small">Summary</strong></h3>
+                                            <div class="nk-block-des text-soft">
+                                                <ul class="list-inline">
+                                                    <li>Dated from: <span class="text-base">18 Dec, 2019 01:02 PM</span> To: <span class="text-base">18 Dec, 2019 01:02 PM</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="nk-block-head-content">
+                                            <a href="{% url 'administrator:report' %}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                            <a href="{% url 'administrator:report' %}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                        </div>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="invoice">
+                                        <div class="invoice-action">
+                                            <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="{% url 'administrator:print_report' dated_from dated_to %}" target="_blank"><em class="icon ni ni-printer-fill"></em></a>
+                                        </div><!-- .invoice-actions -->
+                                        <div class="invoice-wrap">
+<!--                                            <div class="invoice-brand text-center">-->
+<!--                                                <img src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="">-->
+<!--                                            </div>-->
+                                            <div class="invoice-head">
+                                                <div class="invoice-contact">
+                                                    <span class="overline-title">Report summary of</span>
+                                                    <div class="invoice-contact-info">
+                                                        <h4 class="title">Workanetworks</h4>
+                                                        <ul class="list-plain">
+                                                            <li><em class="icon ni ni-map-pin-fill"></em><span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
+                                                            <li><em class="icon ni ni-call-fill"></em><span>+012 8764 556</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="invoice-desc">
+                                                    <h3 class="title">Report</h3>
+                                                    <ul class="list-plain">
+                                                        <li class="invoice-id"><span>From</span>:<span>{{dated_from|convert_str_date|date}}</span></li>
+                                                        <li class="invoice-date"><span>To</span>:<span>{{dated_to|convert_str_date|date}}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div><!-- .invoice-head -->
+                                            <div class="invoice-bills">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="w-60">Description</th>
+                                                                <th>Count</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Registered Applicants</td>
+                                                                <td>{{applicants}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Registered Employers</td>
+                                                                <td>{{employers}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Posted Jobs</td>
+                                                                <td>{{jobs}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Submitted Applications</td>
+                                                                <td>{{applications}}</td>
+                                                            </tr>
+                                                         <tr>
+                                                                <td>Interviews</td>
+                                                                <td>{{interviews}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Employment Requests</td>
+                                                                <td>{{employment_requests}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Successfull Employments</td>
+                                                                <td>{{employments}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Applicants Employed</td>
+                                                                <td>{{employed}}</td>
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div><!-- .invoice-bills -->
+                                        </div><!-- .invoice-wrap -->
+                                    </div><!-- .invoice -->
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+{% endblock content%}
+{% block script %}
+
+
+{% endblock script%}

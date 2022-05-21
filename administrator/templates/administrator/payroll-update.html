@@ -1,0 +1,367 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% block content %}
+
+<!-- content @s -->
+                <div class="nk-content ">
+                    <div class="nk-block nk-block-middle wide-md">
+                        <div class="card card-bordered">
+                            <div class="card-inner card-inner-lg">
+                                <div class="nk-block-head">
+                                    <div class="nk-block-head-content">
+                                        <h4 class="nk-block-title">Update Payroll of <span>{{item.employee.fullname|title}}</span></h4>
+                                    </div>
+                                </div>
+                                <form action="{% url 'administrator:update_payroll' item.payment_key %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row g-4">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="full-name-1">Company Name</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="full-name-1" value="{{item.job.employer.company_name|title}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="email-address-1">Job title</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="email-address-1" value="{{item.job.title}}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="full-name-1">Total Payments</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="full-name" name="charges" value="{{item.payment}}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                         <div class="col-lg-4">
+                                             <div class="form-group">
+                                                                        <label class="form-label">Currency</label>
+                                                                        <div class="form-control-wrap">
+                                                                            <select class="form-select"
+                                                                                    data-search="on" name="currency">
+
+                                                                                <option value="NGN" {% if item.currency == 'NGN' %} selected="selected"{% endif %}>Nigerian Naira
+                                                                                </option>
+                                                                                <option value="USD" {% if item.currency == 'USD' %} selected="selected"{% endif %}>US Dollar</option>
+                                                                                <option value="CAD" {% if item.currency == 'CAD' %} selected="selected"{% endif %}>Canadian Dollar
+                                                                                </option>
+                                                                                <option value="EUR" {% if item.currency == 'EUR' %} selected="selected"{% endif %}>Euro</option>
+                                                                                <option value="AED" {% if item.currency == 'AED' %} selected="selected"{% endif %}>United Arab Emirates
+                                                                                    Dirham
+                                                                                </option>
+                                                                                <option value="AFN" {% if item.currency == 'AFN' %} selected="selected"{% endif %}>Afghan Afghani
+                                                                                </option>
+                                                                                <option value="ALL" {% if item.currency == 'ALL' %} selected="selected"{% endif %}>Albanian Lek
+                                                                                </option>
+                                                                                <option value="AMD" {% if item.currency == 'AMD' %} selected="selected"{% endif %}>Armenian Dram
+                                                                                </option>
+                                                                                <option value="ARS" {% if item.currency == 'ARS' %} selected="selected"{% endif %}>Argentine Peso
+                                                                                </option>
+                                                                                <option value="AUD" {% if item.currency == 'AUD' %} selected="selected"{% endif %}>Australian Dollar
+                                                                                </option>
+                                                                                <option value="AZN" {% if item.currency == 'AZN' %} selected="selected"{% endif %}>Azerbaijani Manat
+                                                                                </option>
+                                                                                <option value="BAM" {% if item.currency == 'BAM' %} selected="selected"{% endif %}>Bosnia-Herzegovina
+                                                                                    Convertible Mark
+                                                                                </option>
+                                                                                <option value="BDT" {% if item.currency == 'BDT' %} selected="selected"{% endif %}>Bangladeshi Taka
+                                                                                </option>
+                                                                                <option value="BGN" {% if item.currency == 'BGN' %} selected="selected"{% endif %}>Bulgarian Lev
+                                                                                </option>
+                                                                                <option value="BHD" {% if item.currency == 'BHD' %} selected="selected"{% endif %}>Bahraini Dinar
+                                                                                </option>
+                                                                                <option value="BIF" {% if item.currency == 'BIF' %} selected="selected"{% endif %}>Burundian Franc
+                                                                                </option>
+                                                                                <option value="BND" {% if item.currency == 'BND' %} selected="selected"{% endif %}>Brunei Dollar
+                                                                                </option>
+                                                                                <option value="BOB" {% if item.currency == 'BOB' %} selected="selected"{% endif %}>Bolivian Boliviano
+                                                                                </option>
+                                                                                <option value="BRL" {% if item.currency == 'BRL' %} selected="selected"{% endif %}>Brazilian Real
+                                                                                </option>
+                                                                                <option value="BWP" {% if item.currency == 'BWP' %} selected="selected"{% endif %}>Botswanan Pula
+                                                                                </option>
+                                                                                <option value="BYN" {% if item.currency == 'BYN' %} selected="selected"{% endif %}>Belarusian Ruble
+                                                                                </option>
+                                                                                <option value="BZD" {% if item.currency == 'BZD' %} selected="selected"{% endif %}>Belize Dollar
+                                                                                </option>
+                                                                                <option value="CDF" {% if item.currency == 'CDF' %} selected="selected"{% endif %}>Congolese Franc
+                                                                                </option>
+                                                                                <option value="CHF" {% if item.currency == 'CHF' %} selected="selected"{% endif %}>Swiss Franc</option>
+                                                                                <option value="CLP" {% if item.currency == 'CLP' %} selected="selected"{% endif %}>Chilean Peso
+                                                                                </option>
+                                                                                <option value="CNY" {% if item.currency == 'CNY' %} selected="selected"{% endif %}>Chinese Yuan
+                                                                                </option>
+                                                                                <option value="COP" {% if item.currency == 'COP' %} selected="selected"{% endif %}>Colombian Peso
+                                                                                </option>
+                                                                                <option value="CRC" {% if item.currency == 'CRC' %} selected="selected"{% endif %}>Costa Rican Colón
+                                                                                </option>
+                                                                                <option value="CVE" {% if item.currency == 'CVE' %} selected="selected"{% endif %}>Cape Verdean
+                                                                                    Escudo
+                                                                                </option>
+                                                                                <option value="CZK" {% if item.currency == 'CZK' %} selected="selected"{% endif %}>Czech Republic
+                                                                                    Koruna
+                                                                                </option>
+                                                                                <option value="DJF" {% if item.currency == 'DJF' %} selected="selected"{% endif %}>Djiboutian Franc
+                                                                                </option>
+                                                                                <option value="DKK" {% if item.currency == 'DKK' %} selected="selected"{% endif %}>Danish Krone
+                                                                                </option>
+                                                                                <option value="DOP" {% if item.currency == 'DOP' %} selected="selected"{% endif %}>Dominican Peso
+                                                                                </option>
+                                                                                <option value="DZD" {% if item.currency == 'DZD' %} selected="selected"{% endif %}>Algerian Dinar
+                                                                                </option>
+                                                                                <option value="EEK" {% if item.currency == 'EEK' %} selected="selected"{% endif %}>Estonian Kroon
+                                                                                </option>
+                                                                                <option value="EGP" {% if item.currency == 'EGP' %} selected="selected"{% endif %}>Egyptian Pound
+                                                                                </option>
+                                                                                <option value="ERN" {% if item.currency == 'ERN' %} selected="selected"{% endif %}>Eritrean Nakfa
+                                                                                </option>
+                                                                                <option value="ETB" {% if item.currency == 'ETB' %} selected="selected"{% endif %}>Ethiopian Birr
+                                                                                </option>
+                                                                                <option value="GBP" {% if item.currency == 'GBP' %} selected="selected"{% endif %}>British Pound
+                                                                                    Sterling
+                                                                                </option>
+                                                                                <option value="GEL" {% if item.currency == 'GEL' %} selected="selected"{% endif %}>Georgian Lari
+                                                                                </option>
+                                                                                <option value="GHS" {% if item.currency == 'GHS' %} selected="selected"{% endif %}>Ghanaian Cedi
+                                                                                </option>
+                                                                                <option value="GNF" {% if item.currency == 'GNF' %} selected="selected"{% endif %}>Guinean Franc
+                                                                                </option>
+                                                                                <option value="GTQ" {% if item.currency == 'GTQ' %} selected="selected"{% endif %}>Guatemalan Quetzal
+                                                                                </option>
+                                                                                <option value="HKD" {% if item.currency == 'HKD' %} selected="selected"{% endif %}>Hong Kong Dollar
+                                                                                </option>
+                                                                                <option value="HNL" {% if item.currency == 'HNL' %} selected="selected"{% endif %}>Honduran Lempira
+                                                                                </option>
+                                                                                <option value="HRK" {% if item.currency == 'HRK' %} selected="selected"{% endif %}>Croatian Kuna
+                                                                                </option>
+                                                                                <option value="HUF" {% if item.currency == 'HUF' %} selected="selected"{% endif %}>Hungarian Forint
+                                                                                </option>
+                                                                                <option value="IDR" {% if item.currency == 'IDR' %} selected="selected"{% endif %}>Indonesian Rupiah
+                                                                                </option>
+                                                                                <option value="ILS" {% if item.currency == 'ILS' %} selected="selected"{% endif %}>Israeli New Sheqel
+                                                                                </option>
+                                                                                <option value="INR" {% if item.currency == 'INR' %} selected="selected"{% endif %}>Indian Rupee
+                                                                                </option>
+                                                                                <option value="IQD" {% if item.currency == 'IQD' %} selected="selected"{% endif %}>Iraqi Dinar</option>
+                                                                                <option value="IRR" {% if item.currency == 'IRR' %} selected="selected"{% endif %}>Iranian Rial
+                                                                                </option>
+                                                                                <option value="ISK" {% if item.currency == 'ISK' %} selected="selected"{% endif %}>Icelandic Króna
+                                                                                </option>
+                                                                                <option value="JMD" {% if item.currency == 'JMD' %} selected="selected"{% endif %}>Jamaican Dollar
+                                                                                </option>
+                                                                                <option value="JOD" {% if item.currency == 'JOD' %} selected="selected"{% endif %}>Jordanian Dinar
+                                                                                </option>
+                                                                                <option value="JPY" {% if item.currency == 'JPY' %} selected="selected"{% endif %}>Japanese Yen
+                                                                                </option>
+                                                                                <option value="KES" {% if item.currency == 'KES' %} selected="selected"{% endif %}>Kenyan Shilling
+                                                                                </option>
+                                                                                <option value="KHR" {% if item.currency == 'KHR' %} selected="selected"{% endif %}>Cambodian Riel
+                                                                                </option>
+                                                                                <option value="KMF" {% if item.currency == 'KMF' %} selected="selected"{% endif %}>Comorian Franc
+                                                                                </option>
+                                                                                <option value="KRW" {% if item.currency == 'KRW' %} selected="selected"{% endif %}>South Korean Won
+                                                                                </option>
+                                                                                <option value="KWD" {% if item.currency == 'KWD' %} selected="selected"{% endif %}>Kuwaiti Dinar
+                                                                                </option>
+                                                                                <option value="KZT" {% if item.currency == 'KZT' %} selected="selected"{% endif %}>Kazakhstani Tenge
+                                                                                </option>
+                                                                                <option value="LBP" {% if item.currency == 'LBP' %} selected="selected"{% endif %}>Lebanese Pound
+                                                                                </option>
+                                                                                <option value="LKR" {% if item.currency == 'LKR' %} selected="selected"{% endif %}>Sri Lankan Rupee
+                                                                                </option>
+                                                                                <option value="LTL" {% if item.currency == 'LTL' %} selected="selected"{% endif %}>Lithuanian Litas
+                                                                                </option>
+                                                                                <option value="LVL" {% if item.currency == 'LVL' %} selected="selected"{% endif %}>Latvian Lats
+                                                                                </option>
+                                                                                <option value="LYD" {% if item.currency == 'LYD' %} selected="selected"{% endif %}>Libyan Dinar
+                                                                                </option>
+                                                                                <option value="MAD" {% if item.currency == 'MAD' %} selected="selected"{% endif %}>Moroccan Dirham
+                                                                                </option>
+                                                                                <option value="MDL" {% if item.currency == 'MDL' %} selected="selected"{% endif %}>Moldovan Leu
+                                                                                </option>
+                                                                                <option value="MGA" {% if item.currency == 'MGA' %} selected="selected"{% endif %}>Malagasy Ariary
+                                                                                </option>
+                                                                                <option value="MKD" {% if item.currency == 'MKD' %} selected="selected"{% endif %}>Macedonian Denar
+                                                                                </option>
+                                                                                <option value="MMK" {% if item.currency == 'MMK' %} selected="selected"{% endif %}>Myanma Kyat</option>
+                                                                                <option value="MOP" {% if item.currency == 'MOP' %} selected="selected"{% endif %}>Macanese Pataca
+                                                                                </option>
+                                                                                <option value="MUR" {% if item.currency == 'MUR' %} selected="selected"{% endif %}>Mauritian Rupee
+                                                                                </option>
+                                                                                <option value="MXN" {% if item.currency == 'MXN' %} selected="selected"{% endif %}>Mexican Peso
+                                                                                </option>
+                                                                                <option value="MYR" {% if item.currency == 'MYR' %} selected="selected"{% endif %}>Malaysian Ringgit
+                                                                                </option>
+                                                                                <option value="MZN" {% if item.currency == 'MZN' %} selected="selected"{% endif %}>Mozambican Metical
+                                                                                </option>
+                                                                                <option value="NAD" {% if item.currency == 'NAD' %} selected="selected"{% endif %}>Namibian Dollar
+                                                                                </option>
+                                                                                <option value="NGN" {% if item.currency == 'NGN' %} selected="selected"{% endif %}>Nigerian Naira
+                                                                                </option>
+                                                                                <option value="NIO" {% if item.currency == 'NIO' %} selected="selected"{% endif %}>Nicaraguan Córdoba
+                                                                                </option>
+                                                                                <option value="NOK" {% if item.currency == 'NOK' %} selected="selected"{% endif %}>Norwegian Krone
+                                                                                </option>
+                                                                                <option value="NPR" {% if item.currency == 'NPR' %} selected="selected"{% endif %}>Nepalese Rupee
+                                                                                </option>
+                                                                                <option value="NZD" {% if item.currency == 'NZD' %} selected="selected"{% endif %}>New Zealand Dollar
+                                                                                </option>
+                                                                                <option value="OMR" {% if item.currency == 'OMR' %} selected="selected"{% endif %}>Omani Rial</option>
+                                                                                <option value="PAB" {% if item.currency == 'PAB' %} selected="selected"{% endif %}>Panamanian Balboa
+                                                                                </option>
+                                                                                <option value="PEN" {% if item.currency == 'PEN' %} selected="selected"{% endif %}>Peruvian Nuevo Sol
+                                                                                </option>
+                                                                                <option value="PHP" {% if item.currency == 'PHP' %} selected="selected"{% endif %}>Philippine Peso
+                                                                                </option>
+                                                                                <option value="PKR" {% if item.currency == 'PKR' %} selected="selected"{% endif %}>Pakistani Rupee
+                                                                                </option>
+                                                                                <option value="PLN" {% if item.currency == 'PLN' %} selected="selected"{% endif %}>Polish Zloty
+                                                                                </option>
+                                                                                <option value="PYG" {% if item.currency == 'PYG' %} selected="selected"{% endif %}>Paraguayan Guarani
+                                                                                </option>
+                                                                                <option value="QAR" {% if item.currency == 'QAR' %} selected="selected"{% endif %}>Qatari Rial</option>
+                                                                                <option value="RON" {% if item.currency == 'RON' %} selected="selected"{% endif %}>Romanian Leu
+                                                                                </option>
+                                                                                <option value="RSD" {% if item.currency == 'RSD' %} selected="selected"{% endif %}>Serbian Dinar
+                                                                                </option>
+                                                                                <option value="RUB" {% if item.currency == 'RUB' %} selected="selected"{% endif %}>Russian Ruble
+                                                                                </option>
+                                                                                <option value="RWF" {% if item.currency == 'RWF' %} selected="selected"{% endif %}>Rwandan Franc
+                                                                                </option>
+                                                                                <option value="SAR" {% if item.currency == 'SAR' %} selected="selected"{% endif %}>Saudi Riyal</option>
+                                                                                <option value="SDG" {% if item.currency == 'SDG' %} selected="selected"{% endif %}>Sudanese Pound
+                                                                                </option>
+                                                                                <option value="SEK" {% if item.currency == 'SEK' %} selected="selected"{% endif %}>Swedish Krona
+                                                                                </option>
+                                                                                <option value="SGD" {% if item.currency == 'SGD' %} selected="selected"{% endif %}>Singapore Dollar
+                                                                                </option>
+                                                                                <option value="SOS" {% if item.currency == 'SOS' %} selected="selected"{% endif %}>Somali Shilling
+                                                                                </option>
+                                                                                <option value="SYP" {% if item.currency == 'SYP' %} selected="selected"{% endif %}>Syrian Pound
+                                                                                </option>
+                                                                                <option value="THB" {% if item.currency == 'THB' %} selected="selected"{% endif %}>Thai Baht</option>
+                                                                                <option value="TND" {% if item.currency == 'TND' %} selected="selected"{% endif %}>Tunisian Dinar
+                                                                                </option>
+                                                                                <option value="TOP" {% if item.currency == 'TOP' %} selected="selected"{% endif %}>Tongan Paʻanga
+                                                                                </option>
+                                                                                <option value="TRY" {% if item.currency == 'TRY' %} selected="selected"{% endif %}>Turkish Lira
+                                                                                </option>
+                                                                                <option value="TTD" {% if item.currency == 'TTD' %} selected="selected"{% endif %}>Trinidad and Tobago
+                                                                                    Dollar
+                                                                                </option>
+                                                                                <option value="TWD" {% if item.currency == 'TWD' %} selected="selected"{% endif %}>New Taiwan Dollar
+                                                                                </option>
+                                                                                <option value="TZS" {% if item.currency == 'TZS' %} selected="selected"{% endif %}>Tanzanian Shilling
+                                                                                </option>
+                                                                                <option value="UAH" {% if item.currency == 'UAH' %} selected="selected"{% endif %}>Ukrainian Hryvnia
+                                                                                </option>
+                                                                                <option value="UGX" {% if item.currency == 'UGX' %} selected="selected"{% endif %}>Ugandan Shilling
+                                                                                </option>
+                                                                                <option value="UYU" {% if item.currency == 'UYU' %} selected="selected"{% endif %}>Uruguayan Peso
+                                                                                </option>
+                                                                                <option value="UZS" {% if item.currency == 'UZS' %} selected="selected"{% endif %}>Uzbekistan Som
+                                                                                </option>
+                                                                                <option value="VEF" {% if item.currency == 'VEF' %} selected="selected"{% endif %}>Venezuelan Bolívar
+                                                                                </option>
+                                                                                <option value="VND" {% if item.currency == 'VND' %} selected="selected"{% endif %}>Vietnamese Dong
+                                                                                </option>
+                                                                                <option value="XAF" {% if item.currency == 'XAF' %} selected="selected"{% endif %}>CFA Franc BEAC
+                                                                                </option>
+                                                                                <option value="XOF" {% if item.currency == 'XOF' %} selected="selected"{% endif %}>CFA Franc BCEAO
+                                                                                </option>
+                                                                                <option value="YER" {% if item.currency == 'YER' %} selected="selected"{% endif %}>Yemeni Rial</option>
+                                                                                <option value="ZAR" {% if item.currency == 'ZAR' %} selected="selected"{% endif %}>South African Rand
+                                                                                </option>
+                                                                                <option value="ZMK" {% if item.currency == 'ZMK' %} selected="selected"{% endif %}>Zambian Kwacha
+                                                                                </option>
+                                                                                <option value="ZWL" {% if item.currency == 'ZWL' %} selected="selected"{% endif %}>Zimbabwean Dollar
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="phone-no-1">Salary</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" required="required" class="form-control" id="phone-no-1" name="salary" value="{{item.salary}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="phone-no-1">Monthly charge</label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" required="required" class="form-control" id="monthly" name="monthly_charge" value="{{item.monthly_charge}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Resumption Date</label>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-icon form-icon-left">
+                                                        <em class="icon ni ni-calendar"></em>
+                                                    </div>
+                                                    <input type="text" required="required" class="form-control date-picker" data-date-format="yyyy-mm-dd" name="resumption" value="{{item.resumption|date:'Y-m-d'}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Job Status</label>
+                                                <div class="form-control-wrap">
+                                                    <select class="form-select" name="job_status">
+                                                        <option value="{{item.job_status}}"selected="selected">{{item.job_status|title}}</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="suspended">Suspend</option>
+                                                        <option value="cancelled">Cancel</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Payment Status</label>
+                                                <div class="form-control-wrap">
+                                                    <select class="form-select" name="payment_status">
+                                                        <option value="{{item.payment_status}}"selected="selected">{{item.payment_status|title}}</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="suspended">Suspend</option>
+                                                        <option value="completed">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        </div>
+
+                                        <div class="row-col-12 g-4">
+                                            <div class="form-group center">
+                                                <button class="btn btn-lg btn-primary " type="submit">Update</button>
+                                            </div>
+                                        </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- wrap @e -->
+{% endblock content%}
+  {% block script %}
+<script src="/static/adminsite/assets/js/libs/dual-listbox.js"></script>
+    <script src="/static/adminsite/assets/js/example-custom2.js"></script>
+
+                {% endblock script%}

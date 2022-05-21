@@ -1,0 +1,256 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load humanize%}
+{% block content %}
+
+ <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Workanetworks Administrator Dashboard</h3>
+                                            <div class="nk-block-des text-soft">
+                                                <p>Recent Reviews</p>
+                                            </div>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+
+                                            </div><!-- .toggle-wrap -->
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="row g-gs">
+                                        <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="subtitle">Job Post</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="job post"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> {{job_count}}
+                                                        </span>
+                                                        <!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
+                                                    </div>
+                                                    <div class="invest-data">
+                                                        <div class="invest-data-amount g-2">
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Month</div>
+                                                                <div class="amount">{{job_month}} </div>
+                                                            </div>
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Week</div>
+                                                                <div class="amount">{{job_week}} </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invest-data-ck">
+                                                            <canvas class="iv-data-chart" id="totalDeposit"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-md-3">
+                                            <div class="card card-bordered card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="subtitle">Interviews</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="interviews"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> {{interviews_count}}
+                                                        </span>
+                                                        <!-- <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span> -->
+                                                    </div>
+                                                    <div class="invest-data">
+                                                        <div class="invest-data-amount g-2">
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Month</div>
+                                                                <div class="amount">{{interview_month}}</div>
+                                                            </div>
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Week</div>
+                                                                <div class="amount">{{interview_week}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invest-data-ck">
+                                                            <canvas class="iv-data-chart" id="totalWithdraw"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-md-3">
+                                            <div class="card card-bordered  card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="subtitle">Applicants</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Applicants"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> {{employees_count}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="invest-data">
+                                                        <div class="invest-data-amount g-2">
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Month</div>
+                                                                <div class="amount">{{employee_month}}</div>
+                                                            </div>
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Week</div>
+                                                                <div class="amount">{{employee_week}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invest-data-ck">
+                                                            <canvas class="iv-data-chart" id="totalBalance"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-md-3">
+                                            <div class="card card-bordered  card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group align-start mb-0">
+                                                        <div class="card-title">
+                                                            <h6 class="subtitle">Employers</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <em class="card-hint icon ni ni-help-fill" data-toggle="tooltip" data-placement="left" title="Employers"></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-amount">
+                                                        <span class="amount"> {{employers_count}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="invest-data">
+                                                        <div class="invest-data-amount g-2">
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Month</div>
+                                                                <div class="amount">{{employer_month}}</div>
+                                                            </div>
+                                                            <div class="invest-data-history">
+                                                                <div class="title">This Week</div>
+                                                                <div class="amount">{{employer_week}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="invest-data-ck">
+                                                            <canvas class="iv-data-chart" id="totalBalance"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+
+                                    </div>
+                                </div>
+                                <div class="nk-block">
+                                    <div class="row gy-5">
+                                        <div class="col-lg-8">
+                                                <div class="card card-bordered">
+                                                    <div class="card-inner">
+
+                                                                    <div class="card-head">
+                                                                        <h6 class="title">Metrics</h6>
+                                                                    </div>
+                                                                    <div class="nk-ck-sm"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                                                        <canvas class="bar-chart chartjs-render-monitor" id="barChartMultiple" width="1002" height="360" style="display: block; width: 501px; height: 180px;"></canvas>
+                                                                    </div>
+                                                </div>
+                                            </div><!-- .col -->
+                                        <div class="card card-bordered">
+                                                <div class="card-inner border-bottom">
+                                                    <div class="card-title-group">
+                                                        <div class="card-title">
+                                                            <h6 class="title">Recent Activities</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <ul class="card-tools-nav">
+                                                                <li class="active"><a href="#"><span>All</span></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <ul class="nk-tb-list">
+                                                    {% if admin_logs %}
+                                                    {% for each in admin_logs %}
+                                                    <li class="nk-tb-item">
+                                                        <div class="nk-tb-col">
+                                                            <div class="label">{{each.user|get_fullname}} {{each.note}}.</div>
+                                                            <span class="time">{{each.created|naturaltime}}</span>
+                                                        </div>
+                                                        <div class="nk-tb-col text-right">
+                                                            <span class="badge badge-dim badge-sm badge-outline-success row-cols-lg-2">{{each.log}}</span>
+                                                        </div>
+
+                                                    </li>
+                                                    {% endfor %}
+                                                    {% else %}
+                                                    <p class="center">No recent activities yet</p>
+                                                    {% endif %}
+                                                </ul>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-lg-4">
+                                            <div class="card card-bordered">
+                                                <div class="card-inner border-bottom">
+                                                    <div class="card-title-group">
+                                                        <div class="card-title">
+                                                            <h6 class="title">Recent Job Activities</h6>
+                                                        </div>
+                                                        <div class="card-tools">
+                                                            <ul class="card-tools-nav">
+
+                                                                <li class="active">
+                                                                    <a href="#"><span>All</span></a></li>
+
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ul class="nk-activity">
+                                                     {% if job_logs %}
+                                                    {% for each in job_logs %}
+                                                    <li class="nk-activity-item">
+                                                        <div class="nk-activity-data">
+                                                            <div class="label">Microsoft posted a job title, Software Development.</div>
+                                                            <span class="time">2 hours ago</span>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
+                                                     {% else %}
+                                                                <p class="center">No recent job activities</p>
+                                                                {% endif %}
+
+                                                </ul>
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                    </div><!-- .row -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+{% endblock content%}

@@ -1,0 +1,49 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load humanize %}
+{% block content %}
+
+  <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="nk-block nk-block-middle wide-xs">
+
+                        <div class="card card-bordered">
+                            <div class="card-inner card-inner-lg">
+                                <div class="nk-block-head">
+                                    <div class="nk-block-head-content">
+                                        <h4 class="nk-block-title">Report Summary</h4>
+
+                                    </div>
+                                </div>
+                                <form action="{% url 'administrator:report' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+    <label class="form-label">Summary report (select date ranges)</label>
+    <div class="form-control-wrap">
+        <div class="input-daterange date-picker-range input-group" id="datepicker">
+            <input type="text" class="form-control"  data-date-format="yyyy-mm-dd" placeholder="from" name="from"/>
+            <div class="input-group-addon">TO</div>
+            <input type="text" class="form-control" data-date-format="yyyy-mm-dd" placeholder="to" name="to"/>
+        </div>
+    </div>
+</div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Get Report</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- wrap @e -->
+{% endblock content%}
+{% block script %}
+ <script>
+     $('#datepicker').datepicker({
+    format: 'yyyy-mm-dd',
+});
+ </script>
+
+{% endblock script%}

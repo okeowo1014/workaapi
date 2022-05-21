@@ -1,0 +1,304 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% block content %}
+
+ <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between g-3">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Title: <strong
+                                                    class="text-primary small">{{job.title}}</strong></h3>
+                                            <div class="nk-block-des text-soft">
+                                                <ul class="list-inline">
+                                                    <li>job ID: <span class="text-base">{{job.job_key}}</span></li>
+                                                    <li>Posted At: <span class="text-base">{{job.created}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="nk-block-head-content">
+                                            <a href="{% url 'administrator:jobs_list' %}"
+                                                class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em
+                                                    class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                            <a href="html/kyc-list-regular.html"
+                                                class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em
+                                                    class="icon ni ni-arrow-left"></em></a>
+                                        </div>
+                                    </div>
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="row gy-5">
+                                        <div class="col-lg-8">
+                                            <div class="nk-block-head">
+                                                <div class="nk-block-head-content">
+                                                    <h5 class="nk-block-title title">Job Information</h5>
+                                                </div>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="card card-bordered">
+                                                <div class="card-inner ">
+                                                    <div class="entry">
+                                                        <h4>Job Description</h4>
+                                                        <p>{{job.description|linebreaks}}</p>
+
+                                                        <h4>Requirements</h4>
+                                                        <ul class="list list-sm list-checked">
+                                                            {% for item in requirements %}
+                                                            <li>{{item}}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                        <h4>Benefits</h4>
+                                                        <ul class="list list-sm list-checked">
+                                                            {% if benefits %}
+                                                            {% for item in benefits %}
+                                                            <li>{{item}}</li>
+                                                            {% endfor %}
+                                                            {% else %}
+                                                            <li>No benefit</li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        <h4>Qualifications</h4>
+
+                                                        <ul class="list list-sm list-checked">
+                                                            {% if qualifications %}
+                                                            {% for item in qualifications %}
+                                                            <li>{{item}}</li>
+                                                            {% endfor %}
+                                                            {% else %}
+                                                            <li>No qualifications </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        <h4>Category</h4>
+                                                        <p>{{job.categories}}</p>
+
+
+                                                    </div>
+                                                </div><!-- .card-inner -->
+                                            </div>
+                                        </div><!-- .col -->
+                                        <div class="col-lg-4">
+                                            <div class="nk-block-head">
+                                                <div class="nk-block-head-content">
+                                                    <h5 class="nk-block-title title">Employer Details</h5>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-inner-group">
+                                                    <div class="card-inner">
+                                                        <div class="user-card user-card-s2 mb-2">
+                                                            <div class="user-avatar md bg-primary">
+                                                                <img src="{{job.employer.company_logo}}">
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <h5>{{job.employer.company_name}}</h5>
+                                                                <span class="sub-text">{{job.employer.user.email}}</span>
+                                                            </div>
+                                                            <div class="user-card-menu dropdown">
+                                                                <a href="#"
+                                                                    class="btn btn-icon btn-sm btn-trigger dropdown-toggle"
+                                                                    data-toggle="dropdown"><em
+                                                                        class="icon ni ni-more-h"></em></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <ul class="link-list-opt no-bdr">
+                                                                        <li><a href="{% url 'administrator:employer_details' job.employer.uid %}"><em
+                                                                                    class="icon ni ni-eye"></em><span>View Employer</span></a></li>
+                                                                        <li><a href="{% url 'administrator:job_applications' job.job_key %}"><em
+                                                                                    class="icon ni ni-repeat"></em><span>View Applications</span></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center g-1">
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+
+                                                                    <span class="amount">{{job.applications}}</span>
+                                                                    <span class="sub-text"><a
+                                                                            href="#">Applications</a></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{job.job_key|get_shortlist}}</span>
+                                                                    <span class="sub-text"><a
+                                                                            href="#">Shortlisted</a></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{job.job_key|get_interviewed|default:0}}</span>
+                                                                    <span class="sub-text"><a
+                                                                            href="#">Interviewed</a></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                    <div class="card-inner">
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Job Info</h6>
+                                                            <ul class="user-contacts">
+                                                                <li class="">
+                                                                    {% if job.currency == 'NGN' %}
+                                                                     <em class="icon ni ni-sign-kobo"></em>
+                                                                    {% else %}
+                                                                     <em class="icon ni ni-sign-dollar"></em>
+                                                                    {% endif %}
+                                                                   <strong><span class="currency currency-usd">{{job.currency}}</span> <span class="amount"> {{job.budget}} /{{job.salary_type}}</strong></span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-briefcase"></em><span>{{job.job_type}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-map-pin"></em><span>{{job.location}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Employer Information
+                                                            </h6>
+                                                            <ul class="user-contacts">
+                                                                <li>
+                                                                    <em
+                                                                        class="icon ni ni-mail"></em><span>{{job.employer.user.email}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em
+                                                                        class="icon ni ni-call"></em><span>{{job.employer.phone}}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <em class="icon ni ni-map-pin"></em><span>{{job.employer.location}}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Additional</h6>
+                                                            <div class="row gx-1 gy-3">
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Remote: </span>
+                                                                    {% if job.is_remote %}
+                                                                    <span class="badge badge-outline-dark"><em
+                                                                            class="icon ni ni-map-pin"></em>
+                                                                        remote</span>
+                                                                    {% else %}
+                                                                    <span>Not Remote</span>
+                                                                    {% endif %}
+                                                                </div>
+
+                                                                <div class="col-6">
+                                                                    <span class="sub-text">Status:</span>
+                                                                    {% if job.access == 'open' %}
+                                                            <span class="badge badge-success">Open</span>
+                                                            {% elif job.access == 'closed' %}
+                                                            <span class="badge badge-danger">Closed</span>
+                                                            {% elif job.access == 'pending' %}
+                                                            <span class="badge badge-warning">Pending</span>
+                                                            {% elif job.access == 'deleted' %}
+                                                            <span class="badge badge-danger">Deleted</span>
+                                                            {% else %}
+                                                            <span class="badge badge-primary">{{job.access}}</span>
+                                                            {% endif %}
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="aside-wg">
+                                                            <h6 class="overline-title-alt mb-2">Assigned Account</h6>
+                                                            {% if job.access == 'pending' %}
+                                                            <button  class="btn btn-primary" data-toggle="modal" data-target="#modalApproveForm">Approve</button>
+                                                            {% else %}
+                                                            <button  class="btn btn-outline-danger" data-toggle="modal" data-target="#modalForm">Declined</button>
+                                                            {% endif %}
+
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div>
+                                            </div>
+                                        </div><!-- .col -->
+                                    </div><!-- .row -->
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="modal fade" tabindex="-1" id="modalForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Decline Jobs</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'administrator:decline_job' job.job_key %}" method="post" class="form-validate is-alter">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="form-label" for="email-address">Job title</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="email-address" value="{{job.title}}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone-no">Company Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="phone-no" value="{{job.employer.company_name}}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default-textarea" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-danger">Decline Job Post</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-danger"><sup>**</sup>Important!</span> Any job declined will be suspended and won't be available for application untill approved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" tabindex="-1" id="modalApproveForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success">Approve Job</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'administrator:approve_job' job.job_key %}" method="post" class="form-validate is-alter">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="form-label" for="email-address">Job title</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="emails" value="{{job.title}}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone-no">Company Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="phone" value="{{job.employer.company_name}}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control no-resize" id="default" required="required" name="note" placeholder="Write your comment"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-outline-success">Approve Job Post</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text"><span class="text-primary"><sup>**</sup>Important!</span> Any job Approved will be restored to the platform and applicable</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <!-- content @e -->
+{% endblock content%}

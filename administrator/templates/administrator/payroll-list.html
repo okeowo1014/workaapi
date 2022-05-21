@@ -1,0 +1,111 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load humanize %}
+{% block content %}
+
+<!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class=" wide-lg mx-auto">
+
+                                    <div class="nk-block nk-block-lg">
+                                        <div class="nk-block-head">
+                                            <div class="nk-block-head-content">
+                                                <h4 class="nk-block-title">Employees Payroll</h4>
+                                                <div class="nk-block-des">
+                                                    <p>List of employees and their payroll data</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card card-preview">
+                                            <div class="card-inner">
+                                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                                    <thead>
+                                                        <tr class="nk-tb-item nk-tb-head">
+                                                            <th class="nk-tb-col"><span class="sub-text">User</span></th>
+                                                            <th class="nk-tb-col tb-col-mb"><span class="sub-text">Salary</span></th>
+                                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Monthly Charge</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">total -- paid</span></th>
+                                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Resumption</span></th>
+                                                            <th class="nk-tb-col tb-col-lg text-wrap"><span class="sub-text">last updated</span></th>
+                                                            <th class="nk-tb-col tb-col-md text-wrap"><span class="sub-text">Job Status</span></th>
+                                                            <th class="nk-tb-col tb-col-md text-wrap"><span class="sub-text">payment status</span></th>
+                                                            <th class="nk-tb-col nk-tb-col-tools text-right">
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for each in items %}
+                                                        <tr>
+                                                        <td class="nk-tb-col">
+                                                                <div class="user-card">
+                                                                    <div class="user-info">
+                                                                        <span class="tb-lead">{{each.employee.fullname}} <span class="dot dot-success d-md-none ml-1"></span></span>
+                                                                        <span>{{each.job.employer.company_name}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-mb">
+                                                                <span class="tb-amount"><span class="currency">{{each.currency}}</span> {{each.salary|intcomma}} </span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span>{{each.monthly_charge|intcomma}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg" data-order="Email Verified - Kyc Unverified">
+                                                                <ul class="list-status">
+                                                                    <li> <span>{{each.payment|intcomma}}</span></li>
+                                                                    <li><span>{{each.balance|intcomma}}</span></li>
+                                                                </ul>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg">
+                                                                <span>{{each.resumption}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-lg">
+                                                                <span>{{each.last_update|date}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span class="tb-status text-success">{{each.job_status}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col tb-col-md">
+                                                                <span class="tb-status text-success">{{each.payment_status}}</span>
+                                                            </td>
+                                                            <td class="nk-tb-col nk-tb-col-tools">
+                                                                <ul class="nk-tb-actions gx-1">
+
+                                                                    <li>
+                                                                        <div class="drodown">
+                                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <ul class="link-list-opt no-bdr">
+                                                                                    <li><a href="{% url 'administrator:job_details' each.job.job_key %}"><em class="icon ni ni-briefcase"></em><span>View Job</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:employee_details' each.employee.uid %}"><em class="icon ni ni-eye"></em><span>View employee details</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:payroll_payments' each.payment_key %}"><em class="icon ni ni-repeat"></em><span>view Transaction</span></a></li>
+                                                                                    <li><a href="{% url 'administrator:make_payroll_payment' each.payment_key%}"><em class="icon ni ni-activity-round"></em><span>Add Payment</span></a></li>
+                                                                                    <li class="divider"></li>
+                                                                                    <li><a href="{% url 'administrator:update_payroll' each.payment_key%}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr><!-- .nk-tb-item  -->
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div><!-- .card-preview -->
+                                    </div> <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+{% endblock content%}
+{% block script %}
+
+
+{% endblock script%}

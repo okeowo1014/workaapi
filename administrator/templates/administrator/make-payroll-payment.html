@@ -1,0 +1,73 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load humanize %}
+{% block content %}
+
+  <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="nk-block nk-block-middle wide-xs">
+
+                        <div class="card card-bordered">
+                            <div class="card-inner card-inner-lg">
+                                <div class="nk-block-head">
+                                    <div class="nk-block-head-content">
+                                        <h4 class="nk-block-title">Add payment</h4>
+
+                                    </div>
+                                </div>
+                                <form action="{% url 'administrator:make_payroll_payment' item.payment_key%}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group card-bordered">
+                                                <ul class="data-list is-compact">
+                                                    <li class="data-item">
+                                                        <div class="data-col">
+                                                            <div class="data-label">Full name</div>
+                                                            <div class="data-value">{{item.employee.fullname}}</div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="data-item">
+                                                        <div class="data-col">
+                                                            <div class="data-label">Email Address</div>
+                                                            <div class="data-value">{{item.employee.user.email}}</div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="data-item">
+                                                        <div class="data-col">
+                                                            <div class="data-label">Total Charges</div>
+                                                            <div class="data-value">
+                                                                <span>{{item.currency}}</span> {{item.payment|intcomma}}</div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="data-item">
+                                                        <div class="data-col">
+                                                            <div class="data-label">Paid Amount</div>
+                                                            <div class="data-value"><span>{{item.currency}}</span> {{item.balance|intcomma}}</div>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="amount">Amount</label>
+                                        <input type="text" class="form-control form-control-lg" id="amount" name="amount" placeholder="Enter Amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="narration">Transaction invoice number</label>
+                                        <input type="text" class="form-control form-control-lg" id="narration" name="narration"  placeholder="Enter Transaction details">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Add payment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- wrap @e -->
+{% endblock content%}
+{% block script %}
+
+
+{% endblock script%}

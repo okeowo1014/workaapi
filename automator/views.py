@@ -6,7 +6,7 @@ from notifier.views import EmailNotifier
 
 # pip install - r requirements.txt
 
-default_admin = User.objects.get(email='admin@worka.com')
+default_admin = User.objects.get(email='admin@workanetworks.com')
 default_admin_dp = "https://api.workanetworks.com/static/media/company-logo/xlhpinxndm/play_store_512.png"
 
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from notifier.models import DirectEmployeeNotifier, DirectEmployerNotifier, HotEmployeeAlert, UserNotificationSettings
+from notifier.models import DirectEmployeeNotifier, DirectEmployerNotifier, HotEmployeeAlert, UserNotificationSettings, \
+    HotEmployerAlert
 
 
 class EmployeeNotificationSerializer(serializers.ModelSerializer):
@@ -18,6 +19,12 @@ class EmployerNotificationSerializer(serializers.ModelSerializer):
 class HotEmployeeAlertSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotEmployeeAlert
+        fields = ['message', 'link']
+
+
+class HotEmployerAlertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HotEmployerAlert
         fields = ['message', 'link']
 
 

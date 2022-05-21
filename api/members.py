@@ -16,3 +16,5 @@ Industries = ["Retail", "Sales", "Healthcare", "Public services", "administratio
 RelativeJobTags = ['Chief Technology Officer', 'CTO', 'R&D', 'Architect', 'Mobile', 'Software', 'Information', 'IT',
                    'IT', 'IT', 'Programmer', 'Developer', 'Coder', 'Objective C', 'Swift', 'Java', 'iOS', 'Android',
                    'Cordova', 'Phonegap', 'React Native', 'Ionic', 'Xcode', 'Quality', 'QA', 'Webmaster']
+
+

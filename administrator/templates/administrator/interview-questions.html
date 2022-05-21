@@ -1,0 +1,164 @@
+{% extends "administrator/header.html" %}
+{% load mytag %}
+{% load tz %}
+{% block content %}
+
+  <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                    <div class="nk-chat-body profile-shown">
+                                        <div class="nk-chat-head">
+                                            <ul class="nk-chat-head-info">
+                                                <li class="nk-chat-body-close">
+                                                    <a href="#" class="btn btn-icon btn-trigger nk-chat-hide ml-n1"><em class="icon ni ni-arrow-left"></em></a>
+                                                </li>
+                                                <li class="nk-chat-head-user">
+                                                    <div class="user-card">
+                                                        <div class="user-avatar bg-purple">
+                                                            <img src="{{applicant.display_picture}}">
+                                                        </div>
+                                                        <div class="user-info">
+                                                            <div class="lead-text">{{interview.title}}</div>
+                                                            <div class="sub-text"><span class="d-none d-sm-inline">{{interview.interview_type}}</span></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="nk-chat-head-tools">
+                                                <li class="mr-n1 mr-md-n2"><a href="#" class="btn btn-icon btn-trigger text-primary chat-profile-toggle"><em class="icon ni ni-alert-circle-fill"></em></a></li>
+                                            </ul>
+                                        </div><!-- .nk-chat-head -->
+                                        <div class="nk-chat-panel" data-simplebar>
+                                            {% if items.obj_interview_question %}
+                                            {% for item in items.obj_interview_question %}
+                                            <div class="chat is-you">
+                                                <div class="chat-avatar">
+                                                    <div class="user-avatar bg-purple">
+                                                        <span>{{forloop.counter}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <div class="chat-bubbles">
+
+                                                        <div class="chat-bubble">
+                                                            <div class="chat-msg"> {{item.question}}</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .chat -->
+                                            <div class="chat is-me">
+                                                <div class="chat-content">
+                                                    <div class="chat-bubbles">
+                                                        <div class="chat-bubble">
+                                                            <div class="chat-msg">
+                                                                <ul style="list-style-type:lower-alpha;">
+                                                                    {% for option in item.options|get_options%}
+                                                                <li>{{option}}</li>
+                                                                    {% endfor %}
+                                                            </ul>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="chat-meta">
+                                                            <li><em class="icon text-success ni ni-check-circle"></em> <span>{{item.answer |title}}</span></li>
+                                                    </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .chat -->
+                                            {% endfor %}
+                                            {% endif %}
+<!--                                            for theory-->
+                                                                                        {% if items.theory_interview_question %}
+                                            {% for item in items.theory_interview_question %}
+                                            <div class="chat is-you">
+                                                <div class="chat-avatar">
+                                                    <div class="user-avatar bg-purple">
+                                                        <span>{{forloop.counter}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="chat-content">
+                                                    <div class="chat-bubbles">
+
+                                                        <div class="chat-bubble">
+                                                            <div class="chat-msg"> {{item.question}}</div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- .chat -->
+<!--                                            <div class="chat is-me">-->
+<!--                                                <div class="chat-content">-->
+<!--                                                    <div class="chat-bubbles">-->
+<!--                                                        <div class="chat-bubble">-->
+<!--                                                            <div class="chat-msg"> {{item.answer}} </div>-->
+<!--                                                        </div>-->
+<!--                                                        {% if item.status %}-->
+<!--                                                        <ul class="chat-meta">-->
+<!--                                                        {% if item.status == 'correct' %}-->
+<!--                                                            <li><em class="icon text-success ni ni-check-circle"></em> <span>{{item.status}}</span></li>-->
+<!--                                                            {% else %}-->
+<!--                                                            <li><em class="icon text-danger ni ni-cross"></em> <span>{{item.status}}</span></li>-->
+<!--                                                            {% endif %}-->
+<!--                                                    </ul>-->
+<!--                                                        {% endif %}-->
+<!--                                                    </div>-->
+
+<!--                                                </div>-->
+<!--                                            </div>&lt;!&ndash; .chat &ndash;&gt;-->
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div><!-- .nk-chat-panel -->
+
+                                        <div class="nk-chat-profile visible" data-simplebar>
+                                            <div class="user-card user-card-s2 my-4">
+                                                <div class="user-avatar md bg-purple">
+                                                    <img src="{{interview.job.employer.company_logo}}">
+                                                </div>
+                                                <div class="user-info">
+                                                    <h5>{{interview.job.employer.company_name}}</h5>
+                                                    <span class="sub-text">{{interview.job.employer.fullname}}</span>
+                                                </div>
+                                                <div class="user-card-menu dropdown">
+                                                    <a href="#" class="btn btn-icon btn-sm btn-trigger dropdown-toggle" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <ul class="link-list-opt no-bdr">
+                                                            <li><a href="{% url 'administrator:job_details' interview.job.job_key %}"><em class="icon ni ni-eye"></em><span>View Job</span></a></li>
+                                                            <li><a href="{% url 'administrator:employer_details' interview.job.employer.uid %}"><em class="icon ni ni-eye"></em><span>View Employer</span></a></li>
+                                                            <li><a href="{% url 'administrator:interview_submitted' interview.interview_uid %}"><em class="icon ni ni-eye"></em><span>View Submissions</span></a></li>
+                                                            <li><a href="#" onclick="confirm('do you want to Suspend interview')"><em class="icon ni ni-na"></em><span>Suspend Interview</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-profile">
+                                                <div class="chat-profile-group">
+                                                    <a href="#" class="chat-profile-head" data-toggle="collapse" data-target="#chat-options">
+                                                        <h6 class="title overline-title">Options</h6>
+                                                        <span class="indicator-icon"><em class="icon ni ni-chevron-down"></em></span>
+                                                    </a>
+                                                    <div class="chat-profile-body collapse show" id="chat-options">
+                                                        <div class="chat-profile-body-inner">
+                                                            <ul class="chat-profile-options">
+                                                                <li><a class="chat-option-link" href="#"><em class="icon icon-circle bg-light ni ni-briefcase"></em><span class="lead-text">{{interview.job.title}}</span></a></li>
+                                                                <li><a class="chat-option-link " href="#"><em class="icon icon-circle bg-light ni ni-user-check"></em><span class="lead-text">{{interview.job.job_type}}</span></a></li>
+                                                                <li><a class="chat-option-link" href="#"><em class="icon icon-circle bg-light ni ni-sign-kobo"></em><span class="lead-text">{{interview.job.currency}} {{interview.job.budget}}/{{interview.job.salary_type}} </span></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .chat-profile-group -->
+                                              
+                                            </div> <!-- .chat-profile -->
+                                        </div><!-- .nk-chat-profile -->
+                                    </div><!-- .nk-chat-body -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content @e -->
+
+{% endblock content%}
