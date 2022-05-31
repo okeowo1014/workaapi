@@ -9,5 +9,5 @@ urlpatterns = [
     path('', index, name='index', ),
     path('<str:room_name>/<str:username>/', room, name='room'),
     path('get_chats_head/', get_chats_head, name='get_chats_head'),
-
+    path('<str:room_name>/admin/', room, name='room'),
 ]

@@ -35,6 +35,7 @@ from api.serializers import SkillsSerializer, WESerializer, EmployeeProfileSeria
     JobApplicantListSerializer, FetchJobSerializer, RelativeJobTagSerializer, JobsPostListSerializer, \
     EmployeeDetailsSerializer, SupportSerializer, PlansSerializer
 from automator.views import DefaultEmployeeSettings, DefaultEmployerSettings
+from chat.models import ChatChannels
 from chat.views import CreateMessageChannel, GetMessageChannel
 from interview.models import Interviews, EmploymentRequest
 from interview.serializers import ListInterviewSerializer
@@ -1185,8 +1186,6 @@ def planUpgrade(request, uid, plan, trans_id):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def payment_records(request, trans_id):
@@ -1195,3 +1194,9 @@ def payment_records(request, trans_id):
     adduserlog(request.user, 'make payment')
     addadminlog(request.user, 'payment', 'make payment, trans. id is {}'.format(trans_id))
     return Response({"response": "successfull"}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_channels_heads(request):
+    channel = ChatChannels.objects.all().values_list('chat_uid')
+    return channel

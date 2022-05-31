@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from chat.views import get_chats_head
 from .views import index, checkauth, add_work_experience, view_employeeprofile, \
     work_experience_details, view_work_experiences, add_skill, skill_details, view_skills, add_education, \
     education_details, view_educations, add_language, language_details, view_languages, add_availability, \

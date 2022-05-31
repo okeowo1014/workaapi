@@ -83,6 +83,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
 
+            # "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
             "hosts": ['redis://:Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE@redis-12218.c295.ap-southeast-1-1.ec2.cloud'
                       '.redislabs.com:12218'],
             # [('redis-12218.c295.ap-southeast-1-1.ec2.cloud.redislabs.com', '12218')],
@@ -102,7 +103,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'chatdb',
+#         'USER': 'chat',
+#         'PASSWORD': 'workachatconnect',
+#         'HOST': '143.198.135.120',
+#         'PORT': '5432',
+#     }
+# }
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
 

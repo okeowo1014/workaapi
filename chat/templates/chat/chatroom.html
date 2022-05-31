@@ -1,3 +1,4 @@
+{% load humanize%}
 <!DOCTYPE html>
 <!-- saved from url=(0061)https://offsetcode.com/themes/messenger/2.1.0/chat-group.html -->
 <html lang="en"><!-- Head --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,17 +39,17 @@ $(document).ready(function(){
 </script>
 <script>
 function messagein(mode,message) {
-    var html = '<div class="message"><a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive"><img class="avatar-img" src="assets/img/avatars/11.jpg" alt=""/></a><div class="message-inner"><div class="message-body"><div class="message-content"><div class="message-text"><p>'+mode+'--'+message+'</p></div></div></div><div class="message-footer"><span class="extra-small text-muted">08:45 PM</span></div></div></div>'
+    var html = '<div class="message"><a href="#" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive"><img class="avatar-img" src="assets/img/avatars/11.jpg" alt=""/></a><div class="message-inner"><div class="message-body"><div class="message-content"><div class="message-text"><p>'+message+'</p></div></div></div><div class="message-footer"><span class="extra-small text-muted">'+mode +' '+'08:45 PM</span></div></div></div>'
     return html
     }
     function messageout(mode, message) {
-    var html = '<div class="message message-out"><div class="message-inner"><div class="message-body"><div class="message-content"><div class="message-text"><p>' + mode + '--' + message + '</p></div></div></div><div class="message-footer"><span class="extra-small text-muted">08:45 PM</span></div></div></div>'
+    var html = '<div class="message message-out"><div class="message-inner"><div class="message-body"><div class="message-content"><div class="message-text"><p>' + message + '</p></div></div></div><div class="message-footer"><span class="extra-small text-muted">'+mode +' '+'08:45 PM</span></div></div></div>'
     return html
     }
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
         const chatSocket = new ReconnectingWebSocket(
-            'wss://'
+            'ws://'
             + window.location.host
             + '/wss/chat/'
             + roomName
@@ -138,36 +139,35 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
                                     <!-- Chats -->
                                     <div class="card-list">
 
-
-
-
+                                        {% if chat_heads %}
+                                        {% for head in chat_heads%}
                                         <!-- Card -->
-                                        <a href="/static/adminsite/assets/chat/chat-group.html" class="card border-0 text-reset">
+                                        <a href="{% url 'chat:room' head.chat_uid %}" class="card border-0 text-reset">
                                             <div class="card-body">
                                                 <div class="row gx-5">
                                                     <div class="col-auto">
                                                         <div class="avatar avatar-online">
-                                                            <span class="avatar-text">M</span>
+                                                            <span class="avatar-img"><img src="{{head.sender_dp}}"></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="col">
                                                         <div class="d-flex align-items-center mb-3">
-                                                            <h5 class="me-auto mb-0">Marshall Wallaker</h5>
-                                                            <span class="text-muted extra-small ms-2">12:18 PM</span>
+                                                            <h5 class="me-auto mb-0">{{head.name}}</h5>
+                                                            <span class="text-muted extra-small ms-2">{{head.chat_channel.0.timestamp}}</span>
                                                         </div>
 
                                                         <div class="d-flex align-items-center">
-                                                            <div class="line-clamp me-auto">
-                                                                Hello! Yeah, I'm going to meet my friend of mine at the departments stores as soon as possible.
-                                                            </div>
+                                                            <div class="line-clamp me-auto">{{head.chat_channel.0.content}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div><!-- .card-body -->
                                         </a>
                                         <!-- Card -->
-
+                                        {% endfor %}
+                                        {% else %}
+                                        {% endif %}
 
                                     </div>
                                     <!-- Chats -->
@@ -1142,8 +1142,8 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
                                                 </div>
 
                                                 <div class="col overflow-hidden">
-                                                    <h5 class="text-truncate">Bootstrap Community</h5>
-                                                    <p class="text-truncate">35 members, 3 online</p>
+                                                    <h5 class="text-truncate">{{client.fullname}}</h5>
+                                                    <p class="text-truncate">{{client.user.account_type}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1158,27 +1158,6 @@ chatSocket.send(JSON.stringify({'command':'preload_message','room_name':roomName
                                                     </a>
                                                 </div>
 
-                                                <div class="col-auto">
-                                                    <div class="avatar-group">
-                                                        <a href="/static/adminsite/assets/chat/chat-group.html" class="avatar avatar-sm" data-bs-toggle="modal" data-bs-target="#modal-user-profile">
-                                                            <img class="avatar-img" src="/static/adminsite/assets/chat/1.jpg" alt="#">
-                                                        </a>
-
-                                                        <a href="/static/adminsite/assets/chat/chat-group.html" class="avatar avatar-sm" data-bs-toggle="modal" data-bs-target="#modal-user-profile">
-                                                            <img class="avatar-img" src="/static/adminsite/assets/chat/11.jpg" alt="#">
-                                                        </a>
-
-                                                        <a href="/static/adminsite/assets/chat/chat-group.html" class="avatar avatar-sm" data-bs-toggle="modal" data-bs-target="#modal-user-profile">
-                                                            <img class="avatar-img" src="/static/adminsite/assets/chat/7.jpg" alt="#">
-                                                        </a>
-
-                                                        <a href="/static/adminsite/assets/chat/chat-group.html" class="avatar avatar-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-add-members" aria-controls="offcanvas-add-members">
-                                                            <span class="avatar-text" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="&lt;strong&gt;Add People&lt;/strong&gt;&lt;p&gt;Invite friends to group&lt;/p&gt;">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                                            </span>
-                                                        </a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <!-- Toolbar -->

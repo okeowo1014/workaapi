@@ -98,10 +98,42 @@ def index(request):
     return render(request, 'chat/index.html')
 
 
+def get_client(pid):
+    print(pid)
+    try:
+        employer = Employer.objects.get(uid=pid)
+        print(employer)
+        return employer
+    except:
+        try:
+            employee = Employee.objects.get(uid=pid)
+            print(employee)
+            return employee
+        except:
+            pass
+
+
 def room(request, room_name, username):
+    heads = DMChatMessage.objects.all().values('chatid').distinct()
+    head_channels = [get_channel(head['chatid']) for head in heads]
+    serializer = DMChatChannelSerializer(head_channels, many=True)
     return render(request, 'chat/chatroom.html', {
         'room_name': room_name,
-        'username': username
+        'username': username,
+        'chat_heads': serializer.data,
+        'client': get_client(room_name)
+    })
+
+
+def chatroom(request, room_name, username):
+    heads = DMChatMessage.objects.all().values('chatid').distinct()
+    head_channels = [get_channel(head['chatid']) for head in heads]
+    serializer = DMChatChannelSerializer(head_channels, many=True)
+    return render(request, 'chat/chatroom.html', {
+        'room_name': room_name,
+        'username': username,
+        'chat_heads': serializer.data,
+        'client': get_client(room_name)
     })
 
 
@@ -111,5 +143,8 @@ def get_channel(chatid):
 
 def get_chats_head(request):
     heads = DMChatMessage.objects.all().values('chatid').distinct()
+    print(heads)
     head_channels = [get_channel(head['chatid']) for head in heads]
+    print(head_channels)
     serializer = DMChatChannelSerializer(head_channels, many=True)
+    print(serializer.data)
