@@ -51,7 +51,7 @@ function messagein(mode,message) {
         const chatSocket = new ReconnectingWebSocket(
             'ws://'
             + window.location.host
-            + '/ws/chat/'
+            + '/wss/chat/'
             + roomName
             + '/'
         );
