@@ -37,7 +37,7 @@ if production:
     tunnel = sshtunnel.SSHTunnelForwarder(
         (sshhost),
         ssh_username=sshusername, ssh_password=sshpassword,
-        remote_bind_address=(sshaddress, sshport)
+        remote_bind_address=(sshaddress, int(sshport))
     )
     tunnel.start()
 
