@@ -14,6 +14,46 @@ from pathlib import Path
 
 import dj_database_url
 
+production = os.getenv('PRODUCTION', None)
+import psycopg2
+import sshtunnel
+
+sshhost = os.getenv('SSH_HOST', None)
+sshusername = os.getenv('SSH_USERNAME', None)
+sshpassword = os.getenv('SSH_PASSWORD', None)
+sshaddress = os.getenv('SSH_ADDRESS', None)
+sshport = os.getenv('SSH_PORT', None)
+redisurl = os.getenv('REDIS_URL', None)
+redispassword = os.getenv('REDIS_PASSWORD', None)
+dbname = os.getenv('DB_NAME', None)
+dbuser = os.getenv('DB_USER', None)
+dbpassword = os.getenv('DB_PASSWORD', None)
+dbhost = os.getenv('DB_HOST', None)
+
+if production:
+    sshtunnel.SSH_TIMEOUT = 5.0
+    sshtunnel.TUNNEL_TIMEOUT = 5.0
+
+    tunnel = sshtunnel.SSHTunnelForwarder(
+        (sshhost),
+        ssh_username=sshusername, ssh_password=sshpassword,
+        remote_bind_address=(sshaddress, sshport)
+    )
+    tunnel.start()
+
+# with sshtunnel.SSHTunnelForwarder(
+#         ('ssh.pythonanywhere.com'),
+#         ssh_username='worka', ssh_password='baloocomit1014',
+#         remote_bind_address=('worka-2588.postgres.pythonanywhere-services.com', 12588)
+# ) as tunnel:
+#     connection = psycopg2.connect(
+#         user='workaapp', password='only_admin_can_understand',
+#         host='worka-2588.postgres.pythonanywhere-services.com', port=12588,
+#         database='worka',
+#     )
+#     # Do stuff
+#     connection.close()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +63,10 @@ ALLOWED_HOSTS = ['*']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wj*9!lp&21r%x^nuc9_g^l_+mbn8&334m0i$q@*uiwbez-!u6y'
-
+if not production:
+    SECRET_KEY = 'django-insecure-wj*9!lp&21r%x^nuc9_g^l_+mbn8&334m0i$q@*uiwbez-!u6y'
+else:
+    SECRET_KEY = os.getenv('SECRET_KEY', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # Application definition
@@ -78,31 +119,56 @@ TEMPLATES = [
         },
     },
 ]
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-
-            # "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-            "hosts": ['redis://:Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE@redis-12218.c295.ap-southeast-1-1.ec2.cloud'
-                      '.redislabs.com:12218'],
-            # [('redis-12218.c295.ap-southeast-1-1.ec2.cloud.redislabs.com', '12218')],
+if not production:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            },
         },
-        "password": 'Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE'
-    },
-}
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [redisurl],
+            },
+            "password": redispassword
+        },
+    }
 WSGI_APPLICATION = 'workaapi.wsgi.application'
 ASGI_APPLICATION = 'workaapi.asgi.application'
+
+if not production:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': dbname,
+            'USER': dbuser,
+            'PASSWORD': dbpassword,
+            'HOST': dbhost,
+            'PORT': tunnel.local_bind_port,
+        }
+    }
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 # Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
