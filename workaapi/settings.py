@@ -41,20 +41,6 @@ if production:
     )
     tunnel.start()
 
-# with sshtunnel.SSHTunnelForwarder(
-#         ('ssh.pythonanywhere.com'),
-#         ssh_username='worka', ssh_password='baloocomit1014',
-#         remote_bind_address=('worka-2588.postgres.pythonanywhere-services.com', 12588)
-# ) as tunnel:
-#     connection = psycopg2.connect(
-#         user='workaapp', password='only_admin_can_understand',
-#         host='worka-2588.postgres.pythonanywhere-services.com', port=12588,
-#         database='worka',
-#     )
-#     # Do stuff
-#     connection.close()
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
@@ -160,27 +146,6 @@ else:
         }
     }
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-# Evnb6gHoErQNkDrhxGzeB2nFb0MLw4ZE
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'chatdb',
-#         'USER': 'chat',
-#         'PASSWORD': 'workachatconnect',
-#         'HOST': '143.198.135.120',
-#         'PORT': '5432',
-#     }
-# }
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -210,7 +175,7 @@ DJOSER = {
         'activation': 'api.email.ActivationEmail'
     }
 }
-CSRF_TRUSTED_ORIGINS = ["https://api.workanetworks.com"]
+CSRF_TRUSTED_ORIGINS = ["https://chat.workanetworks.com"]
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
