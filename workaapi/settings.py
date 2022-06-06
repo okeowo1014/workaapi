@@ -41,7 +41,6 @@ if production:
     )
     tunnel.start()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
 ALLOWED_HOSTS = ['*']
@@ -127,7 +126,7 @@ else:
 WSGI_APPLICATION = 'workaapi.wsgi.application'
 ASGI_APPLICATION = 'workaapi.asgi.application'
 
-if not production:
+if production:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -145,7 +144,6 @@ else:
             'PORT': tunnel.local_bind_port,
         }
     }
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
